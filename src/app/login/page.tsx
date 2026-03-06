@@ -36,11 +36,8 @@ export default function LoginPage() {
             <div className="max-w-md w-full space-y-8">
                 <div>
                     <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-[var(--color-text-primary)]">
-                        NEXROVA_PROJECT_MANAGER
+                        NEXROVA PROJECT MANAGER
                     </h2>
-                    <p className="mt-2 text-center text-sm text-[var(--color-text-secondary)] tracking-widest">
-                        // OPERATIONAL DASHBOARD
-                    </p>
                 </div>
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
                     <div className="border border-[var(--color-panel-border)] bg-[var(--color-panel)] p-6 space-y-6">
