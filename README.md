@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Clocker - Operational Time & Notes Dashboard
 
-## Getting Started
+Clocker is a full-stack Next.js 14 application used for time tracking and shared operational notes. It is designed with a dark, monospace, tech-inspired aesthetic similar to shift5.io.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Role-based Access Control**: Two roles (`admin` and `member`).
+- **Time Tracking**: Clock in/out functionality with mandatory session notes on clock-out.
+- **Shared Records**: Collaborative, real-time shared notes with Text Blocks and Checklists (Todo Items) that anyone can check off.
+- **Admin Analytics**: Recharts-powered dashboard showing total hours over 7 days, daily bar charts, and per-session duration metrics for any selected user.
+- **User Provisioning**: Admins can quickly provision new user accounts from the portal.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: Next.js 14 (App Router)
+- **Database**: Supabase (PostgreSQL)
+- **ORM**: Prisma (v7)
+- **Auth**: NextAuth.js (Credentials Provider / bcryptjs)
+- **Styling**: Tailwind CSS v4 (Custom UI variables)
+- **Charts**: Recharts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Setup & Local Development
 
-## Learn More
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Environment Variables**
+   Duplicate `.env.example` into a new `.env.local` file and fill in your Supabase connection strings:
+   ```env
+   DATABASE_URL="postgres://postgres...[YOUR-SUPABASE-URL]:6543/postgres?pgbouncer=true"
+   DIRECT_URL="postgres://postgres...[YOUR-SUPABASE-URL]:5432/postgres"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   NEXTAUTH_URL="http://localhost:3000"
+   NEXTAUTH_SECRET="your_random_secret_string_here"
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Database Migration**
+   Push the schema to your Supabase PostgreSQL database:
+   ```bash
+   npx prisma db push
+   ```
+   *(Note: Prisma 7 uses `prisma.config.ts` for connection details behind the scenes.)*
 
-## Deploy on Vercel
+4. **Seed the Database**
+   Create the default admin user by running the seed script:
+   ```bash
+   npx tsx prisma/seed.ts
+   ```
+   *Default Admin Credentials:*
+   - Username: `admin`
+   - Password: `admin123`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. **Run the Development Server**
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:3000` to access the application.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Vercel Deployment
+
+This project is fully ready for deployment on Vercel.
+
+1. Connect your GitHub repository to Vercel.
+2. In the Vercel project settings, ensure the **Build Command** is: `prisma generate && next build`. Note: Vercel usually auto-detects Prisma and runs the generate step automatically.
+3. Add the following **Environment Variables** in Vercel:
+   - `DATABASE_URL` (Connection pooling URL)
+   - `DIRECT_URL` (Direct DB connection URL)
+   - `NEXTAUTH_SECRET`
+   - `NEXTAUTH_URL` (Set this to your Vercel production URL, e.g., `https://my-clocker-app.vercel.app`)
+
+Upon the first deployment, the build will generate the Prisma Client. After deployment, make sure you push the Prisma schema and run the seed script locally pointing to your production database, or use Supabase dashboard to seed it manually.

@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  admin
+  member
+}
+
+model User {
+  id           String         @id @default(cuid())
+  name         String
+  username     String         @unique
+  passwordHash String
+  role         Role           @default(member)
+  createdAt    DateTime       @default(now())
+  clockSessions ClockSession[]
+  notes        Note[]
+  todoChecks   TodoItem[]     @relation("CheckedBy")
+}
+
+model ClockSession {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id])
+  clockIn         DateTime
+  clockOut        DateTime?
+  durationMinutes Int?
+  sessionNote     String?
+  createdAt       DateTime  @default(now())
+}
+
+model Note {
+  id        String      @id @default(cuid())
+  title     String
+  createdBy String
+  creator   User        @relation(fields: [createdBy], references: [id])
+  createdAt DateTime    @default(now())
+  blocks    NoteBlock[]
+}
+
+model NoteBlock {
+  id        String     @id @default(cuid())
+  noteId    String
+  note      Note       @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  type      BlockType
+  content   String     @default("")
+  position  Int
+  todoItems TodoItem[]
+}
+
+enum BlockType {
+  text
+  todo
+}
+
+model TodoItem {
+  id        String    @id @default(cuid())
+  blockId   String
+  block     NoteBlock @relation(fields: [blockId], references: [id], onDelete: Cascade)
+  text      String
+  checked   Boolean   @default(false)
+  checkedBy String?
+  checker   User?     @relation("CheckedBy", fields: [checkedBy], references: [id])
+  createdAt DateTime  @default(now())
+}
