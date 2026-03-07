@@ -161,25 +161,25 @@ export function ProjectsPanel() {
     const activeProject = projects.find(p => p.id === activeProjectId)
 
     return (
-        <div className="flex flex-col h-full w-full bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] relative border border-[var(--color-panel-border)]">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-green-accent)]"></div>
+        <div className="flex flex-col h-full w-full bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] relative border border-[var(--color-panel-border)] rounded-2xl overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)]"></div>
 
             <div className="flex items-center justify-between p-4 border-b border-[var(--color-panel-border)]">
                 <div className="flex items-center gap-4">
                     <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2">
-                        <span className="w-2 h-2 bg-[var(--color-green-accent)]"></span>
+                        <span className="w-2 h-2 bg-[var(--color-brand-accent)]"></span>
                         PROJECTS
                     </h2>
                     <div className="hidden md:flex ml-8 border border-[var(--color-panel-border)] bg-[var(--color-panel)]">
                         <button
                             onClick={() => setView('MY_PROJECTS')}
-                            className={`px-4 py-1 text-xs font-bold tracking-widest uppercase transition-colors ${view === 'MY_PROJECTS' ? 'bg-[var(--color-green-accent)] text-black' : 'text-[var(--color-text-secondary)] hover:text-white'}`}
+                            className={`px-4 py-1 text-xs font-bold tracking-widest uppercase transition-colors ${view === 'MY_PROJECTS' ? 'bg-[var(--color-brand-accent)] text-black' : 'text-[var(--color-text-secondary)] hover:text-white'}`}
                         >
                             MY_PROJECTS
                         </button>
                         <button
                             onClick={() => setView('PROJECT_TRACKER')}
-                            className={`px-4 py-1 text-xs font-bold tracking-widest uppercase transition-colors border-l border-[var(--color-panel-border)] ${view === 'PROJECT_TRACKER' ? 'bg-[var(--color-green-accent)] text-black' : 'text-[var(--color-text-secondary)] hover:text-white'}`}
+                            className={`px-4 py-1 text-xs font-bold tracking-widest uppercase transition-colors border-l border-[var(--color-panel-border)] ${view === 'PROJECT_TRACKER' ? 'bg-[var(--color-brand-accent)] text-black' : 'text-[var(--color-text-secondary)] hover:text-white'}`}
                         >
                             PROJECT_TRACKER
                         </button>
@@ -194,28 +194,28 @@ export function ProjectsPanel() {
                         <div className="w-full lg:w-1/3 border-r border-[var(--color-panel-border)] flex flex-col overflow-y-auto scrollbar-custom">
                             {isAdmin && (
                                 <div className="p-4 border-b border-[var(--color-panel-border)] bg-[var(--color-panel)] relative">
-                                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-red-500"></div>
-                                    <h3 className="text-[10px] font-bold tracking-widest text-red-500 mb-2 uppercase">ADMIN: NEW_PROJECT</h3>
+                                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--color-orange-accent)]"></div>
+                                    <h3 className="text-[10px] font-bold tracking-widest text-[var(--color-orange-accent)] mb-2 uppercase">ADMIN: NEW_PROJECT</h3>
                                     <form onSubmit={handleCreateProject} className="flex flex-col gap-2">
                                         <input
                                             type="text"
                                             required
                                             placeholder="PROJECT_NAME..."
-                                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-1.5 text-xs focus:border-red-500 focus:outline-none text-[var(--color-text-primary)]"
+                                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-1.5 text-xs focus:border-[var(--color-orange-accent)] focus:outline-none text-[var(--color-text-primary)]"
                                             value={newProjectName}
                                             onChange={(e) => setNewProjectName(e.target.value)}
                                         />
                                         <input
                                             type="text"
                                             placeholder="DESCRIPTION (OPTIONAL)..."
-                                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-1.5 text-xs focus:border-red-500 focus:outline-none text-[var(--color-text-primary)]"
+                                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-1.5 text-xs focus:border-[var(--color-orange-accent)] focus:outline-none text-[var(--color-text-primary)]"
                                             value={newProjectDesc}
                                             onChange={(e) => setNewProjectDesc(e.target.value)}
                                         />
-                                        <button type="submit" className="w-full py-1.5 bg-red-500 text-[var(--color-bg-dark)] font-bold tracking-widest text-[10px] uppercase hover:bg-red-400">
+                                        <button type="submit" className="w-full py-1.5 bg-[var(--color-orange-accent)] text-[var(--color-bg-dark)] font-bold tracking-widest text-[10px] uppercase hover:opacity-80">
                                             CREATE_PROJECT
                                         </button>
-                                        {pmMsg && <div className="text-[10px] text-red-500 text-center uppercase tracking-widest">{pmMsg}</div>}
+                                        {pmMsg && <div className="text-[10px] text-[var(--color-orange-accent)] text-center uppercase tracking-widest">{pmMsg}</div>}
                                     </form>
                                 </div>
                             )}
@@ -229,10 +229,10 @@ export function ProjectsPanel() {
                                     <button
                                         key={project.id}
                                         onClick={() => setActiveProjectId(project.id)}
-                                        className={`text-left p-4 border-b border-[var(--color-panel-border)] transition-colors ${activeProjectId === project.id ? 'bg-[var(--color-panel)] border-l-2 border-l-[var(--color-green-accent)]' : 'hover:bg-[var(--color-panel)] border-l-2 border-l-transparent'
+                                        className={`text-left p-4 border-b border-[var(--color-panel-border)] transition-colors ${activeProjectId === project.id ? 'bg-[var(--color-panel)] border-l-2 border-l-[var(--color-brand-accent)]' : 'hover:bg-[var(--color-panel)] border-l-2 border-l-transparent'
                                             }`}
                                     >
-                                        <div className={`font-bold tracking-widest text-sm uppercase ${activeProjectId === project.id ? 'text-[var(--color-green-accent)]' : ''
+                                        <div className={`font-bold tracking-widest text-sm uppercase ${activeProjectId === project.id ? 'text-[var(--color-brand-accent)]' : ''
                                             }`}>
                                             {project.name}
                                         </div>
@@ -251,7 +251,7 @@ export function ProjectsPanel() {
                                     <div className="mb-6 pb-4 border-b border-[var(--color-panel-border)]">
                                         <div className="flex items-start justify-between">
                                             <div>
-                                                <h3 className="text-2xl font-bold tracking-widest text-[var(--color-green-accent)] uppercase">
+                                                <h3 className="text-2xl font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">
                                                     {activeProject.name}
                                                 </h3>
                                                 {activeProject.description && (
@@ -297,7 +297,7 @@ export function ProjectsPanel() {
                                             {isAdmin && (
                                                 <div className="flex items-end gap-2">
                                                     <select
-                                                        className="flex-1 bg-[var(--color-bg-dark)] border border-red-500/50 p-1.5 text-xs focus:border-red-500 focus:outline-none text-[var(--color-text-primary)] uppercase"
+                                                        className="flex-1 bg-[var(--color-bg-dark)] border border-[var(--color-orange-accent)]/50 p-1.5 text-xs focus:border-[var(--color-orange-accent)] focus:outline-none text-[var(--color-text-primary)] uppercase"
                                                         onChange={(e) => {
                                                             if (e.target.value) {
                                                                 handleAssignMember(activeProject.id, e.target.value)
@@ -338,7 +338,7 @@ export function ProjectsPanel() {
                                                                     onChange={() => toggleTodo(activeProject.id, todo.id, todo.checked)}
                                                                     className="peer sr-only"
                                                                 />
-                                                                <div className="w-4 h-4 border border-[var(--color-text-secondary)] flex items-center justify-center peer-checked:border-[var(--color-green-accent)] peer-checked:bg-[var(--color-green-accent)] transition-colors">
+                                                                <div className="w-4 h-4 border border-[var(--color-text-secondary)] flex items-center justify-center peer-checked:border-[var(--color-brand-accent)] peer-checked:bg-[var(--color-brand-accent)] transition-colors">
                                                                     {todo.checked && (
                                                                         <svg className="w-3 h-3 text-[var(--color-bg-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                                                                             <path strokeLinecap="square" strokeLinejoin="miter" d="M5 13l4 4L19 7" />
@@ -349,7 +349,7 @@ export function ProjectsPanel() {
                                                             <div className={`text-sm ${todo.checked ? 'text-[var(--color-text-secondary)] line-through' : ''}`}>
                                                                 {todo.text}
                                                                 {todo.checked && todo.checker && (
-                                                                    <span className="ml-2 text-[10px] tracking-widest text-[var(--color-green-accent)] no-underline">
+                                                                    <span className="ml-2 text-[10px] tracking-widest text-[var(--color-brand-accent)] no-underline">
                                                                         [VERIFIED_BY: {todo.checker.username}]
                                                                     </span>
                                                                 )}
@@ -369,7 +369,7 @@ export function ProjectsPanel() {
                                         <form onSubmit={addTodo} className="mt-auto border-t border-[var(--color-panel-border)] pt-4 flex gap-2 shrink-0">
                                             <input
                                                 type="text"
-                                                className="flex-1 text-sm bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 focus:border-[var(--color-green-accent)] focus:outline-none placeholder:text-[var(--color-text-secondary)]"
+                                                className="flex-1 text-sm bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 focus:border-[var(--color-brand-accent)] focus:outline-none placeholder:text-[var(--color-text-secondary)]"
                                                 placeholder="NEW_TODO_ACTION..."
                                                 value={newTodoText}
                                                 onChange={(e) => setNewTodoText(e.target.value)}
@@ -377,7 +377,7 @@ export function ProjectsPanel() {
                                             <button
                                                 type="submit"
                                                 disabled={!newTodoText.trim()}
-                                                className="text-xs font-bold tracking-widest px-4 border border-[var(--color-panel-border)] disabled:opacity-50 hover:text-[var(--color-green-accent)] hover:border-[var(--color-green-accent)] transition-colors"
+                                                className="text-xs font-bold tracking-widest px-4 border border-[var(--color-panel-border)] disabled:opacity-50 hover:text-[var(--color-brand-accent)] hover:border-[var(--color-brand-accent)] transition-colors"
                                             >
                                                 ADD
                                             </button>
@@ -411,14 +411,14 @@ export function ProjectsPanel() {
                                         <div key={project.id} className="border border-[var(--color-panel-border)] bg-[var(--color-panel)] p-4">
                                             <div className="flex justify-between items-end mb-4">
                                                 <div>
-                                                    <h4 className="text-lg font-bold tracking-widest text-[var(--color-green-accent)] uppercase">{project.name}</h4>
+                                                    <h4 className="text-lg font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">{project.name}</h4>
                                                     <div className="text-xs tracking-widest text-[var(--color-text-secondary)] uppercase mt-1">PROGRESS: {completed}/{total}_TASKS ({percent}%)</div>
                                                 </div>
                                             </div>
 
                                             <div className="w-full h-1.5 bg-[var(--color-bg-dark)] mb-6 overflow-hidden">
                                                 <div
-                                                    className="h-full bg-[var(--color-green-accent)] transition-all duration-500"
+                                                    className="h-full bg-[var(--color-brand-accent)] transition-all duration-500"
                                                     style={{ width: `${percent}%` }}
                                                 />
                                             </div>
@@ -430,7 +430,7 @@ export function ProjectsPanel() {
                                                     project.todos.map(todo => (
                                                         <div key={todo.id} className="flex flex-col md:flex-row md:items-center justify-between p-2 border border-[var(--color-panel-border)] bg-[var(--color-bg-dark)] gap-2 md:gap-4">
                                                             <div className="flex items-center gap-3">
-                                                                <div className={`w-3 h-3 flex-shrink-0 flex items-center justify-center border ${todo.checked ? 'border-[var(--color-green-accent)] bg-[var(--color-green-accent)]' : 'border-[var(--color-text-secondary)]'}`}>
+                                                                <div className={`w-3 h-3 flex-shrink-0 flex items-center justify-center border ${todo.checked ? 'border-[var(--color-brand-accent)] bg-[var(--color-brand-accent)]' : 'border-[var(--color-text-secondary)]'}`}>
                                                                     {todo.checked && <svg className="w-2.5 h-2.5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}><path strokeLinecap="square" strokeLinejoin="miter" d="M5 13l4 4L19 7" /></svg>}
                                                                 </div>
                                                                 <span className={`text-xs ${todo.checked ? 'text-[var(--color-text-secondary)] line-through' : 'text-white'}`}>
@@ -442,7 +442,7 @@ export function ProjectsPanel() {
                                                                     AUTHOR: {todo.creator.username}
                                                                 </span>
                                                                 {todo.checked && todo.checker && (
-                                                                    <span className="text-[9px] font-bold tracking-widest text-[var(--color-green-accent)] uppercase">
+                                                                    <span className="text-[9px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">
                                                                         VERIFIED: {todo.checker.username}
                                                                     </span>
                                                                 )}

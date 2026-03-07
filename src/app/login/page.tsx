@@ -40,7 +40,7 @@ export default function LoginPage() {
                     </h2>
                 </div>
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                    <div className="border border-[var(--color-panel-border)] bg-[var(--color-panel)] p-6 space-y-6">
+                    <div className="border border-[var(--color-panel-border)] bg-[var(--color-panel)] p-6 space-y-6 rounded-2xl overflow-hidden">
                         {error && (
                             <div className="text-red-500 text-sm font-semibold border border-red-500/50 bg-red-500/10 p-2">
                                 [ERROR] {error}
@@ -56,7 +56,7 @@ export default function LoginPage() {
                                     name="username"
                                     type="text"
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-[var(--color-panel-border)] bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-green-accent)] focus:border-[var(--color-green-accent)] focus:z-10 sm:text-sm"
+                                    className="appearance-none rounded-xl relative block w-full px-3 py-2 border border-[var(--color-panel-border)] bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-brand-accent)] focus:border-[var(--color-brand-accent)] focus:z-10 sm:text-sm"
                                     placeholder="admin"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
@@ -71,7 +71,7 @@ export default function LoginPage() {
                                     name="password"
                                     type="password"
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-[var(--color-panel-border)] bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-green-accent)] focus:border-[var(--color-green-accent)] focus:z-10 sm:text-sm"
+                                    className="appearance-none rounded-xl relative block w-full px-3 py-2 border border-[var(--color-panel-border)] bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-brand-accent)] focus:border-[var(--color-brand-accent)] focus:z-10 sm:text-sm"
                                     placeholder="••••••••"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
@@ -83,7 +83,7 @@ export default function LoginPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="group relative w-full flex justify-center py-2 px-4 border border-[var(--color-green-accent)] text-sm font-bold uppercase tracking-wider text-[var(--color-bg-dark)] bg-[var(--color-green-accent)] hover:bg-transparent hover:text-[var(--color-green-accent)] focus:outline-none disabled:opacity-50 transition-colors duration-200"
+                                className="group relative w-full flex justify-center py-2 px-4 border border-[var(--color-brand-accent)] text-sm font-bold uppercase tracking-wider text-[var(--color-bg-dark)] bg-[var(--color-brand-accent)] hover:bg-transparent hover:text-[var(--color-brand-accent)] focus:outline-none disabled:opacity-50 transition-colors duration-200"
                             >
                                 {loading ? 'AUTHENTICATING...' : 'INITIATE_LOGIN_SEQ'}
                             </button>

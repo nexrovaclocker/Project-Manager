@@ -175,7 +175,7 @@ export function AdminPanel() {
 
 
     const inputClass =
-        'w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500 text-[var(--color-text-primary)]'
+        'w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-sm focus:border-[var(--color-orange-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-orange-accent)] text-[var(--color-text-primary)]'
     const labelClass =
         'block text-xs font-bold text-[var(--color-text-secondary)] tracking-widest mb-1'
 
@@ -184,7 +184,7 @@ export function AdminPanel() {
             {/* ── Left panel: ACCESS_MANAGEMENT ── */}
             <div className="w-full lg:w-1/2 p-6 border-r border-[var(--color-panel-border)] space-y-6 overflow-y-auto scrollbar-custom">
                 <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2 text-[var(--color-text-primary)]">
-                    <span className="w-2 h-2 bg-red-500" />
+                    <span className="w-2 h-2 bg-[var(--color-orange-accent)]" />
                     ACCESS_MANAGEMENT
                 </h2>
 
@@ -205,7 +205,7 @@ export function AdminPanel() {
                     <div>
                         <label className={labelClass}>ROLE_LEVEL</label>
                         <select
-                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-sm focus:border-red-500 focus:outline-none text-[var(--color-text-primary)]"
+                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-sm focus:border-[var(--color-orange-accent)] focus:outline-none text-[var(--color-text-primary)]"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                         >
@@ -216,12 +216,12 @@ export function AdminPanel() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-3 bg-red-500 text-white font-bold tracking-widest text-xs uppercase hover:bg-red-600 transition-colors"
+                        className="w-full py-3 bg-[var(--color-orange-accent)] text-[var(--color-bg-dark)] font-bold tracking-widest text-xs uppercase hover:opacity-80 transition-colors"
                     >
                         PROVISION_ACCOUNT
                     </button>
                     {createMsg && (
-                        <div className={`text-xs font-bold tracking-widest text-center ${createMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-green-accent)]'}`}>
+                        <div className={`text-xs font-bold tracking-widest text-center ${createMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-brand-accent)]'}`}>
                             {createMsg}
                         </div>
                     )}
@@ -234,7 +234,7 @@ export function AdminPanel() {
                     <div>
                         <label className={labelClass}>TARGET_USER</label>
                         <select
-                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-sm focus:border-red-500 focus:outline-none text-[var(--color-text-primary)]"
+                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-sm focus:border-[var(--color-orange-accent)] focus:outline-none text-[var(--color-text-primary)]"
                             value={cpUserId}
                             onChange={(e) => setCpUserId(e.target.value)}
                         >
@@ -271,12 +271,12 @@ export function AdminPanel() {
                     <button
                         type="submit"
                         disabled={cpLoading}
-                        className="w-full py-3 bg-red-500 text-white font-bold tracking-widest text-xs uppercase hover:bg-red-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="w-full py-3 bg-[var(--color-orange-accent)] text-[var(--color-bg-dark)] font-bold tracking-widest text-xs uppercase hover:opacity-80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                         UPDATE_PASSWORD
                     </button>
                     {cpMsg && (
-                        <div className={`text-xs font-bold tracking-widest text-center ${cpMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-green-accent)]'}`}>
+                        <div className={`text-xs font-bold tracking-widest text-center ${cpMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-brand-accent)]'}`}>
                             {cpMsg}
                         </div>
                     )}
@@ -334,7 +334,7 @@ export function AdminPanel() {
                         </div>
                     )}
                     {deleteMsg && (
-                        <div className={`text-xs font-bold tracking-widest text-center ${deleteMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-green-accent)]'}`}>
+                        <div className={`text-xs font-bold tracking-widest text-center ${deleteMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-brand-accent)]'}`}>
                             {deleteMsg}
                         </div>
                     )}

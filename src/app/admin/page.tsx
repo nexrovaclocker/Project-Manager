@@ -9,9 +9,16 @@ import { DailyStatsPanel } from '@/components/DailyStatsPanel'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 
+const TAB_COLORS: Record<string, string> = {
+    OVERVIEW: 'var(--color-brand-accent)',
+    PROJECTS: 'var(--color-orange-accent)',
+    DAILY_STATS: '#3b82f6',
+}
+
 function AdminContent() {
     const searchParams = useSearchParams()
     const tab = searchParams.get('tab') || 'OVERVIEW'
+    const stripe = TAB_COLORS[tab] ?? TAB_COLORS.OVERVIEW
 
     return (
         <div className="p-6 h-full flex flex-col gap-6 overflow-y-auto scrollbar-custom">
@@ -19,30 +26,30 @@ function AdminContent() {
                 <>
                     <div className="flex flex-col lg:flex-row gap-6 lg:h-[500px] shrink-0">
                         {/* Top Left: Clock */}
-                        <div className="w-full lg:w-1/3 flex flex-col border border-[var(--color-panel-border)] bg-[var(--color-panel)] relative h-full">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-green-accent)]"></div>
+                        <div className="w-full lg:w-1/3 flex flex-col border border-[var(--color-panel-border)] bg-[var(--color-panel)] relative h-full rounded-2xl overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: stripe }}></div>
                             <ClockPanel />
                         </div>
 
                         {/* Top Right: Shared Notes */}
-                        <div className="w-full lg:w-2/3 flex flex-col border border-[var(--color-panel-border)] bg-[var(--color-panel)] relative h-full">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-green-accent)]"></div>
+                        <div className="w-full lg:w-2/3 flex flex-col border border-[var(--color-panel-border)] bg-[var(--color-panel)] relative h-full rounded-2xl overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: stripe }}></div>
                             <NotesPanel />
                         </div>
                     </div>
 
                     {/* Separator block */}
                     <div className="flex items-center gap-4">
-                        <div className="h-px bg-red-500 flex-1"></div>
-                        <div className="text-red-500 font-bold tracking-widest text-sm uppercase">
+                        <div className="h-px bg-[var(--color-orange-accent)] flex-1"></div>
+                        <div className="text-[var(--color-orange-accent)] font-bold tracking-widest text-sm uppercase">
                             // ADMIN_CONTROLS
                         </div>
-                        <div className="h-px bg-red-500 flex-1"></div>
+                        <div className="h-px bg-[var(--color-orange-accent)] flex-1"></div>
                     </div>
 
                     {/* Admin Block */}
-                    <div className="border border-[var(--color-panel-border)] bg-[var(--color-panel)] relative flex-1 min-h-[400px]">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-red-500"></div>
+                    <div className="border border-[var(--color-panel-border)] bg-[var(--color-panel)] relative flex-1 min-h-[400px] rounded-2xl overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-orange-accent)]"></div>
                         <AdminPanel />
                     </div>
                 </>
@@ -56,7 +63,7 @@ function AdminContent() {
                 </div>
             )}
 
-            <div className="h-[300px] shrink-0 mt-2 border border-[var(--color-panel-border)] relative">
+            <div className="h-[300px] shrink-0 mt-2 border border-[var(--color-panel-border)] relative rounded-2xl overflow-hidden">
                 <DailyLogPanel />
             </div>
         </div>

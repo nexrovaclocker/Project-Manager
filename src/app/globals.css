@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
-  --color-green-accent: #00FF88;
-  --color-bg-dark: #0a0a0a;
-  --color-panel: #141414;
-  --color-panel-border: #222222;
-  --color-text-primary: #ededed;
-  --color-text-secondary: #888888;
+  --color-brand-accent: #2DD4BF;
+  --color-orange-accent: #FB923C;
+  --color-bg-dark: #030303;
+  --color-panel: #0F0F10;
+  --color-panel-border: #27272A;
+  /* Using a solid dark border instead of opacity for cleaner Next.js hydration if needed, or zinc-800 */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A1A1AA;
 }
 
 :root {
@@ -17,14 +20,14 @@
 body {
   background-color: var(--color-bg-dark);
   color: var(--color-text-primary);
-  font-family: var(--font-mono), monospace;
   margin: 0;
   padding: 0;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  border-radius: 0 !important; /* Sharp edges everywhere */
 }
 
 /* Custom Scrollbar for a sleek look */
@@ -39,6 +42,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: var(--color-panel-border);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

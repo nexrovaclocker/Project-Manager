@@ -78,7 +78,7 @@ export function ClockPanel() {
     return (
         <div className="flex flex-col h-full w-full p-6 text-[var(--color-text-primary)] overflow-y-auto scrollbar-custom">
             <h2 className="text-sm font-bold tracking-widest uppercase mb-8 flex items-center gap-2">
-                <span className="w-2 h-2 bg-[var(--color-green-accent)] inline-block"></span>
+                <span className="w-2 h-2 bg-[var(--color-brand-accent)] inline-block"></span>
                 Time_Tracking
             </h2>
 
@@ -89,7 +89,7 @@ export function ClockPanel() {
                     <>
                         <div className="text-center space-y-2">
                             <div className="text-xs font-bold tracking-widest text-[var(--color-text-secondary)]">CURRENT_STATUS:</div>
-                            <div className={`text-2xl font-bold tracking-widest ${status === 'clocked_in' ? 'text-[var(--color-green-accent)]' : 'text-red-500'}`}>
+                            <div className={`text-2xl font-bold tracking-widest ${status === 'clocked_in' ? 'text-[var(--color-brand-accent)]' : 'text-red-500'}`}>
                                 [{status === 'clocked_in' ? 'ACTIVE_SESSION' : 'OFFLINE'}]
                             </div>
                         </div>
@@ -106,12 +106,12 @@ export function ClockPanel() {
                                         type="time"
                                         value={manualTime}
                                         onChange={(e) => setManualTime(e.target.value)}
-                                        className="w-full p-2 bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] focus:border-[var(--color-green-accent)] focus:ring-1 focus:ring-[var(--color-green-accent)] outline-none text-sm text-[var(--color-text-primary)] leading-tight"
+                                        className="font-mono w-full p-2 bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)] outline-none text-sm text-[var(--color-text-primary)] leading-tight rounded-xl"
                                     />
                                 </div>
                                 <button
                                     onClick={handleClockIn}
-                                    className="w-full py-4 border-2 border-[var(--color-green-accent)] text-[var(--color-green-accent)] font-bold text-lg tracking-widest uppercase transition-all hover:bg-[var(--color-green-accent)] hover:text-[var(--color-bg-dark)] shadow-[0_0_15px_rgba(0,255,136,0.2)] hover:shadow-[0_0_25px_rgba(0,255,136,0.5)]"
+                                    className="w-full py-4 border-2 border-[var(--color-brand-accent)] text-[var(--color-brand-accent)] font-bold text-lg tracking-widest uppercase transition-all hover:bg-[var(--color-brand-accent)] hover:text-[var(--color-bg-dark)] shadow-[0_0_15px_rgba(0,255,136,0.2)] hover:shadow-[0_0_25px_rgba(0,255,136,0.5)]"
                                 >
                                     CLOCK_IN
                                 </button>
@@ -146,7 +146,7 @@ export function ClockPanel() {
                                     </label>
                                     <textarea
                                         rows={3}
-                                        className="w-full p-2 bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] focus:border-[var(--color-green-accent)] focus:ring-1 focus:ring-[var(--color-green-accent)] outline-none text-sm resize-none"
+                                        className="w-full p-2 bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)] outline-none text-sm resize-none"
                                         placeholder="ENTER_TASKS_COMPLETED..."
                                         value={sessionNote}
                                         onChange={(e) => setSessionNote(e.target.value)}

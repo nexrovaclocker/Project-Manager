@@ -78,12 +78,12 @@ export function DailyStatsPanel() {
     }
 
     return (
-        <div className="flex flex-col h-full w-full bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] relative border border-[var(--color-panel-border)] overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-green-accent)]"></div>
+        <div className="flex flex-col h-full w-full bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] relative border border-[var(--color-panel-border)] overflow-hidden rounded-2xl">
+            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)]"></div>
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b border-[var(--color-panel-border)] gap-4">
                 <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2">
-                    <span className="w-2 h-2 bg-[var(--color-green-accent)]"></span>
+                    <span className="w-2 h-2 bg-[var(--color-brand-accent)]"></span>
                     DAILY_STATS {"//"} 48H_ROLLING_WINDOW
                 </h2>
 
@@ -91,7 +91,7 @@ export function DailyStatsPanel() {
                     <div className="flex items-center gap-3">
                         <span className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase">TARGET_USER:</span>
                         <select
-                            className="bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-1.5 text-xs focus:border-[var(--color-green-accent)] focus:outline-none text-[var(--color-text-primary)] uppercase min-w-[150px]"
+                            className="bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-1.5 text-xs focus:border-[var(--color-brand-accent)] focus:outline-none text-[var(--color-text-primary)] uppercase min-w-[150px]"
                             value={selectedUserId}
                             onChange={(e) => setSelectedUserId(e.target.value)}
                         >
@@ -141,8 +141,8 @@ export function DailyStatsPanel() {
                                                         <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>LOGGED
                                                     </span>
                                                 ) : (
-                                                    <span className="text-[10px] font-bold tracking-widest text-[var(--color-green-accent)] uppercase flex items-center gap-1 animate-pulse">
-                                                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-green-accent)]"></span>ACTIVE
+                                                    <span className="text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase flex items-center gap-1 animate-pulse">
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)]"></span>ACTIVE
                                                     </span>
                                                 )}
                                                 {isMidnightCross && (
@@ -155,7 +155,7 @@ export function DailyStatsPanel() {
                                             <td className="p-3 text-xs font-mono text-[var(--color-text-primary)]">
                                                 {session.clockOut ? new Date(session.clockOut).toLocaleString() : '--'}
                                             </td>
-                                            <td className="p-3 text-xs font-mono text-right font-bold text-[var(--color-green-accent)]">
+                                            <td className="p-3 text-xs font-mono text-right font-bold text-[var(--color-brand-accent)]">
                                                 {session.durationMinutes !== null ? `${session.durationMinutes} MIN` : '--'}
                                             </td>
                                             <td className="p-3 text-xs text-[var(--color-text-secondary)] truncate max-w-xs">

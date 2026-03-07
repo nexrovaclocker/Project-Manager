@@ -54,12 +54,12 @@ export function DailyLogPanel() {
     }
 
     return (
-        <div className="flex flex-col h-full w-full bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] relative border border-[var(--color-panel-border)]">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-green-accent)]"></div>
+        <div className="flex flex-col h-full w-full bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] relative border border-[var(--color-panel-border)] rounded-2xl overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)]"></div>
 
             <div className="flex items-center justify-between p-4 border-b border-[var(--color-panel-border)]">
                 <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2">
-                    <span className="w-2 h-2 bg-[var(--color-green-accent)]"></span>
+                    <span className="w-2 h-2 bg-[var(--color-brand-accent)]"></span>
                     DAILY_LOG
                 </h2>
             </div>
@@ -71,7 +71,7 @@ export function DailyLogPanel() {
                     </div>
                 ) : (
                     logs.map(log => (
-                        <div key={log.id} className="p-3 border-l-2 border-[var(--color-green-accent)] bg-[var(--color-bg-dark)] relative group">
+                        <div key={log.id} className="p-3 border-l-2 border-[var(--color-brand-accent)] bg-[var(--color-bg-dark)] relative group">
                             <div className="flex justify-between items-start mb-2">
                                 <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase">
                                     <span className={log.user.role === 'admin' ? 'text-red-500' : 'text-[var(--color-text-primary)]'}>
@@ -99,7 +99,7 @@ export function DailyLogPanel() {
             <form onSubmit={postLog} className="p-4 border-t border-[var(--color-panel-border)] bg-[var(--color-bg-dark)] flex flex-col gap-2">
                 <textarea
                     rows={2}
-                    className="w-full text-sm bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-2 focus:border-[var(--color-green-accent)] focus:outline-none resize-none placeholder:text-[var(--color-text-secondary)] uppercase"
+                    className="w-full text-sm bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-2 focus:border-[var(--color-brand-accent)] focus:outline-none resize-none placeholder:text-[var(--color-text-secondary)] uppercase"
                     placeholder="ENTER_LOG_UPDATE..."
                     value={newLogContent}
                     onChange={(e) => setNewLogContent(e.target.value)}
@@ -113,7 +113,7 @@ export function DailyLogPanel() {
                 <button
                     type="submit"
                     disabled={!newLogContent.trim()}
-                    className="text-xs font-bold tracking-widest py-2 border border-[var(--color-panel-border)] hover:text-[var(--color-green-accent)] hover:border-[var(--color-green-accent)] transition-colors disabled:opacity-50 disabled:hover:text-[var(--color-text-primary)] disabled:hover:border-[var(--color-panel-border)]"
+                    className="text-xs font-bold tracking-widest py-2 border border-[var(--color-panel-border)] hover:text-[var(--color-brand-accent)] hover:border-[var(--color-brand-accent)] transition-colors disabled:opacity-50 disabled:hover:text-[var(--color-text-primary)] disabled:hover:border-[var(--color-panel-border)]"
                 >
                     POST_LOG
                 </button>
