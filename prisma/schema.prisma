@@ -11,18 +11,24 @@ datasource db {
 enum Role {
   admin
   member
+  intern
 }
 
 model User {
-  id           String         @id @default(cuid())
-  name         String
-  username     String         @unique
-  passwordHash String
-  role         Role           @default(member)
-  createdAt    DateTime       @default(now())
-  clockSessions ClockSession[]
-  notes        Note[]
-  todoChecks   TodoItem[]     @relation("CheckedBy")
+  id             String          @id @default(cuid())
+  name           String
+  username       String          @unique
+  passwordHash   String
+  role           Role            @default(member)
+  createdAt      DateTime        @default(now())
+  clockSessions  ClockSession[]
+  notes          Note[]
+  todoChecks     TodoItem[]      @relation("CheckedBy")
+  projectMembers ProjectMember[]
+  projectTodos   ProjectTodo[]   @relation("ProjectTodoCreator")
+  todoChecksProj ProjectTodo[]   @relation("ProjectTodoChecker")
+  dailyLogs      DailyLog[]
+  projects       Project[]       @relation("ProjectCreator")
 }
 
 model ClockSession {
@@ -69,4 +75,46 @@ model TodoItem {
   checkedBy String?
   checker   User?     @relation("CheckedBy", fields: [checkedBy], references: [id], onDelete: SetNull)
   createdAt DateTime  @default(now())
+}
+
+model Project {
+  id          String          @id @default(cuid())
+  name        String
+  description String          @default("")
+  createdBy   String
+  creator     User            @relation("ProjectCreator", fields: [createdBy], references: [id], onDelete: Cascade)
+  createdAt   DateTime        @default(now())
+  members     ProjectMember[]
+  todos       ProjectTodo[]
+}
+
+model ProjectMember {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+}
+
+model ProjectTodo {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  text      String
+  checked   Boolean  @default(false)
+  checkedBy String?
+  checker   User?    @relation("ProjectTodoChecker", fields: [checkedBy], references: [id], onDelete: SetNull)
+  createdBy String
+  creator   User     @relation("ProjectTodoCreator", fields: [createdBy], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model DailyLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String
+  createdAt DateTime @default(now())
 }

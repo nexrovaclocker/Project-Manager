@@ -19,6 +19,9 @@ type Analytics = {
     sessionChartData: { name: string; duration: number; note: string }[]
 }
 
+type ProjectMemberObj = { id: string; userId: string; user: User }
+type Project = { id: string; name: string; description: string; members: ProjectMemberObj[] }
+
 // ─── Sub-divider ───────────────────────────────────────────────────────────────
 function SubDivider({ label }: { label: string }) {
     return (
@@ -37,6 +40,7 @@ export function AdminPanel() {
     const [users, setUsers] = useState<User[]>([])
     const [selectedUserId, setSelectedUserId] = useState<string>('')
     const [analytics, setAnalytics] = useState<Analytics | null>(null)
+
 
     // Create user state
     const [name, setName] = useState('')
@@ -74,6 +78,8 @@ export function AdminPanel() {
             setUsers(data)
         }
     }
+
+
 
     const fetchAnalytics = async (id: string) => {
         const res = await fetch(`/api/analytics/${id}`)
@@ -166,6 +172,8 @@ export function AdminPanel() {
         }
     }
 
+
+
     const inputClass =
         'w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500 text-[var(--color-text-primary)]'
     const labelClass =
@@ -174,7 +182,7 @@ export function AdminPanel() {
     return (
         <div className="flex flex-col lg:flex-row h-full">
             {/* ── Left panel: ACCESS_MANAGEMENT ── */}
-            <div className="w-full lg:w-1/3 p-6 border-r border-[var(--color-panel-border)] space-y-6 overflow-y-auto scrollbar-custom">
+            <div className="w-full lg:w-1/2 p-6 border-r border-[var(--color-panel-border)] space-y-6 overflow-y-auto scrollbar-custom">
                 <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2 text-[var(--color-text-primary)]">
                     <span className="w-2 h-2 bg-red-500" />
                     ACCESS_MANAGEMENT
@@ -202,6 +210,7 @@ export function AdminPanel() {
                             onChange={(e) => setRole(e.target.value)}
                         >
                             <option value="member">MEMBER (STD_ACCESS)</option>
+                            <option value="intern">INTERN (RESTRICTED)</option>
                             <option value="admin">ADMIN (ROOT_PRIVILEGES)</option>
                         </select>
                     </div>
@@ -333,7 +342,7 @@ export function AdminPanel() {
             </div>
 
             {/* ── Right panel: SYS_ANALYTICS ── */}
-            <div className="w-full lg:w-2/3 p-6 flex flex-col h-full overflow-y-auto scrollbar-custom">
+            <div className="w-full lg:w-1/2 p-6 flex flex-col h-full overflow-y-auto scrollbar-custom">
                 <div className="flex justify-between items-center mb-8">
                     <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2 text-[var(--color-text-primary)]">
                         <span className="w-2 h-2 bg-blue-500" />

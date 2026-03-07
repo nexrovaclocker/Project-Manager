@@ -7,9 +7,18 @@ export function ClockPanel() {
     const [sessionNote, setSessionNote] = useState('')
     const [isClockingOut, setIsClockingOut] = useState(false)
     const [error, setError] = useState('')
+    const [manualTime, setManualTime] = useState('')
+
+    const resetTime = () => {
+        const now = new Date()
+        const hh = String(now.getHours()).padStart(2, '0')
+        const mm = String(now.getMinutes()).padStart(2, '0')
+        setManualTime(`${hh}:${mm}`)
+    }
 
     useEffect(() => {
         fetchStatus()
+        resetTime()
     }, [])
 
     const fetchStatus = async () => {
@@ -28,9 +37,14 @@ export function ClockPanel() {
         setError('')
         try {
             setStatus('loading')
-            const res = await fetch('/api/clock/in', { method: 'POST' })
+            const res = await fetch('/api/clock/in', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ manualTime })
+            })
             if (!res.ok) throw new Error('Failed to clock in')
             await fetchStatus()
+            resetTime()
         } catch (err: any) {
             setError(err.message)
             setStatus('clocked_out')
@@ -48,12 +62,13 @@ export function ClockPanel() {
             const res = await fetch('/api/clock/out', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ sessionNote }),
+                body: JSON.stringify({ sessionNote, manualTime }),
             })
             if (!res.ok) throw new Error('Failed to clock out')
             setIsClockingOut(false)
             setSessionNote('')
             await fetchStatus()
+            resetTime()
         } catch (err: any) {
             setError(err.message)
             setStatus('clocked_in')
@@ -61,7 +76,7 @@ export function ClockPanel() {
     }
 
     return (
-        <div className="flex flex-col h-full w-full p-6 text-[var(--color-text-primary)]">
+        <div className="flex flex-col h-full w-full p-6 text-[var(--color-text-primary)] overflow-y-auto scrollbar-custom">
             <h2 className="text-sm font-bold tracking-widest uppercase mb-8 flex items-center gap-2">
                 <span className="w-2 h-2 bg-[var(--color-green-accent)] inline-block"></span>
                 Time_Tracking
@@ -82,12 +97,25 @@ export function ClockPanel() {
                         {error && <div className="text-red-500 text-xs font-bold border border-red-500 p-2 w-full text-center">{error}</div>}
 
                         {status === 'clocked_out' && (
-                            <button
-                                onClick={handleClockIn}
-                                className="w-full max-w-xs py-4 border-2 border-[var(--color-green-accent)] text-[var(--color-green-accent)] font-bold text-lg tracking-widest uppercase transition-all hover:bg-[var(--color-green-accent)] hover:text-[var(--color-bg-dark)] shadow-[0_0_15px_rgba(0,255,136,0.2)] hover:shadow-[0_0_25px_rgba(0,255,136,0.5)]"
-                            >
-                                CLOCK_IN
-                            </button>
+                            <div className="w-full max-w-xs flex flex-col gap-4">
+                                <div>
+                                    <label className="block text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">
+                                        START_TIME
+                                    </label>
+                                    <input
+                                        type="time"
+                                        value={manualTime}
+                                        onChange={(e) => setManualTime(e.target.value)}
+                                        className="w-full p-2 bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] focus:border-[var(--color-green-accent)] focus:ring-1 focus:ring-[var(--color-green-accent)] outline-none text-sm text-[var(--color-text-primary)] leading-tight"
+                                    />
+                                </div>
+                                <button
+                                    onClick={handleClockIn}
+                                    className="w-full py-4 border-2 border-[var(--color-green-accent)] text-[var(--color-green-accent)] font-bold text-lg tracking-widest uppercase transition-all hover:bg-[var(--color-green-accent)] hover:text-[var(--color-bg-dark)] shadow-[0_0_15px_rgba(0,255,136,0.2)] hover:shadow-[0_0_25px_rgba(0,255,136,0.5)]"
+                                >
+                                    CLOCK_IN
+                                </button>
+                            </div>
                         )}
 
                         {status === 'clocked_in' && !isClockingOut && (
@@ -101,6 +129,17 @@ export function ClockPanel() {
 
                         {isClockingOut && (
                             <div className="w-full max-w-xs space-y-4 animate-in fade-in slide-in-from-bottom-4">
+                                <div>
+                                    <label className="block text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">
+                                        END_TIME
+                                    </label>
+                                    <input
+                                        type="time"
+                                        value={manualTime}
+                                        onChange={(e) => setManualTime(e.target.value)}
+                                        className="w-full p-2 bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none text-sm text-[var(--color-text-primary)] leading-tight mb-4"
+                                    />
+                                </div>
                                 <div>
                                     <label className="block text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">
                                         &gt; SESSION_REPORT (What did you work on?)
