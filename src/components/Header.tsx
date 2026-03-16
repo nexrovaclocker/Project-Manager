@@ -3,6 +3,8 @@
 import { useSession, signOut } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 // Per-tab accent colours
 const TAB_COLORS: Record<string, string> = {
@@ -30,9 +32,19 @@ function HeaderContent() {
     return (
         <div className="w-full flex items-center justify-between p-4 border-b border-[var(--color-panel-border)] bg-[var(--color-bg-dark)]">
             <div className="flex items-center gap-8">
-                <div className="text-xl font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">
-                    NEXROVA_PROJECT_MANAGER
-                </div>
+                <Link href="/dashboard" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <Image 
+                        src="/logo.jpeg" 
+                        alt="Nexrova Logo" 
+                        width={40} 
+                        height={40} 
+                        className="h-10 w-auto object-contain rounded"
+                        priority
+                    />
+                    <div className="text-xl font-bold tracking-widest text-[var(--color-brand-accent)] uppercase hidden sm:block">
+                        NEXROVA_MANAGEMENT
+                    </div>
+                </Link>
 
                 <div className="hidden md:flex items-center gap-4 border-l border-[var(--color-panel-border)] pl-8">
                     {tabs.map((t) => {

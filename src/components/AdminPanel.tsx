@@ -8,7 +8,7 @@ type User = {
     id: string
     name: string
     username: string
-    role: string
+    role: stringa
 }
 
 type Analytics = {
