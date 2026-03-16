@@ -25,8 +25,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${outfit.variable} ${geistMono.variable} font-sans antialiased text-[#FFFFFF] bg-[#030303]`}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+      <body className={`${outfit.variable} ${geistMono.variable} font-sans antialiased text-[var(--color-text-primary)] bg-[var(--color-bg-dark)] min-h-screen relative`}>
+        {/* Ambient Background Glows */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden overscroll-none -z-10">
+          <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-[var(--color-brand-accent)]/5 blur-[120px]"></div>
+          <div className="absolute top-[60%] -right-[10%] w-[40%] h-[60%] rounded-full bg-[var(--color-orange-accent)]/5 blur-[120px]"></div>
+          <div className="absolute top-[20%] left-[40%] w-[30%] h-[30%] rounded-full bg-[var(--color-blue-accent)]/5 blur-[100px]"></div>
+        </div>
+        
+        <div className="relative z-0 h-screen w-full flex flex-col">
+          <NextAuthProvider>{children}</NextAuthProvider>
+        </div>
       </body>
     </html>
   )

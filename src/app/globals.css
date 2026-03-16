@@ -3,13 +3,22 @@
 @theme {
   --font-sans: var(--font-outfit);
   --font-mono: var(--font-geist-mono);
-  --color-brand-accent: #2DD4BF;
-  --color-orange-accent: #FB923C;
-  --color-bg-dark: #030303;
-  --color-panel: #0F0F10;
-  --color-panel-border: #27272A;
-  /* Using a solid dark border instead of opacity for cleaner Next.js hydration if needed, or zinc-800 */
-  --color-text-primary: #FFFFFF;
+  
+  /* Premium Deep Dark Theme */
+  --color-bg-dark: #09090b; /* Zinc 950 */
+  --color-panel: rgba(255, 255, 255, 0.03);
+  --color-panel-hover: rgba(255, 255, 255, 0.05);
+  --color-panel-border: rgba(255, 255, 255, 0.08);
+  
+  /* Vibrant Accents */
+  --color-brand-accent: #2DD4BF; /* Teal */
+  --color-brand-accent-glow: rgba(45, 212, 191, 0.2);
+  --color-orange-accent: #FB923C; /* Orange */
+  --color-orange-accent-glow: rgba(251, 146, 60, 0.2);
+  --color-blue-accent: #3b82f6; /* Blue */
+  
+  /* Text */
+  --color-text-primary: #FAFAFA;
   --color-text-secondary: #A1A1AA;
 }
 
@@ -22,6 +31,8 @@ body {
   color: var(--color-text-primary);
   margin: 0;
   padding: 0;
+  /* Prevent overscroll bounce weirdness on sleek UIs */
+  overscroll-behavior: none; 
 }
 
 *,
@@ -30,21 +41,48 @@ body {
   box-sizing: border-box;
 }
 
-/* Custom Scrollbar for a sleek look */
+/* --- Glassmorphism Utilities --- */
+@layer utilities {
+  .glass-panel {
+    @apply bg-[var(--color-panel)] border border-[var(--color-panel-border)] backdrop-blur-xl rounded-2xl shadow-lg;
+  }
+  .glass-panel-hover {
+    @apply transition-all duration-300 hover:bg-[var(--color-panel-hover)] hover:border-white/10 hover:shadow-xl hover:-translate-y-0.5;
+  }
+  .glass-input {
+    @apply bg-black/20 border border-[var(--color-panel-border)] rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)] transition-all;
+  }
+  .glass-button {
+    @apply font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl border border-[var(--color-panel-border)] hover:bg-white/5 active:scale-95 transition-all;
+  }
+}
+
+/* --- Sleek Scrollbar --- */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-dark);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-panel-border);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Custom Scrollbar class for internal panels if needed */
+.scrollbar-custom::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.05);
+}
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
