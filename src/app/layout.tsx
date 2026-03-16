@@ -1,10 +1,10 @@
 import { NextAuthProvider } from '@/components/Providers'
 import type { Metadata } from 'next'
-import { Inter, Geist_Mono } from 'next/font/google'
+import { Outfit, Geist_Mono } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({
-  variable: '--font-inter',
+const outfit = Outfit({
+  variable: '--font-outfit',
   subsets: ['latin'],
 })
 
@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${geistMono.variable} font-sans antialiased text-[#FFFFFF] bg-[#030303]`}>
+      <body className={`${outfit.variable} ${geistMono.variable} font-sans antialiased text-[#FFFFFF] bg-[#030303]`}>
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>
     </html>
