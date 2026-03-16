@@ -175,21 +175,27 @@ export function AdminPanel() {
 
 
     const inputClass =
-        'w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-sm focus:border-[var(--color-orange-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-orange-accent)] text-[var(--color-text-primary)]'
+        'glass-input w-full'
     const labelClass =
-        'block text-xs font-bold text-[var(--color-text-secondary)] tracking-widest mb-1'
+        'block text-[10px] font-bold text-[var(--color-text-secondary)] tracking-widest uppercase mb-2 pl-1'
 
     return (
-        <div className="flex flex-col lg:flex-row h-full">
+        <div className="flex flex-col lg:flex-row h-full bg-transparent text-[var(--color-text-primary)] relative rounded-2xl overflow-hidden glass-panel z-10 transition-all duration-300">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-brand-accent)] via-[var(--color-orange-accent)] to-blue-500 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] z-20"></div>
+
             {/* ── Left panel: ACCESS_MANAGEMENT ── */}
-            <div className="w-full lg:w-1/2 p-6 border-r border-[var(--color-panel-border)] space-y-6 overflow-y-auto scrollbar-custom">
-                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2 text-[var(--color-text-primary)]">
-                    <span className="w-2 h-2 bg-[var(--color-orange-accent)]" />
+            <div className="w-full lg:w-1/2 p-6 lg:p-8 border-r border-white/5 space-y-8 overflow-y-auto scrollbar-custom bg-black/10 backdrop-blur-sm relative">
+                {/* Decorative ambient background */}
+                <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--color-orange-accent)]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+                    <span className="w-2 h-2 rounded-full bg-[var(--color-orange-accent)] shadow-[0_0_10px_var(--color-orange-accent)]" />
                     ACCESS_MANAGEMENT
                 </h2>
 
                 {/* ── CREATE_USER ── */}
-                <form onSubmit={handleCreateUser} className="space-y-4">
+                <form onSubmit={handleCreateUser} className="space-y-5 p-5 border border-white/5 rounded-xl bg-white/[0.02] shadow-inner relative overflow-hidden group">
+                    <div className="absolute right-0 bottom-0 w-32 h-32 bg-[var(--color-orange-accent)]/5 rounded-full blur-2xl -z-10 pointer-events-none group-hover:bg-[var(--color-orange-accent)]/10 transition-colors duration-500"></div>
                     <div>
                         <label className={labelClass}>NAME</label>
                         <input type="text" required className={inputClass} value={name} onChange={(e) => setName(e.target.value)} />
@@ -202,49 +208,55 @@ export function AdminPanel() {
                         <label className={labelClass}>PASSWORD (INITIAL)</label>
                         <input type="password" required className={inputClass} value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
-                    <div>
+                    <div className="relative">
                         <label className={labelClass}>ROLE_LEVEL</label>
                         <select
-                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-sm focus:border-[var(--color-orange-accent)] focus:outline-none text-[var(--color-text-primary)]"
+                            className={`${inputClass} cursor-pointer appearance-none pr-8`}
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                         >
-                            <option value="member">MEMBER (STD_ACCESS)</option>
-                            <option value="intern">INTERN (RESTRICTED)</option>
-                            <option value="admin">ADMIN (ROOT_PRIVILEGES)</option>
+                            <option value="member" className="bg-zinc-900 text-white">MEMBER (STD_ACCESS)</option>
+                            <option value="intern" className="bg-zinc-900 text-white">INTERN (RESTRICTED)</option>
+                            <option value="admin" className="bg-zinc-900 text-white">ADMIN (ROOT_PRIVILEGES)</option>
                         </select>
+                        <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                        </div>
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-3 bg-[var(--color-orange-accent)] text-[var(--color-bg-dark)] font-bold tracking-widest text-xs uppercase hover:opacity-80 transition-colors"
+                        className="w-full glass-button text-[var(--color-orange-accent)] border-[var(--color-orange-accent)]/30 hover:bg-[var(--color-orange-accent)]/10 mt-2"
                     >
                         PROVISION_ACCOUNT
                     </button>
                     {createMsg && (
-                        <div className={`text-xs font-bold tracking-widest text-center ${createMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-brand-accent)]'}`}>
+                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center mt-2 drop-shadow-md ${createMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-brand-accent)]'}`}>
                             {createMsg}
                         </div>
                     )}
                 </form>
 
                 {/* ── CHANGE_PASSWORD ── */}
-                <SubDivider label="CHANGE_PASSWORD" />
+                <SubDivider label="SECURITY_OVERRIDE" />
 
-                <form onSubmit={handleChangePassword} className="space-y-4">
-                    <div>
+                <form onSubmit={handleChangePassword} className="space-y-5">
+                    <div className="relative">
                         <label className={labelClass}>TARGET_USER</label>
                         <select
-                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-sm focus:border-[var(--color-orange-accent)] focus:outline-none text-[var(--color-text-primary)]"
+                            className={`${inputClass} cursor-pointer appearance-none pr-8`}
                             value={cpUserId}
                             onChange={(e) => setCpUserId(e.target.value)}
                         >
-                            <option value="">-- SELECT_USER --</option>
+                            <option value="" className="bg-zinc-900 text-gray-500">-- SELECT_USER --</option>
                             {users.map((u) => (
-                                <option key={u.id} value={u.id}>
+                                <option key={u.id} value={u.id} className="bg-zinc-900 text-white">
                                     {u.username} [{u.role.toUpperCase()}]
                                 </option>
                             ))}
                         </select>
+                        <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                        </div>
                     </div>
                     <div>
                         <label className={labelClass}>NEW_PASSWORD</label>
@@ -271,33 +283,33 @@ export function AdminPanel() {
                     <button
                         type="submit"
                         disabled={cpLoading}
-                        className="w-full py-3 bg-[var(--color-orange-accent)] text-[var(--color-bg-dark)] font-bold tracking-widest text-xs uppercase hover:opacity-80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="w-full glass-button disabled:opacity-40 disabled:hover:scale-100 disabled:shadow-none mt-2"
                     >
                         UPDATE_PASSWORD
                     </button>
                     {cpMsg && (
-                        <div className={`text-xs font-bold tracking-widest text-center ${cpMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-brand-accent)]'}`}>
+                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center mt-2 drop-shadow-md ${cpMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-brand-accent)]'}`}>
                             {cpMsg}
                         </div>
                     )}
                 </form>
 
                 {/* ── DELETE_USER ── */}
-                <SubDivider label="DELETE_USER" />
+                <SubDivider label="ROSTER_CONTROL" />
 
                 <div className="space-y-3">
                     {users.length === 0 ? (
-                        <div className="text-xs tracking-widest text-[var(--color-text-secondary)] text-center py-4">
+                        <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase text-center py-6 border border-dashed border-white/10 rounded-xl bg-black/20">
                             NO_USERS_FOUND
                         </div>
                     ) : (
-                        <div className="border border-[var(--color-panel-border)]">
-                            <table className="w-full text-left">
-                                <thead className="bg-[var(--color-bg-dark)] border-b border-[var(--color-panel-border)]">
+                        <div className="border border-white/10 rounded-xl overflow-hidden bg-black/20 backdrop-blur-md shadow-inner">
+                            <table className="w-full text-left border-collapse">
+                                <thead className="bg-[var(--color-orange-accent)]/10 border-b border-white/10">
                                     <tr>
-                                        <th className="p-2 text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)]">USER</th>
-                                        <th className="p-2 text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)]">ROLE</th>
-                                        <th className="p-2 text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)]">ACTION</th>
+                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-orange-accent)] uppercase">USER</th>
+                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-orange-accent)] uppercase">ROLE</th>
+                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-orange-accent)] uppercase text-right">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -306,23 +318,36 @@ export function AdminPanel() {
                                         return (
                                             <tr
                                                 key={u.id}
-                                                className="border-b border-[var(--color-panel-border)] last:border-none hover:bg-[var(--color-bg-dark)] transition-colors"
+                                                className="border-b border-white/5 last:border-none hover:bg-white/[0.03] transition-colors group/row"
                                             >
-                                                <td className="p-2 font-mono text-[11px] text-[var(--color-text-primary)]">
-                                                    {u.username}
+                                                <td className="p-3">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 border border-white/10 flex items-center justify-center text-[10px] font-bold text-white shadow-inner">
+                                                            {u.username.charAt(0).toUpperCase()}
+                                                        </div>
+                                                        <span className="font-mono text-xs text-white/90 group-hover/row:text-[var(--color-orange-accent)] transition-colors">
+                                                            {u.username}
+                                                        </span>
+                                                    </div>
                                                 </td>
-                                                <td className="p-2 text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)]">
-                                                    {u.role.toUpperCase()}
+                                                <td className="p-3">
+                                                    <span className={`text-[9px] font-bold tracking-widest px-2 py-1 rounded-md border ${
+                                                        u.role === 'admin' ? 'bg-red-500/10 border-red-500/20 text-red-400' :
+                                                        u.role === 'intern' ? 'bg-yellow-500/10 border-yellow-500/20 text-yellow-400' :
+                                                        'bg-blue-500/10 border-blue-500/20 text-blue-400'
+                                                    }`}>
+                                                        {u.role.toUpperCase()}
+                                                    </span>
                                                 </td>
-                                                <td className="p-2">
+                                                <td className="p-3 text-right">
                                                     {isSelf ? (
-                                                        <span className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] opacity-40">[SELF]</span>
+                                                        <span className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] opacity-50 px-3 uppercase">[SELF]</span>
                                                     ) : (
                                                         <button
                                                             onClick={() => handleDeleteUser(u.id, u.username)}
-                                                            className="px-2 py-1 text-[10px] font-bold tracking-widest text-red-500 border border-red-500 hover:bg-red-500 hover:text-white transition-colors uppercase"
+                                                            className="glass-button text-[10px] text-red-500 border-red-500/30 hover:bg-red-500/20 hover:border-red-500/60 px-3 py-1.5 opacity-0 group-hover/row:opacity-100 transition-all ml-auto"
                                                         >
-                                                            DELETE
+                                                            TERMINATE
                                                         </button>
                                                     )}
                                                 </td>
@@ -334,7 +359,7 @@ export function AdminPanel() {
                         </div>
                     )}
                     {deleteMsg && (
-                        <div className={`text-xs font-bold tracking-widest text-center ${deleteMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-brand-accent)]'}`}>
+                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center drop-shadow-md ${deleteMsg.startsWith('ERROR') ? 'text-red-400' : 'text-red-500 animate-pulse'}`}>
                             {deleteMsg}
                         </div>
                     )}
@@ -342,87 +367,109 @@ export function AdminPanel() {
             </div>
 
             {/* ── Right panel: SYS_ANALYTICS ── */}
-            <div className="w-full lg:w-1/2 p-6 flex flex-col h-full overflow-y-auto scrollbar-custom">
-                <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2 text-[var(--color-text-primary)]">
-                        <span className="w-2 h-2 bg-blue-500" />
+            <div className="w-full lg:w-1/2 p-6 lg:p-8 flex flex-col h-full overflow-y-auto scrollbar-custom relative bg-transparent">
+                {/* Decorative ambient background */}
+                <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
+                    <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+                        <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]" />
                         SYS_ANALYTICS
                     </h2>
-                    <select
-                        className="bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 text-xs font-bold tracking-widest focus:border-blue-500 focus:outline-none text-[var(--color-text-primary)] uppercase min-w-[200px]"
-                        value={selectedUserId}
-                        onChange={(e) => setSelectedUserId(e.target.value)}
-                    >
-                        <option value="">-- SELECT_PERSONNEL --</option>
-                        {users.map((u) => (
-                            <option key={u.id} value={u.id}>
-                                {u.username} ({u.role})
-                            </option>
-                        ))}
-                    </select>
+                    <div className="relative">
+                        <select
+                            className="glass-input cursor-pointer appearance-none pr-8 text-[11px] font-bold tracking-widest uppercase text-blue-400 border-blue-500/30 focus:border-blue-500 bg-blue-500/5 min-w-[220px]"
+                            value={selectedUserId}
+                            onChange={(e) => setSelectedUserId(e.target.value)}
+                        >
+                            <option value="" className="bg-zinc-900 text-gray-500">-- SELECT_PERSONNEL --</option>
+                            {users.map((u) => (
+                                <option key={u.id} value={u.id} className="bg-zinc-900 text-white">
+                                    {u.username} ({u.role})
+                                </option>
+                            ))}
+                        </select>
+                        <div className="absolute right-3 bottom-0 top-0 flex items-center pointer-events-none">
+                            <svg className="w-4 h-4 text-blue-500/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                        </div>
+                    </div>
                 </div>
 
                 {analytics ? (
-                    <div className="space-y-8 pb-8">
+                    <div className="space-y-8 pb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div className="p-4 border border-[var(--color-panel-border)] bg-[var(--color-bg-dark)]">
-                                <div className="text-xs text-[var(--color-text-secondary)] font-bold tracking-widest mb-1">TOTAL_TIME_7D</div>
-                                <div className="text-2xl font-bold text-blue-500">{analytics.totalHours}H {analytics.totalMinutes}M</div>
+                            <div className="p-5 rounded-xl border border-blue-500/20 bg-blue-500/5 shadow-[inset_0_2px_15px_rgba(59,130,246,0.05)] relative overflow-hidden group">
+                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-blue-500/10 rounded-full blur-xl group-hover:bg-blue-500/20 transition-colors"></div>
+                                <div className="text-[9px] text-blue-400 font-bold tracking-widest mb-2 uppercase">TOTAL_TIME_7D</div>
+                                <div className="text-2xl font-bold text-white drop-shadow-md flex items-baseline gap-1">
+                                    {analytics.totalHours}<span className="text-sm text-blue-400">H</span> {analytics.totalMinutes}<span className="text-sm text-blue-400">M</span>
+                                </div>
                             </div>
-                            <div className="p-4 border border-[var(--color-panel-border)] bg-[var(--color-bg-dark)]">
-                                <div className="text-xs text-[var(--color-text-secondary)] font-bold tracking-widest mb-1">SESSIONS_LOGGED</div>
-                                <div className="text-2xl font-bold text-blue-500">{analytics.sessions.length}</div>
+                            <div className="p-5 rounded-xl border border-purple-500/20 bg-purple-500/5 shadow-[inset_0_2px_15px_rgba(168,85,247,0.05)] relative overflow-hidden group">
+                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-colors"></div>
+                                <div className="text-[9px] text-purple-400 font-bold tracking-widest mb-2 uppercase">SESSIONS_LOGGED</div>
+                                <div className="text-2xl font-bold text-white drop-shadow-md">
+                                    {analytics.sessions.length}
+                                </div>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div className="h-64 border border-[var(--color-panel-border)] bg-[var(--color-bg-dark)] p-4">
-                                <div className="text-xs font-bold tracking-widest text-[var(--color-text-secondary)] mb-4">HOURS_PER_DAY</div>
-                                <ResponsiveContainer width="100%" height="85%">
+                            <div className="h-64 rounded-xl border border-white/5 bg-black/20 p-5 shadow-inner backdrop-blur-sm group/chart">
+                                <div className="text-[10px] font-bold tracking-widest text-white/50 mb-6 uppercase flex items-center justify-between">
+                                    HOURS_PER_DAY
+                                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500/50 group-hover/chart:bg-blue-500 transition-colors shadow-[0_0_5px_rgba(59,130,246,0.5)]"></div>
+                                </div>
+                                <ResponsiveContainer width="100%" height="80%">
                                     <BarChart data={analytics.dailyChartData}>
                                         <XAxis dataKey="date" stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
                                         <YAxis stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip contentStyle={{ backgroundColor: '#141414', border: '1px solid #222222' }} itemStyle={{ color: '#3b82f6' }} />
-                                        <Bar dataKey="hours" fill="#3b82f6" radius={[2, 2, 0, 0]} />
+                                        <Tooltip cursor={{ fill: 'rgba(255,255,255,0.05)' }} contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', backdropFilter: 'blur(8px)' }} itemStyle={{ color: '#60a5fa' }} />
+                                        <Bar dataKey="hours" fill="#3b82f6" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
 
-                            <div className="h-64 border border-[var(--color-panel-border)] bg-[var(--color-bg-dark)] p-4">
-                                <div className="text-xs font-bold tracking-widest text-[var(--color-text-secondary)] mb-4">SESSION_DURATION</div>
-                                <ResponsiveContainer width="100%" height="85%">
+                            <div className="h-64 rounded-xl border border-white/5 bg-black/20 p-5 shadow-inner backdrop-blur-sm group/chart">
+                                <div className="text-[10px] font-bold tracking-widest text-white/50 mb-6 uppercase flex items-center justify-between">
+                                    SESSION_DURATION
+                                    <div className="w-1.5 h-1.5 rounded-full bg-purple-500/50 group-hover/chart:bg-purple-500 transition-colors shadow-[0_0_5px_rgba(168,85,247,0.5)]"></div>
+                                </div>
+                                <ResponsiveContainer width="100%" height="80%">
                                     <BarChart data={analytics.sessionChartData}>
                                         <XAxis dataKey="name" stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
                                         <YAxis stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip contentStyle={{ backgroundColor: '#141414', border: '1px solid #222222' }} itemStyle={{ color: '#3b82f6' }} />
-                                        <Bar dataKey="duration" fill="#f87171" radius={[2, 2, 0, 0]} />
+                                        <Tooltip cursor={{ fill: 'rgba(255,255,255,0.05)' }} contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', backdropFilter: 'blur(8px)' }} itemStyle={{ color: '#c084fc' }} />
+                                        <Bar dataKey="duration" fill="#a855f7" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>
 
-                        <div className="border border-[var(--color-panel-border)]">
-                            <table className="w-full text-left text-sm text-[var(--color-text-primary)]">
-                                <thead className="bg-[var(--color-bg-dark)] border-b border-[var(--color-panel-border)]">
+                        <div className="rounded-xl border border-white/10 overflow-hidden bg-black/20 backdrop-blur-md shadow-inner">
+                            <table className="w-full text-left text-sm text-[var(--color-text-primary)] border-collapse">
+                                <thead className="bg-blue-500/10 border-b border-white/10">
                                     <tr>
-                                        <th className="p-3 text-xs font-bold tracking-widest text-[var(--color-text-secondary)]">CLOCK_IN</th>
-                                        <th className="p-3 text-xs font-bold tracking-widest text-[var(--color-text-secondary)]">CLOCK_OUT</th>
-                                        <th className="p-3 text-xs font-bold tracking-widest text-[var(--color-text-secondary)]">DUR (MIN)</th>
-                                        <th className="p-3 text-xs font-bold tracking-widest text-[var(--color-text-secondary)]">SESSION_NOTE</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-widest text-blue-400/80 uppercase">CLOCK_IN</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-widest text-blue-400/80 uppercase">CLOCK_OUT</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-widest text-blue-400/80 uppercase">DUR (MIN)</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-widest text-blue-400/80 uppercase w-1/3">SESSION_NOTE</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {analytics.sessions.map((s) => (
-                                        <tr key={s.id} className="border-b border-[var(--color-panel-border)] hover:bg-[var(--color-bg-dark)] transition-colors">
-                                            <td className="p-3 font-mono text-xs">{new Date(s.clockIn).toLocaleString()}</td>
-                                            <td className="p-3 font-mono text-xs">{new Date(s.clockOut).toLocaleString()}</td>
-                                            <td className="p-3 font-mono text-xs text-blue-500 font-bold">{s.durationMinutes}</td>
-                                            <td className="p-3 text-xs text-[var(--color-text-secondary)]">{s.sessionNote}</td>
+                                    {analytics.sessions.map((s, idx) => (
+                                        <tr key={s.id} className="border-b border-white/5 last:border-none hover:bg-white/[0.03] transition-colors">
+                                            <td className="p-4 font-mono text-[11px] text-white/80">{new Date(s.clockIn).toLocaleString()}</td>
+                                            <td className="p-4 font-mono text-[11px] text-white/80">{new Date(s.clockOut).toLocaleString()}</td>
+                                            <td className="p-4 font-mono text-xs text-blue-400 font-bold">
+                                                <div className="bg-blue-500/10 inline-block px-2 py-1 rounded-md border border-blue-500/20">{s.durationMinutes}</div>
+                                            </td>
+                                            <td className="p-4 text-[11px] text-[var(--color-text-secondary)] leading-relaxed">{s.sessionNote}</td>
                                         </tr>
                                     ))}
                                     {analytics.sessions.length === 0 && (
                                         <tr>
-                                            <td colSpan={4} className="p-4 text-center text-xs tracking-widest text-[var(--color-text-secondary)]">
+                                            <td colSpan={4} className="p-8 text-center text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase bg-black/10">
                                                 NO_DATA_AVAILABLE
                                             </td>
                                         </tr>
@@ -432,8 +479,13 @@ export function AdminPanel() {
                         </div>
                     </div>
                 ) : (
-                    <div className="flex-1 flex items-center justify-center text-[var(--color-text-secondary)] text-sm tracking-widest uppercase">
-                        AWAITING_PERSONNEL_SELECTION
+                    <div className="flex-1 flex items-center justify-center text-[var(--color-text-secondary)] text-sm tracking-widest uppercase relative">
+                        <div className="text-center">
+                            <svg className="w-12 h-12 mx-auto text-white/5 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                            SELECT_PERSONNEL_TO_VIEW_ANALYTICS
+                        </div>
                     </div>
                 )}
             </div>

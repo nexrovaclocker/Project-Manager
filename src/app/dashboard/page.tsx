@@ -20,19 +20,19 @@ function DashboardContent() {
     const stripe = TAB_COLORS[tab] ?? TAB_COLORS.OVERVIEW
 
     return (
-        <div className="h-full flex flex-col p-6 gap-6 overflow-hidden">
+        <div className="h-full flex flex-col p-6 gap-6 overflow-hidden relative z-10">
             <div className="flex-1 flex flex-col lg:flex-row gap-6 overflow-hidden">
                 {tab === 'OVERVIEW' ? (
                     <>
                         {/* Left Panel: Clock */}
-                        <div className="w-full lg:w-1/3 flex flex-col border border-[var(--color-panel-border)] bg-[var(--color-panel)] relative h-full rounded-2xl overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: stripe }}></div>
+                        <div className="w-full lg:w-1/3 flex flex-col glass-panel relative h-full overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: stripe, boxShadow: `0 0 10px ${stripe}` }}></div>
                             <ClockPanel />
                         </div>
 
                         {/* Right Panel: Shared Notes */}
-                        <div className="w-full lg:w-2/3 flex flex-col border border-[var(--color-panel-border)] bg-[var(--color-panel)] relative h-full rounded-2xl overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: stripe }}></div>
+                        <div className="w-full lg:w-2/3 flex flex-col glass-panel relative h-full overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: stripe, boxShadow: `0 0 10px ${stripe}` }}></div>
                             <NotesPanel />
                         </div>
                     </>
@@ -47,7 +47,7 @@ function DashboardContent() {
                 )}
             </div>
 
-            <div className="h-[300px] shrink-0 w-full">
+            <div className="h-[300px] shrink-0 w-full glass-panel relative overflow-hidden">
                 <DailyLogPanel />
             </div>
         </div>
@@ -56,7 +56,7 @@ function DashboardContent() {
 
 export default function DashboardPage() {
     return (
-        <Suspense fallback={<div className="p-6 text-[var(--color-text-secondary)] text-xs tracking-widest uppercase">LOADING_DASHBOARD...</div>}>
+        <Suspense fallback={<div className="p-6 text-[var(--color-text-secondary)] text-xs font-medium tracking-widest uppercase">LOADING_DASHBOARD...</div>}>
             <DashboardContent />
         </Suspense>
     )

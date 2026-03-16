@@ -76,42 +76,45 @@ export function ClockPanel() {
     }
 
     return (
-        <div className="flex flex-col h-full w-full p-6 text-[var(--color-text-primary)] overflow-y-auto scrollbar-custom">
-            <h2 className="text-sm font-bold tracking-widest uppercase mb-8 flex items-center gap-2">
-                <span className="w-2 h-2 bg-[var(--color-brand-accent)] inline-block"></span>
+        <div className="flex flex-col h-full w-full p-6 text-[var(--color-text-primary)] overflow-y-auto scrollbar-custom bg-transparent relative z-10">
+            <h2 className="text-sm font-bold tracking-widest uppercase mb-8 flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+                <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)] inline-block"></span>
                 Time_Tracking
             </h2>
 
-            <div className="flex-1 flex flex-col items-center justify-center gap-8">
+            <div className="flex-1 flex flex-col items-center justify-center gap-8 relative">
+                {/* Decorative background glow for clock center */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[var(--color-brand-accent)]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
                 {status === 'loading' ? (
-                    <div className="animate-pulse text-[var(--color-text-secondary)]">FETCHING_SYS_STATE...</div>
+                    <div className="animate-pulse text-[var(--color-text-secondary)] tracking-widest text-sm font-medium">FETCHING_SYS_STATE...</div>
                 ) : (
                     <>
                         <div className="text-center space-y-2">
-                            <div className="text-xs font-bold tracking-widest text-[var(--color-text-secondary)]">CURRENT_STATUS:</div>
-                            <div className={`text-2xl font-bold tracking-widest ${status === 'clocked_in' ? 'text-[var(--color-brand-accent)]' : 'text-red-500'}`}>
+                            <div className="text-xs font-bold tracking-widest text-[var(--color-text-secondary)] uppercase">CURRENT_STATUS:</div>
+                            <div className={`text-2xl font-bold tracking-widest drop-shadow-lg ${status === 'clocked_in' ? 'text-[var(--color-brand-accent)]' : 'text-[var(--color-orange-accent)]'}`}>
                                 [{status === 'clocked_in' ? 'ACTIVE_SESSION' : 'OFFLINE'}]
                             </div>
                         </div>
 
-                        {error && <div className="text-red-500 text-xs font-bold border border-red-500 p-2 w-full text-center">{error}</div>}
+                        {error && <div className="text-red-400 text-xs tracking-widest font-medium bg-red-500/10 border border-red-500/20 rounded-xl p-3 w-full text-center shadow-lg backdrop-blur-md">{error}</div>}
 
                         {status === 'clocked_out' && (
-                            <div className="w-full max-w-xs flex flex-col gap-4">
+                            <div className="w-full max-w-xs flex flex-col gap-5">
                                 <div>
-                                    <label className="block text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">
+                                    <label className="block text-[10px] font-bold text-[var(--color-text-secondary)] uppercase tracking-widest mb-2 pl-1">
                                         START_TIME
                                     </label>
                                     <input
                                         type="time"
                                         value={manualTime}
                                         onChange={(e) => setManualTime(e.target.value)}
-                                        className="font-mono w-full p-2 bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)] outline-none text-sm text-[var(--color-text-primary)] leading-tight rounded-xl"
+                                        className="glass-input w-full font-mono text-center tracking-widest"
                                     />
                                 </div>
                                 <button
                                     onClick={handleClockIn}
-                                    className="w-full py-4 border-2 border-[var(--color-brand-accent)] text-[var(--color-brand-accent)] font-bold text-lg tracking-widest uppercase transition-all hover:bg-[var(--color-brand-accent)] hover:text-[var(--color-bg-dark)] shadow-[0_0_15px_rgba(0,255,136,0.2)] hover:shadow-[0_0_25px_rgba(0,255,136,0.5)]"
+                                    className="w-full py-4 rounded-xl border border-[var(--color-brand-accent)]/50 bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] font-bold tracking-widest uppercase transition-all duration-300 hover:bg-[var(--color-brand-accent)]/20 hover:border-[var(--color-brand-accent)] hover:-translate-y-1 shadow-[0_0_15px_rgba(45,212,191,0.1)] hover:shadow-[0_0_25px_rgba(45,212,191,0.3)] active:scale-95"
                                 >
                                     CLOCK_IN
                                 </button>
@@ -121,47 +124,47 @@ export function ClockPanel() {
                         {status === 'clocked_in' && !isClockingOut && (
                             <button
                                 onClick={() => setIsClockingOut(true)}
-                                className="w-full max-w-xs py-4 border-2 border-red-500 text-red-500 font-bold text-lg tracking-widest uppercase transition-all hover:bg-red-500 hover:text-[var(--color-bg-dark)] shadow-[0_0_15px_rgba(239,68,68,0.2)] hover:shadow-[0_0_25px_rgba(239,68,68,0.5)]"
+                                className="w-full max-w-xs py-4 rounded-xl border border-[var(--color-orange-accent)]/50 bg-[var(--color-orange-accent)]/10 text-[var(--color-orange-accent)] font-bold tracking-widest uppercase transition-all duration-300 hover:bg-[var(--color-orange-accent)]/20 hover:border-[var(--color-orange-accent)] hover:-translate-y-1 shadow-[0_0_15px_rgba(251,146,60,0.1)] hover:shadow-[0_0_25px_rgba(251,146,60,0.3)] active:scale-95"
                             >
                                 INITIATE_CLOCK_OUT
                             </button>
                         )}
 
                         {isClockingOut && (
-                            <div className="w-full max-w-xs space-y-4 animate-in fade-in slide-in-from-bottom-4">
+                            <div className="w-full max-w-xs space-y-5 animate-in fade-in slide-in-from-bottom-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">
+                                    <label className="block text-[10px] font-bold text-[var(--color-text-secondary)] uppercase tracking-widest mb-2 pl-1">
                                         END_TIME
                                     </label>
                                     <input
                                         type="time"
                                         value={manualTime}
                                         onChange={(e) => setManualTime(e.target.value)}
-                                        className="w-full p-2 bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none text-sm text-[var(--color-text-primary)] leading-tight mb-4"
+                                        className="glass-input w-full font-mono text-center tracking-widest focus:border-[var(--color-orange-accent)] focus:ring-[var(--color-orange-accent)]"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">
-                                        &gt; SESSION_REPORT (What did you work on?)
+                                    <label className="block text-[10px] font-bold text-[var(--color-text-secondary)] uppercase tracking-widest mb-2 pl-1 flex items-center gap-2">
+                                        <span className="text-[var(--color-brand-accent)]">↳</span> SESSION_REPORT
                                     </label>
                                     <textarea
                                         rows={3}
-                                        className="w-full p-2 bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)] outline-none text-sm resize-none"
-                                        placeholder="ENTER_TASKS_COMPLETED..."
+                                        className="glass-input w-full resize-none focus:border-[var(--color-orange-accent)] focus:ring-[var(--color-orange-accent)]"
+                                        placeholder="What did you work on?..."
                                         value={sessionNote}
                                         onChange={(e) => setSessionNote(e.target.value)}
                                     />
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex gap-3">
                                     <button
                                         onClick={() => setIsClockingOut(false)}
-                                        className="flex-1 py-2 border border-[var(--color-panel-border)] text-xs font-bold tracking-widest text-[var(--color-text-secondary)] hover:text-white transition-colors"
+                                        className="glass-button flex-1"
                                     >
                                         CANCEL
                                     </button>
                                     <button
                                         onClick={handleClockOut}
-                                        className="flex-1 py-2 bg-red-500 text-[var(--color-bg-dark)] text-xs font-bold tracking-widest hover:bg-red-400 transition-colors"
+                                        className="flex-1 py-2 rounded-xl bg-[var(--color-orange-accent)] text-[#09090b] text-xs font-bold tracking-widest hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(251,146,60,0.4)] hover:shadow-[0_0_20px_rgba(251,146,60,0.6)] active:scale-95"
                                     >
                                         CONFIRM
                                     </button>

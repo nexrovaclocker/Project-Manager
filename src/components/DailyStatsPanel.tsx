@@ -78,52 +78,69 @@ export function DailyStatsPanel() {
     }
 
     return (
-        <div className="flex flex-col h-full w-full bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] relative border border-[var(--color-panel-border)] overflow-hidden rounded-2xl">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)]"></div>
+        <div className="flex flex-col h-full w-full bg-transparent text-[var(--color-text-primary)] relative rounded-2xl overflow-hidden glass-panel z-10 transition-all duration-300">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-brand-accent)] via-[var(--color-orange-accent)] to-[var(--color-brand-accent)] bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] z-20"></div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b border-[var(--color-panel-border)] gap-4">
-                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2">
-                    <span className="w-2 h-2 bg-[var(--color-brand-accent)]"></span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b border-[var(--color-panel-border)] gap-4 bg-black/10 backdrop-blur-md relative">
+                {/* Subtle header glow */}
+                <div className="absolute -left-10 top-0 w-32 h-10 bg-[var(--color-brand-accent)]/10 blur-2xl rounded-full pointer-events-none"></div>
+
+                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] relative z-10">
+                    <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)]"></span>
                     DAILY_STATS {"//"} 48H_ROLLING_WINDOW
                 </h2>
 
                 {isAdmin && (
-                    <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase">TARGET_USER:</span>
-                        <select
-                            className="bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-1.5 text-xs focus:border-[var(--color-brand-accent)] focus:outline-none text-[var(--color-text-primary)] uppercase min-w-[150px]"
-                            value={selectedUserId}
-                            onChange={(e) => setSelectedUserId(e.target.value)}
-                        >
-                            {users.map(u => (
-                                <option key={u.id} value={u.id}>
-                                    {u.username} ({u.role})
-                                </option>
-                            ))}
-                        </select>
+                    <div className="flex items-center gap-3 relative z-10">
+                        <span className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase bg-black/40 px-3 py-1.5 rounded-l-md border border-white/5 border-r-0 h-full flex items-center">TARGET_USER:</span>
+                        <div className="relative">
+                            <select
+                                className="glass-input cursor-pointer appearance-none pr-8 !rounded-l-none text-[11px] font-bold tracking-widest uppercase min-w-[180px]"
+                                value={selectedUserId}
+                                onChange={(e) => setSelectedUserId(e.target.value)}
+                            >
+                                {users.map(u => (
+                                    <option key={u.id} value={u.id} className="bg-zinc-900 text-white">
+                                        {u.username} ({u.role})
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="absolute right-3 bottom-0 top-0 flex items-center pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>
 
-            <div className="flex-1 overflow-y-auto scrollbar-custom p-4">
+            <div className="flex-1 overflow-y-auto scrollbar-custom p-4 relative">
+                {/* Decorative ambient background */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-[var(--color-brand-accent)]/5 blur-3xl -z-10 rounded-full pointer-events-none"></div>
+
                 {loading ? (
-                    <div className="text-xs tracking-widest text-[var(--color-text-secondary)] uppercase animate-pulse">
-                        FETCHING_DATA...
+                    <div className="h-full flex items-center justify-center text-xs tracking-widest text-[var(--color-brand-accent)] uppercase animate-pulse flex-col gap-3">
+                        <svg className="w-8 h-8 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        FETCHING_SYS_DATA...
                     </div>
                 ) : sessionsData.length === 0 ? (
-                    <div className="text-xs tracking-widest text-[var(--color-text-secondary)] uppercase">
+                    <div className="h-full flex items-center justify-center text-xs tracking-widest text-[var(--color-text-secondary)] uppercase text-center flex-col gap-3">
+                        <svg className="w-8 h-8 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                         NO_SESSIONS_RECORDED_IN_LAST_48_HOURS
                     </div>
                 ) : (
-                    <div className="border border-[var(--color-panel-border)] w-full overflow-x-auto">
-                        <table className="w-full text-left text-sm whitespace-nowrap">
-                            <thead className="bg-[var(--color-panel)] border-b border-[var(--color-panel-border)]">
+                    <div className="border border-white/10 rounded-xl overflow-hidden bg-black/20 backdrop-blur-md shadow-inner">
+                        <table className="w-full text-left text-sm whitespace-nowrap border-collapse relative z-10">
+                            <thead className="bg-[var(--color-brand-accent)]/10 border-b border-white/10">
                                 <tr>
-                                    <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase">STATUS</th>
-                                    <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase">CLOCK_IN</th>
-                                    <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase">CLOCK_OUT</th>
-                                    <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase text-right">DURATION</th>
-                                    <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase w-full">NOTES</th>
+                                    <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">STATUS</th>
+                                    <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">CLOCK_IN</th>
+                                    <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">CLOCK_OUT</th>
+                                    <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase text-right">DURATION</th>
+                                    <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase w-full">NOTES</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -133,33 +150,37 @@ export function DailyStatsPanel() {
                                     return (
                                         <tr
                                             key={session.id}
-                                            className={`border-b border-[var(--color-panel-border)] last:border-b-0 transition-colors hover:bg-[var(--color-panel)] ${isMidnightCross ? 'bg-red-900/10' : ''}`}
+                                            className={`border-b border-white/5 last:border-b-0 transition-colors hover:bg-white/[0.03] group/row ${isMidnightCross ? 'bg-red-900/10' : ''}`}
                                         >
-                                            <td className="p-3">
+                                            <td className="p-4">
                                                 {session.clockOut ? (
-                                                    <span className="text-[10px] font-bold tracking-widest text-blue-500 uppercase flex items-center gap-1">
-                                                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>LOGGED
+                                                    <span className="text-[10px] font-bold tracking-widest text-blue-400 uppercase flex items-center gap-2 drop-shadow-md">
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_5px_#3b82f6]"></span>LOGGED
                                                     </span>
                                                 ) : (
-                                                    <span className="text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase flex items-center gap-1 animate-pulse">
-                                                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)]"></span>ACTIVE
+                                                    <span className="text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase flex items-center gap-2 animate-pulse drop-shadow-md">
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_8px_var(--color-brand-accent)]"></span>ACTIVE
                                                     </span>
                                                 )}
                                                 {isMidnightCross && (
-                                                    <div className="text-[8px] font-bold tracking-widest text-red-500 mt-1 uppercase">MIDNIGHT_CROSS</div>
+                                                    <div className="text-[8px] font-bold tracking-widest text-red-400 mt-2 uppercase bg-red-500/10 inline-block px-1.5 py-0.5 rounded border border-red-500/20">MIDNIGHT_CROSS</div>
                                                 )}
                                             </td>
-                                            <td className="p-3 text-xs font-mono text-[var(--color-text-primary)]">
+                                            <td className="p-4 text-xs font-mono text-white/80 group-hover/row:text-white transition-colors">
                                                 {new Date(session.clockIn).toLocaleString()}
                                             </td>
-                                            <td className="p-3 text-xs font-mono text-[var(--color-text-primary)]">
-                                                {session.clockOut ? new Date(session.clockOut).toLocaleString() : '--'}
+                                            <td className="p-4 text-xs font-mono text-white/80 group-hover/row:text-white transition-colors">
+                                                {session.clockOut ? new Date(session.clockOut).toLocaleString() : <span className="text-[var(--color-text-secondary)]">--</span>}
                                             </td>
-                                            <td className="p-3 text-xs font-mono text-right font-bold text-[var(--color-brand-accent)]">
-                                                {session.durationMinutes !== null ? `${session.durationMinutes} MIN` : '--'}
+                                            <td className="p-4 text-xs font-mono text-right font-bold text-[var(--color-brand-accent)]">
+                                                {session.durationMinutes !== null ? (
+                                                    <div className="bg-[var(--color-brand-accent)]/10 inline-block px-2 py-1 rounded-md border border-[var(--color-brand-accent)]/20 shadow-sm max-w-max ml-auto">
+                                                        {session.durationMinutes} MIN
+                                                    </div>
+                                                ) : <span className="text-[var(--color-text-secondary)]">--</span>}
                                             </td>
-                                            <td className="p-3 text-xs text-[var(--color-text-secondary)] truncate max-w-xs">
-                                                {session.sessionNote || '--'}
+                                            <td className="p-4 text-xs text-[var(--color-text-secondary)] truncate max-w-xs group-hover/row:text-white/80 transition-colors">
+                                                {session.sessionNote || <span className="italic opacity-50">NO_NOTES_PROVIDED</span>}
                                             </td>
                                         </tr>
                                     )

@@ -54,41 +54,55 @@ export function DailyLogPanel() {
     }
 
     return (
-        <div className="flex flex-col h-full w-full bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] relative border border-[var(--color-panel-border)] rounded-2xl overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)]"></div>
+        <div className="flex flex-col h-full w-full bg-transparent text-[var(--color-text-primary)] relative rounded-2xl overflow-hidden glass-panel z-10 transition-all duration-300">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-brand-accent)] via-[var(--color-orange-accent)] to-[var(--color-brand-accent)] bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] z-20"></div>
 
-            <div className="flex items-center justify-between p-4 border-b border-[var(--color-panel-border)]">
-                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2">
-                    <span className="w-2 h-2 bg-[var(--color-brand-accent)]"></span>
+            <div className="flex items-center justify-between p-4 border-b border-[var(--color-panel-border)] bg-black/10 backdrop-blur-md relative">
+                {/* Subtle header glow */}
+                <div className="absolute -left-10 top-0 w-32 h-10 bg-[var(--color-brand-accent)]/10 blur-2xl rounded-full pointer-events-none"></div>
+
+                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] relative z-10">
+                    <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)]"></span>
                     DAILY_LOG
                 </h2>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-custom bg-[var(--color-panel)]">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-custom relative bg-black/5 backdrop-blur-sm">
+                {/* Decorative ambient background */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-white/[0.01] blur-3xl -z-10 rounded-full pointer-events-none"></div>
+
                 {logs.length === 0 ? (
-                    <div className="text-xs text-[var(--color-text-secondary)] tracking-widest text-center py-4">
+                    <div className="text-xs text-[var(--color-text-secondary)] tracking-widest text-center py-8 border border-dashed border-white/10 rounded-xl bg-black/20">
                         NO_LOGS_FOUND
                     </div>
                 ) : (
                     logs.map(log => (
-                        <div key={log.id} className="p-3 border-l-2 border-[var(--color-brand-accent)] bg-[var(--color-bg-dark)] relative group">
-                            <div className="flex justify-between items-start mb-2">
-                                <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase">
-                                    <span className={log.user.role === 'admin' ? 'text-red-500' : 'text-[var(--color-text-primary)]'}>
+                        <div key={log.id} className="p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300 relative group overflow-hidden">
+                            {/* Hover highlight bar */}
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[var(--color-brand-accent)]/80 to-transparent"></div>
+                            
+                            <div className="flex justify-between items-start mb-3 pl-2">
+                                <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase flex items-center gap-2">
+                                    <div className="w-5 h-5 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-[9px] border border-white/20 text-white font-bold shadow-inner">
+                                        {log.user.username.charAt(0).toUpperCase()}
+                                    </div>
+                                    <span className={log.user.role === 'admin' ? 'text-red-400 font-bold' : 'text-white/90 font-bold'}>
                                         {log.user.username}
                                     </span>
-                                    {' '}// {new Date(log.createdAt).toLocaleString()}
+                                    <span className="opacity-50 mx-1">/</span> 
+                                    <span className="font-mono text-[9px]">{new Date(log.createdAt).toLocaleString()}</span>
                                 </div>
                                 {(session?.user.role === 'admin' || session?.user.id === log.user.id) && (
                                     <button
                                         onClick={() => deleteLog(log.id)}
-                                        className="opacity-0 group-hover:opacity-100 text-[10px] tracking-widest text-red-500 hover:text-white hover:bg-red-500 border border-red-500/30 px-1 transition-all"
+                                        className="opacity-0 group-hover:opacity-100 text-[10px] tracking-widest text-red-400 hover:text-red-300 hover:bg-red-500/20 p-1.5 rounded-md transition-all shrink-0"
+                                        title="Delete Log"
                                     >
-                                        DEL
+                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                     </button>
                                 )}
                             </div>
-                            <div className="text-sm whitespace-pre-wrap">
+                            <div className="text-sm whitespace-pre-wrap pl-2 text-white/80 leading-relaxed font-sans">
                                 {log.content}
                             </div>
                         </div>
@@ -96,26 +110,33 @@ export function DailyLogPanel() {
                 )}
             </div>
 
-            <form onSubmit={postLog} className="p-4 border-t border-[var(--color-panel-border)] bg-[var(--color-bg-dark)] flex flex-col gap-2">
-                <textarea
-                    rows={2}
-                    className="w-full text-sm bg-[var(--color-panel)] border border-[var(--color-panel-border)] p-2 focus:border-[var(--color-brand-accent)] focus:outline-none resize-none placeholder:text-[var(--color-text-secondary)] uppercase"
-                    placeholder="ENTER_LOG_UPDATE..."
-                    value={newLogContent}
-                    onChange={(e) => setNewLogContent(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault()
-                            postLog(e as unknown as React.FormEvent)
-                        }
-                    }}
-                />
+            <form onSubmit={postLog} className="p-4 border-t border-[var(--color-panel-border)] bg-black/20 flex flex-col gap-3 relative z-10 backdrop-blur-md">
+                {/* Decorative top border glow */}
+                <div className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-[var(--color-brand-accent)]/50 to-transparent"></div>
+                <div className="relative group">
+                    <textarea
+                        rows={3}
+                        className="glass-input w-full text-sm resize-none font-medium leading-relaxed"
+                        placeholder="Type your daily log update here..."
+                        value={newLogContent}
+                        onChange={(e) => setNewLogContent(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault()
+                                postLog(e as unknown as React.FormEvent)
+                            }
+                        }}
+                    />
+                    <div className="absolute bottom-2 right-3 text-[9px] text-[var(--color-text-secondary)] font-bold tracking-widest uppercase pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity">
+                        SHIFT_ENTER_FOR_NEWLINE
+                    </div>
+                </div>
                 <button
                     type="submit"
                     disabled={!newLogContent.trim()}
-                    className="text-xs font-bold tracking-widest py-2 border border-[var(--color-panel-border)] hover:text-[var(--color-brand-accent)] hover:border-[var(--color-brand-accent)] transition-colors disabled:opacity-50 disabled:hover:text-[var(--color-text-primary)] disabled:hover:border-[var(--color-panel-border)]"
+                    className="glass-button text-[var(--color-brand-accent)] border-[var(--color-brand-accent)]/30 hover:bg-[var(--color-brand-accent)]/10 hover:border-[var(--color-brand-accent)]/60 disabled:opacity-40 disabled:hover:border-transparent py-2.5 shadow-[0_0_10px_rgba(45,212,191,0.05)]"
                 >
-                    POST_LOG
+                    POST_LOG_ENTRY
                 </button>
             </form>
         </div>

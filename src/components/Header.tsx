@@ -30,7 +30,7 @@ function HeaderContent() {
     }
 
     return (
-        <div className="w-full flex items-center justify-between p-4 border-b border-[var(--color-panel-border)] bg-[var(--color-bg-dark)]">
+        <div className="w-full flex items-center justify-between p-4 sticky top-0 z-50 bg-[#09090b]/40 backdrop-blur-xl border-b border-[var(--color-panel-border)] shadow-sm">
             <div className="flex items-center gap-8">
                 <Link href="/dashboard" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                     <Image 
@@ -41,12 +41,12 @@ function HeaderContent() {
                         className="h-10 w-auto object-contain rounded"
                         priority
                     />
-                    <div className="text-xl font-bold tracking-widest text-[var(--color-brand-accent)] uppercase hidden sm:block">
-                        NEXROVA_MANAGEMENT
+                    <div className="text-xl font-bold tracking-widest text-white tracking-widest uppercase hidden sm:block drop-shadow-md">
+                        NEXROVA<span className="text-[var(--color-brand-accent)]">_MANAGEMENT</span>
                     </div>
                 </Link>
 
-                <div className="hidden md:flex items-center gap-4 border-l border-[var(--color-panel-border)] pl-8">
+                <div className="hidden md:flex items-center gap-2 border-l border-[var(--color-panel-border)] pl-8">
                     {tabs.map((t) => {
                         const isActive = tab === t
                         const color = TAB_COLORS[t]
@@ -54,25 +54,26 @@ function HeaderContent() {
                             <button
                                 key={t}
                                 onClick={() => navigate(t)}
-                                style={isActive ? { color, borderBottomColor: color } : {}}
-                                className={`text-xs font-bold tracking-widest px-3 py-1 transition-colors uppercase border-b-2 ${isActive
-                                        ? 'border-b-current'
-                                        : 'border-transparent text-[var(--color-text-secondary)] hover:text-white hover:bg-[var(--color-panel)]'
+                                style={isActive ? { backgroundColor: `${color}15`, color, borderBottomColor: color } : {}}
+                                className={`text-xs font-bold tracking-widest px-4 py-2 rounded-lg transition-all uppercase border-b-2 ${isActive
+                                        ? 'border-b-current shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]'
+                                        : 'border-transparent text-[var(--color-text-secondary)] hover:text-white hover:bg-white/5 hover:-translate-y-0.5'
                                     }`}
                             >
-                                {t.replace('_', '\u00a0')}
+                                {t.replace('_', ' ')}
                             </button>
                         )
                     })}
                 </div>
             </div>
             <div className="flex items-center gap-4">
-                <div className="text-xs tracking-widest text-[var(--color-text-secondary)] uppercase">
-                    USER: {session.user.username}
+                <div className="text-xs font-medium tracking-widest text-[var(--color-text-secondary)] uppercase bg-black/20 px-3 py-1.5 rounded-full border border-white/5">
+                    <span className="text-[var(--color-brand-accent)] mr-2">●</span>
+                    {session.user.username}
                 </div>
                 <button
                     onClick={() => signOut({ callbackUrl: '/login' })}
-                    className="text-xs font-bold tracking-widest px-3 py-1 border border-[var(--color-panel-border)] hover:bg-red-500 hover:border-red-500 hover:text-white transition-colors text-[var(--color-text-secondary)] uppercase rounded-xl"
+                    className="glass-button text-[var(--color-text-secondary)] hover:text-red-400 hover:border-red-500/50 hover:bg-red-500/10"
                 >
                     LOGOUT
                 </button>

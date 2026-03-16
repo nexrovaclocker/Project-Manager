@@ -161,25 +161,28 @@ export function ProjectsPanel() {
     const activeProject = projects.find(p => p.id === activeProjectId)
 
     return (
-        <div className="flex flex-col h-full w-full bg-[var(--color-bg-dark)] text-[var(--color-text-primary)] relative border border-[var(--color-panel-border)] rounded-2xl overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)]"></div>
+        <div className="flex flex-col h-full w-full bg-transparent text-[var(--color-text-primary)] relative rounded-2xl overflow-hidden glass-panel z-10 transition-all duration-300">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-brand-accent)] via-[var(--color-orange-accent)] to-[var(--color-brand-accent)] bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]"></div>
 
-            <div className="flex items-center justify-between p-4 border-b border-[var(--color-panel-border)]">
-                <div className="flex items-center gap-4">
-                    <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-2">
-                        <span className="w-2 h-2 bg-[var(--color-brand-accent)]"></span>
+            <div className="flex items-center justify-between p-4 border-b border-[var(--color-panel-border)] bg-black/10 backdrop-blur-md relative">
+                {/* Subtle header glow */}
+                <div className="absolute -left-10 top-0 w-32 h-10 bg-[var(--color-brand-accent)]/10 blur-2xl rounded-full pointer-events-none"></div>
+
+                <div className="flex items-center gap-4 relative z-10">
+                    <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+                        <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)]"></span>
                         PROJECTS
                     </h2>
-                    <div className="hidden md:flex ml-8 border border-[var(--color-panel-border)] bg-[var(--color-panel)]">
+                    <div className="hidden md:flex ml-8 bg-black/20 rounded-lg p-1 border border-white/5 shadow-inner">
                         <button
                             onClick={() => setView('MY_PROJECTS')}
-                            className={`px-4 py-1 text-xs font-bold tracking-widest uppercase transition-colors ${view === 'MY_PROJECTS' ? 'bg-[var(--color-brand-accent)] text-black' : 'text-[var(--color-text-secondary)] hover:text-white'}`}
+                            className={`px-4 py-1.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-md ${view === 'MY_PROJECTS' ? 'bg-[var(--color-brand-accent)] text-black shadow-[0_0_15px_rgba(45,212,191,0.4)] scale-105' : 'text-[var(--color-text-secondary)] hover:text-white hover:bg-white/5'}`}
                         >
                             MY_PROJECTS
                         </button>
                         <button
                             onClick={() => setView('PROJECT_TRACKER')}
-                            className={`px-4 py-1 text-xs font-bold tracking-widest uppercase transition-colors border-l border-[var(--color-panel-border)] ${view === 'PROJECT_TRACKER' ? 'bg-[var(--color-brand-accent)] text-black' : 'text-[var(--color-text-secondary)] hover:text-white'}`}
+                            className={`px-4 py-1.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-md ml-1 ${view === 'PROJECT_TRACKER' ? 'bg-[var(--color-brand-accent)] text-black shadow-[0_0_15px_rgba(45,212,191,0.4)] scale-105' : 'text-[var(--color-text-secondary)] hover:text-white hover:bg-white/5'}`}
                         >
                             PROJECT_TRACKER
                         </button>
@@ -191,99 +194,122 @@ export function ProjectsPanel() {
                 {view === 'MY_PROJECTS' ? (
                     <>
                         {/* Project List Sidebar */}
-                        <div className="w-full lg:w-1/3 border-r border-[var(--color-panel-border)] flex flex-col overflow-y-auto scrollbar-custom">
+                        <div className="w-full lg:w-1/3 border-r border-[var(--color-panel-border)] flex flex-col overflow-y-auto scrollbar-custom bg-black/5 backdrop-blur-sm">
                             {isAdmin && (
-                                <div className="p-4 border-b border-[var(--color-panel-border)] bg-[var(--color-panel)] relative">
-                                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--color-orange-accent)]"></div>
-                                    <h3 className="text-[10px] font-bold tracking-widest text-[var(--color-orange-accent)] mb-2 uppercase">ADMIN: NEW_PROJECT</h3>
-                                    <form onSubmit={handleCreateProject} className="flex flex-col gap-2">
+                                <div className="p-5 border-b border-[var(--color-panel-border)] bg-[var(--color-orange-accent)]/5 relative overflow-hidden group">
+                                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[var(--color-orange-accent)] to-transparent group-hover:via-[var(--color-orange-accent)] transition-all duration-500"></div>
+                                    <h3 className="text-[10px] font-bold tracking-widest text-[var(--color-orange-accent)] mb-3 uppercase flex items-center gap-2">
+                                        <svg className="w-3 h-3 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+                                        ADMIN: NEW_PROJECT
+                                    </h3>
+                                    <form onSubmit={handleCreateProject} className="flex flex-col gap-3 relative z-10">
                                         <input
                                             type="text"
                                             required
                                             placeholder="PROJECT_NAME..."
-                                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-1.5 text-xs focus:border-[var(--color-orange-accent)] focus:outline-none text-[var(--color-text-primary)]"
+                                            className="glass-input w-full text-xs"
                                             value={newProjectName}
                                             onChange={(e) => setNewProjectName(e.target.value)}
                                         />
                                         <input
                                             type="text"
                                             placeholder="DESCRIPTION (OPTIONAL)..."
-                                            className="w-full bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-1.5 text-xs focus:border-[var(--color-orange-accent)] focus:outline-none text-[var(--color-text-primary)]"
+                                            className="glass-input w-full text-xs"
                                             value={newProjectDesc}
                                             onChange={(e) => setNewProjectDesc(e.target.value)}
                                         />
-                                        <button type="submit" className="w-full py-1.5 bg-[var(--color-orange-accent)] text-[var(--color-bg-dark)] font-bold tracking-widest text-[10px] uppercase hover:opacity-80">
+                                        <button type="submit" className="glass-button text-[var(--color-orange-accent)] border-[var(--color-orange-accent)]/30 hover:bg-[var(--color-orange-accent)]/20 shadow-[0_0_10px_rgba(251,146,60,0.1)] hover:shadow-[0_0_15px_rgba(251,146,60,0.3)]">
                                             CREATE_PROJECT
                                         </button>
-                                        {pmMsg && <div className="text-[10px] text-[var(--color-orange-accent)] text-center uppercase tracking-widest">{pmMsg}</div>}
+                                        {pmMsg && <div className="text-[10px] text-[var(--color-orange-accent)] text-center uppercase tracking-widest font-bold drop-shadow-md">{pmMsg}</div>}
                                     </form>
+                                    {/* Admin panel background glow */}
+                                    <div className="absolute right-0 bottom-0 w-32 h-32 bg-[var(--color-orange-accent)]/10 rounded-full blur-3xl -z-0 pointer-events-none"></div>
                                 </div>
                             )}
 
-                            {projects.length === 0 ? (
-                                <div className="p-4 text-xs text-[var(--color-text-secondary)] tracking-widest">
-                                    NO_PROJECTS_ASSIGNED
-                                </div>
-                            ) : (
-                                projects.map(project => (
-                                    <button
-                                        key={project.id}
-                                        onClick={() => setActiveProjectId(project.id)}
-                                        className={`text-left p-4 border-b border-[var(--color-panel-border)] transition-colors ${activeProjectId === project.id ? 'bg-[var(--color-panel)] border-l-2 border-l-[var(--color-brand-accent)]' : 'hover:bg-[var(--color-panel)] border-l-2 border-l-transparent'
-                                            }`}
-                                    >
-                                        <div className={`font-bold tracking-widest text-sm uppercase ${activeProjectId === project.id ? 'text-[var(--color-brand-accent)]' : ''
-                                            }`}>
-                                            {project.name}
-                                        </div>
-                                        <div className="text-xs text-[var(--color-text-secondary)] mt-1 tracking-widest truncate uppercase">
-                                            {project.description || 'NO_DESCRIPTION'}
-                                        </div>
-                                    </button>
-                                ))
-                            )}
+                            <div className="flex-1 flex flex-col p-2 gap-2">
+                                {projects.length === 0 ? (
+                                    <div className="p-4 text-xs text-[var(--color-text-secondary)] tracking-widest text-center mt-4 border border-dashed border-[var(--color-panel-border)] rounded-xl bg-black/20">
+                                        NO_PROJECTS_ASSIGNED
+                                    </div>
+                                ) : (
+                                    projects.map(project => (
+                                        <button
+                                            key={project.id}
+                                            onClick={() => setActiveProjectId(project.id)}
+                                            className={`text-left p-4 rounded-xl border border-[var(--color-panel-border)] transition-all duration-300 relative overflow-hidden group/item ${activeProjectId === project.id ? 'bg-[var(--color-brand-accent)]/10 border-[var(--color-brand-accent)]/50 shadow-[0_4px_20px_-10px_rgba(45,212,191,0.3)] scale-[1.02]' : 'bg-black/20 hover:bg-white/5 hover:border-white/10 hover:scale-[1.01]'
+                                                }`}
+                                        >
+                                            {/* Hover highlight bar */}
+                                            <div className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${activeProjectId === project.id ? 'bg-[var(--color-brand-accent)] h-full' : 'bg-white/20 h-0 group-hover/item:h-full group-hover/item:bg-white/40'}`}></div>
+                                            
+                                            <div className={`font-bold tracking-widest text-sm uppercase flex items-center justify-between ${activeProjectId === project.id ? 'text-[var(--color-brand-accent)]' : 'text-white'
+                                                }`}>
+                                                <span className="truncate pr-4">{project.name}</span>
+                                                {activeProjectId === project.id && <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)] animate-pulse shadow-[0_0_5px_var(--color-brand-accent)] shrink-0"></span>}
+                                            </div>
+                                            <div className={`text-xs mt-1.5 tracking-widest truncate uppercase transition-colors ${activeProjectId === project.id ? 'text-[var(--color-brand-accent)]/70' : 'text-[var(--color-text-secondary)] group-hover/item:text-white/60'}`}>
+                                                {project.description || 'NO_DESCRIPTION'}
+                                            </div>
+                                            
+                                            {/* decorative gradient background inside item */}
+                                            {activeProjectId === project.id && (
+                                                <div className="absolute right-0 bottom-0 w-24 h-24 bg-[var(--color-brand-accent)]/10 blur-xl pointer-events-none -z-10 rounded-full"></div>
+                                            )}
+                                        </button>
+                                    ))
+                                )}
+                            </div>
                         </div>
 
                         {/* Project Details */}
-                        <div className="w-full lg:w-2/3 flex flex-col bg-[var(--color-panel)] overflow-y-auto scrollbar-custom">
+                        <div className="w-full lg:w-2/3 flex flex-col bg-transparent overflow-y-auto scrollbar-custom relative">
+                            {/* Decorative ambient background */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-white/[0.01] blur-3xl -z-10 rounded-full pointer-events-none"></div>
+                            
                             {activeProject ? (
-                                <div className="p-6 flex flex-col h-full">
-                                    <div className="mb-6 pb-4 border-b border-[var(--color-panel-border)]">
+                                <div className="p-6 md:p-8 flex flex-col h-full z-10">
+                                    <div className="mb-8 pb-6 border-b border-[var(--color-panel-border)] border-dashed">
                                         <div className="flex items-start justify-between">
                                             <div>
-                                                <h3 className="text-2xl font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">
+                                                <h3 className="text-3xl font-bold tracking-widest text-white drop-shadow-md">
                                                     {activeProject.name}
                                                 </h3>
                                                 {activeProject.description && (
-                                                    <p className="text-xs text-[var(--color-text-secondary)] mt-2 tracking-widest uppercase">
-                                                        DESC: {activeProject.description}
+                                                    <p className="text-[10px] text-[var(--color-brand-accent)] mt-3 font-bold tracking-widest uppercase bg-[var(--color-brand-accent)]/10 inline-block px-3 py-1 rounded-full border border-[var(--color-brand-accent)]/20 shadow-sm">
+                                                        DESC: <span className="text-white/80 font-normal">{activeProject.description}</span>
                                                     </p>
                                                 )}
                                             </div>
                                             {isAdmin && (
                                                 <button
                                                     onClick={() => handleDeleteProject(activeProject.id, activeProject.name)}
-                                                    className="px-3 py-1 text-xs font-bold tracking-widest text-red-500 border border-red-500 hover:bg-red-500 hover:text-[var(--color-bg-dark)] transition-colors uppercase"
+                                                    className="glass-button text-red-400 border-red-500/30 hover:bg-red-500/20 hover:border-red-500/50 shadow-[0_0_10px_rgba(239,68,68,0.1)] shrink-0 ml-4"
                                                 >
                                                     DELETE_PROJECT
                                                 </button>
                                             )}
                                         </div>
 
-                                        <div className={`mt-4 pt-4 border-t border-[var(--color-panel-border)] ${isAdmin ? 'grid grid-cols-1 md:grid-cols-2 gap-4' : ''}`}>
+                                        <div className={`mt-6 pt-6 border-t border-[var(--color-panel-border)] border-dashed ${isAdmin ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : ''}`}>
                                             <div>
-                                                <h4 className="text-xs font-bold tracking-widest mb-2 uppercase text-[var(--color-text-secondary)]">ASSIGNED_MEMBERS</h4>
+                                                <h4 className="text-[10px] font-bold tracking-widest mb-3 uppercase text-[var(--color-text-secondary)] flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                                                    ASSIGNED_MEMBERS
+                                                </h4>
                                                 <div className="flex flex-wrap gap-2">
                                                     {activeProject.members.length === 0 ? (
-                                                        <span className="text-xs text-[var(--color-text-secondary)]">NONE</span>
+                                                        <span className="text-xs text-[var(--color-text-secondary)] italic border border-dashed border-[var(--color-panel-border)] px-3 py-1 rounded-md">NONE_ASSIGNED</span>
                                                     ) : (
                                                         activeProject.members.map(m => (
-                                                            <span key={m.id} className="group text-[10px] bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] px-2 py-1 tracking-widest uppercase flex items-center gap-2">
-                                                                {m.user.username} ({m.user.role})
+                                                            <span key={m.id} className="group text-[10px] bg-white/5 border border-white/10 hover:border-white/20 transition-colors px-3 py-1.5 rounded-full tracking-widest uppercase flex items-center gap-2 shadow-sm font-medium">
+                                                                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-[7px] border border-white/20">{m.user.username.charAt(0).toUpperCase()}</div>
+                                                                <span className="text-white/90">{m.user.username} <span className="opacity-50">({m.user.role})</span></span>
                                                                 {isAdmin && (
                                                                     <button
                                                                         onClick={() => handleRemoveMember(activeProject.id, m.userId)}
-                                                                        className="text-red-500 hover:text-red-400 opacity-50 hover:opacity-100"
+                                                                        className="text-red-400 hover:text-red-300 ml-1 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center bg-red-500/20 w-4 h-4 rounded-full"
                                                                     >
                                                                         ✕
                                                                     </button>
@@ -295,9 +321,9 @@ export function ProjectsPanel() {
                                             </div>
 
                                             {isAdmin && (
-                                                <div className="flex items-end gap-2">
+                                                <div className="flex items-end gap-2 relative z-20">
                                                     <select
-                                                        className="flex-1 bg-[var(--color-bg-dark)] border border-[var(--color-orange-accent)]/50 p-1.5 text-xs focus:border-[var(--color-orange-accent)] focus:outline-none text-[var(--color-text-primary)] uppercase"
+                                                        className="glass-input flex-1 uppercase text-xs cursor-pointer appearance-none pr-8"
                                                         onChange={(e) => {
                                                             if (e.target.value) {
                                                                 handleAssignMember(activeProject.id, e.target.value)
@@ -306,80 +332,90 @@ export function ProjectsPanel() {
                                                         }}
                                                         defaultValue=""
                                                     >
-                                                        <option value="" disabled>+ ADD_MEMBER_TO_PROJECT</option>
+                                                        <option value="" disabled className="bg-zinc-900 text-gray-400">+ ADD_MEMBER_TO_PROJECT</option>
                                                         {users.filter(u => !activeProject.members.some(m => m.userId === u.id)).map(u => (
-                                                            <option key={u.id} value={u.id}>{u.username} ({u.role})</option>
+                                                            <option key={u.id} value={u.id} className="bg-zinc-900 text-white">{u.username} ({u.role})</option>
                                                         ))}
                                                     </select>
+                                                    {/* custom dropdown arrow to sit over the input */}
+                                                    <div className="absolute right-3 bottom-0 top-0 flex items-center pointer-events-none">
+                                                        <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>
                                     </div>
 
-                                    <div className="flex-1 flex flex-col min-h-0">
-                                        <h4 className="text-sm font-bold tracking-widest mb-4 uppercase flex items-center gap-2">
-                                            <span className="w-2 h-2 bg-[var(--color-text-secondary)]"></span>
-                                            PROJECT_TODOS
+                                    <div className="flex-1 flex flex-col min-h-0 mt-4 relative z-10">
+                                        <h4 className="text-sm font-bold tracking-widest mb-4 uppercase flex items-center gap-3">
+                                            <span className="w-1.5 h-4 bg-[var(--color-brand-accent)] rounded-full shadow-[0_0_8px_var(--color-brand-accent)]"></span>
+                                            PROJECT_TASKS
                                         </h4>
 
-                                        <div className="space-y-2 mb-6 flex-1 overflow-y-auto scrollbar-custom">
+                                        <div className="space-y-3 mb-6 flex-1 overflow-y-auto scrollbar-custom pr-2">
                                             {activeProject.todos.length === 0 ? (
-                                                <div className="text-xs text-[var(--color-text-secondary)] tracking-widest">
-                                                    NO_TODOS_FOUND
+                                                <div className="text-xs text-[var(--color-text-secondary)] tracking-widest flex items-center justify-center p-8 border border-dashed border-white/10 rounded-xl bg-black/20">
+                                                    NO_TASKS_FOUND
                                                 </div>
                                             ) : (
                                                 activeProject.todos.map(todo => (
-                                                    <div key={todo.id} className="flex items-start justify-between group p-2 border border-transparent hover:border-[var(--color-panel-border)] transition-colors">
-                                                        <label className="flex items-start gap-3 cursor-pointer flex-1">
-                                                            <div className="relative flex items-center pt-0.5">
+                                                    <div key={todo.id} className="flex items-start justify-between group/todo p-3.5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300">
+                                                        <label className="flex items-start gap-4 cursor-pointer flex-1">
+                                                            <div className="relative flex items-center pt-0.5 shrink-0">
                                                                 <input
                                                                     type="checkbox"
                                                                     checked={todo.checked}
                                                                     onChange={() => toggleTodo(activeProject.id, todo.id, todo.checked)}
                                                                     className="peer sr-only"
                                                                 />
-                                                                <div className="w-4 h-4 border border-[var(--color-text-secondary)] flex items-center justify-center peer-checked:border-[var(--color-brand-accent)] peer-checked:bg-[var(--color-brand-accent)] transition-colors">
+                                                                <div className="w-5 h-5 rounded border-2 border-[var(--color-panel-border)] flex items-center justify-center peer-checked:border-[var(--color-brand-accent)] peer-checked:bg-[var(--color-brand-accent)] transition-all duration-300 shadow-[inset_0_0_10px_rgba(0,0,0,0.5)] peer-checked:shadow-[0_0_10px_rgba(45,212,191,0.4)]">
                                                                     {todo.checked && (
-                                                                        <svg className="w-3 h-3 text-[var(--color-bg-dark)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                                                                            <path strokeLinecap="square" strokeLinejoin="miter" d="M5 13l4 4L19 7" />
+                                                                        <svg className="w-3.5 h-3.5 text-[#09090b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                                         </svg>
                                                                     )}
                                                                 </div>
                                                             </div>
-                                                            <div className={`text-sm ${todo.checked ? 'text-[var(--color-text-secondary)] line-through' : ''}`}>
+                                                            <div className={`text-sm mt-0.5 tracking-wide transition-all duration-300 ${todo.checked ? 'text-[var(--color-text-secondary)] line-through opacity-60' : 'text-white/90'}`}>
                                                                 {todo.text}
                                                                 {todo.checked && todo.checker && (
-                                                                    <span className="ml-2 text-[10px] tracking-widest text-[var(--color-brand-accent)] no-underline">
-                                                                        [VERIFIED_BY: {todo.checker.username}]
+                                                                    <span className="ml-3 inline-block px-2 py-0.5 rounded-full bg-[var(--color-brand-accent)]/10 border border-[var(--color-brand-accent)]/20 text-[9px] tracking-widest text-[var(--color-brand-accent)] no-underline font-bold uppercase">
+                                                                        VERIFIED_BY: <span className="text-white ml-1">{todo.checker.username}</span>
                                                                     </span>
                                                                 )}
+                                                                <div className="mt-2 text-[9px] text-[var(--color-text-secondary)] uppercase tracking-widest font-mono">
+                                                                    Created by {todo.creator.username}
+                                                                </div>
                                                             </div>
                                                         </label>
                                                         <button
                                                             onClick={() => deleteTodo(activeProject.id, todo.id)}
-                                                            className="opacity-0 group-hover:opacity-100 text-[10px] tracking-widest text-red-500 hover:bg-red-500 hover:text-white border border-red-500/30 px-2 py-1 transition-all ml-4"
+                                                            className="opacity-0 group-hover/todo:opacity-100 mt-1 mr-1 p-2 rounded-lg text-red-500 hover:bg-red-500/20 hover:text-red-400 border border-transparent hover:border-red-500/30 transition-all shrink-0"
+                                                            title="Delete Task"
                                                         >
-                                                            DEL
+                                                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                                         </button>
                                                     </div>
                                                 ))
                                             )}
                                         </div>
 
-                                        <form onSubmit={addTodo} className="mt-auto border-t border-[var(--color-panel-border)] pt-4 flex gap-2 shrink-0">
+                                        <form onSubmit={addTodo} className="mt-auto border-t border-[var(--color-panel-border)] border-dashed pt-4 flex gap-3 shrink-0 relative bg-black/20 p-3 rounded-xl border-x border-b">
+                                            {/* Decorative glow line top */}
+                                            <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[var(--color-brand-accent)]/50 to-transparent"></div>
                                             <input
                                                 type="text"
-                                                className="flex-1 text-sm bg-[var(--color-bg-dark)] border border-[var(--color-panel-border)] p-2 focus:border-[var(--color-brand-accent)] focus:outline-none placeholder:text-[var(--color-text-secondary)]"
-                                                placeholder="NEW_TODO_ACTION..."
+                                                className="glass-input flex-1 font-medium"
+                                                placeholder="Enter new task description..."
                                                 value={newTodoText}
                                                 onChange={(e) => setNewTodoText(e.target.value)}
                                             />
                                             <button
                                                 type="submit"
                                                 disabled={!newTodoText.trim()}
-                                                className="text-xs font-bold tracking-widest px-4 border border-[var(--color-panel-border)] disabled:opacity-50 hover:text-[var(--color-brand-accent)] hover:border-[var(--color-brand-accent)] transition-colors"
+                                                className="glass-button text-[var(--color-brand-accent)] border-[var(--color-brand-accent)]/30 hover:border-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)]/10 disabled:opacity-40 disabled:hover:border-transparent min-w-[120px]"
                                             >
-                                                ADD
+                                                ADD_TASK
                                             </button>
                                         </form>
                                     </div>
