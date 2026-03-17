@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXROVA - High-End Brand Reveal</title>
+    <!-- Outfit Font for Modern Minimalist Tech Aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <!-- GSAP for precision, cinematic animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        /* CSS Foundation */
+        :root {
+            --bg-matte-black: #080808;
+            --stark-white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-matte-black);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+            /* Optional: subtle radial gradient to focus center */
+            background: radial-gradient(circle at center, #111111 0%, #050505 100%);
+        }
+
+        .reveal-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Stage 1 & 2: Logo Box */
+        .logo-box {
+            width: 130px;
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            /* Initial states handled by GSAP, fallback for safety */
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .logo-svg {
+            width: 100%;
+            height: 100%;
+            /* Faint elegant glow */
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
+        }
+
+        /* Text Mask Wrapper */
+        .text-box {
+            width: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            margin-left: 0; 
+            /* To ensure wipe looks sharp */
+            border-left: 1px solid transparent; 
+        }
+
+        .text-content {
+            font-size: 84px;
+            font-weight: 200; /* Minimalist, high-end */
+            letter-spacing: 24px;
+            color: var(--stark-white);
+            margin: 0;
+            /* Negative margin to offset last character's letter-spacing for perfect centering */
+            margin-right: -24px;
+            white-space: nowrap;
+            /* Slight bump so it doesn't immediately touch the left boundary perfectly */
+            padding-left: 5px; 
+            line-height: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="reveal-container">
+        <!-- The minimalist tech logo -->
+        <div class="logo-box">
+            <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="100%" stop-color="#cccccc"/>
+                    </linearGradient>
+                </defs>
+                <!-- A highly stylized N motif representing NEXROVA -->
+                <path d="M 28 80 L 28 20 L 72 80 L 72 20" stroke="url(#logoGrad)" stroke-width="5" stroke-linejoin="miter" stroke-linecap="butt" />
+                <!-- Advanced Tech accents -->
+                <circle cx="28" cy="80" r="3" fill="#ffffff" />
+                <circle cx="72" cy="20" r="3" fill="#ffffff" />
+                <path d="M 28 20 L 40 20" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+                <path d="M 72 80 L 60 80" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+            </svg>
+        </div>
+        
+        <!-- The wipe-in text reveal mask -->
+        <div class="text-box">
+            <h1 class="text-content">NEXROVA</h1>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const textBox = document.querySelector('.text-box');
+            const textContent = document.querySelector('.text-content');
+            
+            // Temporarily free the width constraint to accurately measure the text's natural rendered width
+            textBox.style.width = 'auto';
+            const targetWidth = textContent.getBoundingClientRect().width;
+            textBox.style.width = '0px';
+
+            const tl = gsap.timeline();
+
+            // Stage 1 (0s-2.5s): Fade in + Cinematic Zoom
+            // Fade-in duration feels better slightly faster than the zoom, but zoom spans exact 2.5s
+            tl.fromTo('.logo-box', 
+                { opacity: 0, scale: 0.8 },
+                { 
+                    opacity: 1, 
+                    scale: 1.1, 
+                    duration: 2.5, 
+                    ease: 'power2.inOut' 
+                }, 
+                0
+            );
+
+            // Stage 2 (2.5s-4s): Smooth slide + Text Wipe
+            // Logo returns to normal scale (1.0) while sliding left (handled by auto Flex centering)
+            tl.to('.logo-box', {
+                scale: 1.0,
+                duration: 1.5,
+                ease: 'power3.inOut'
+            }, 2.5);
+
+            // Expanding the text-box width creates the rightward "emergence" wipe
+            tl.fromTo('.text-box',
+                { width: 0, marginLeft: 0 },
+                { 
+                    width: targetWidth, 
+                    marginLeft: 40, // Premium visual gap
+                    duration: 1.5, 
+                    ease: 'power3.inOut' 
+                }, 
+                2.5
+            );
+        });
+    </script>
+</body>
+</html>
