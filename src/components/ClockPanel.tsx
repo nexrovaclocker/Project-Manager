@@ -77,7 +77,7 @@ export function ClockPanel() {
 
     return (
         <div className="flex flex-col h-full w-full p-6 text-[var(--color-text-primary)] overflow-y-auto scrollbar-custom bg-transparent relative z-10">
-            <h2 className="text-sm font-bold tracking-widest uppercase mb-8 flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+            <h2 className="text-sm font-bold tracking-widest uppercase mb-8 flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)] inline-block"></span>
                 Time_Tracking
             </h2>
@@ -97,7 +97,7 @@ export function ClockPanel() {
                             </div>
                         </div>
 
-                        {error && <div className="text-red-400 text-xs tracking-widest font-medium bg-red-500/10 border border-red-500/20 rounded-xl p-3 w-full text-center shadow-lg backdrop-blur-md">{error}</div>}
+                        {error && <div className="text-red-600 text-xs tracking-widest font-medium bg-red-50 border border-red-300 rounded-xl p-3 w-full text-center shadow-sm">{error}</div>}
 
                         {status === 'clocked_out' && (
                             <div className="w-full max-w-xs flex flex-col gap-5">
@@ -114,7 +114,7 @@ export function ClockPanel() {
                                 </div>
                                 <button
                                     onClick={handleClockIn}
-                                    className="w-full py-4 rounded-xl border border-[var(--color-brand-accent)]/50 bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] font-bold tracking-widest uppercase transition-all duration-300 hover:bg-[var(--color-brand-accent)]/20 hover:border-[var(--color-brand-accent)] hover:-translate-y-1 shadow-[0_0_15px_rgba(45,212,191,0.1)] hover:shadow-[0_0_25px_rgba(45,212,191,0.3)] active:scale-95"
+                                    className="w-full py-4 rounded-xl border border-[var(--color-brand-accent)]/50 bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] font-bold tracking-widest uppercase transition-all duration-300 hover:bg-[var(--color-brand-accent)]/20 hover:border-[var(--color-brand-accent)] hover:-translate-y-1 shadow-sm hover:shadow-md active:scale-95"
                                 >
                                     CLOCK_IN
                                 </button>
@@ -124,7 +124,7 @@ export function ClockPanel() {
                         {status === 'clocked_in' && !isClockingOut && (
                             <button
                                 onClick={() => setIsClockingOut(true)}
-                                className="w-full max-w-xs py-4 rounded-xl border border-[var(--color-orange-accent)]/50 bg-[var(--color-orange-accent)]/10 text-[var(--color-orange-accent)] font-bold tracking-widest uppercase transition-all duration-300 hover:bg-[var(--color-orange-accent)]/20 hover:border-[var(--color-orange-accent)] hover:-translate-y-1 shadow-[0_0_15px_rgba(251,146,60,0.1)] hover:shadow-[0_0_25px_rgba(251,146,60,0.3)] active:scale-95"
+                                className="w-full max-w-xs py-4 rounded-xl border border-[var(--color-brand-accent)]/50 bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] font-bold tracking-widest uppercase transition-all duration-300 hover:bg-[var(--color-brand-accent)]/20 hover:border-[var(--color-brand-accent)] hover:-translate-y-1 shadow-sm hover:shadow-md active:scale-95"
                             >
                                 INITIATE_CLOCK_OUT
                             </button>
@@ -164,7 +164,7 @@ export function ClockPanel() {
                                     </button>
                                     <button
                                         onClick={handleClockOut}
-                                        className="flex-1 py-2 rounded-xl bg-[var(--color-orange-accent)] text-[#09090b] text-xs font-bold tracking-widest hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(251,146,60,0.4)] hover:shadow-[0_0_20px_rgba(251,146,60,0.6)] active:scale-95"
+                                        className="glass-button flex-1"
                                     >
                                         CONFIRM
                                     </button>

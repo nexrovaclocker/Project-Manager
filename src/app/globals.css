@@ -4,26 +4,26 @@
   --font-sans: var(--font-outfit);
   --font-mono: var(--font-geist-mono);
   
-  /* Premium Deep Dark Theme */
-  --color-bg-dark: #09090b; /* Zinc 950 */
-  --color-panel: rgba(255, 255, 255, 0.03);
-  --color-panel-hover: rgba(255, 255, 255, 0.05);
-  --color-panel-border: rgba(255, 255, 255, 0.08);
+  /* Nexrova Gold & Off-White Theme */
+  --color-bg-dark: #F8F9F1;        /* Primary Off-White (page background) */
+  --color-panel: #F7F7EF;           /* Secondary Off-White (cards/containers) */
+  --color-panel-hover: #EFEFE7;     /* Slightly darker hover state */
+  --color-panel-border: #E0B045;    /* Gold borders */
   
-  /* Vibrant Accents */
-  --color-brand-accent: #2DD4BF; /* Teal */
-  --color-brand-accent-glow: rgba(45, 212, 191, 0.2);
-  --color-orange-accent: #FB923C; /* Orange */
-  --color-orange-accent-glow: rgba(251, 146, 60, 0.2);
-  --color-blue-accent: #3b82f6; /* Blue */
+  /* Accents */
+  --color-brand-accent: #E0B045;    /* Gold */
+  --color-brand-accent-glow: rgba(224, 176, 69, 0.25);
+  --color-orange-accent: #E0B045;   /* Unified Gold */
+  --color-orange-accent-glow: rgba(224, 176, 69, 0.2);
+  --color-blue-accent: #C9A035;     /* Warm gold variant */
   
   /* Text */
-  --color-text-primary: #FAFAFA;
-  --color-text-secondary: #A1A1AA;
+  --color-text-primary: #000000;    /* Black */
+  --color-text-secondary: #555555;  /* Medium gray */
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -31,7 +31,6 @@ body {
   color: var(--color-text-primary);
   margin: 0;
   padding: 0;
-  /* Prevent overscroll bounce weirdness on sleek UIs */
   overscroll-behavior: none; 
 }
 
@@ -41,23 +40,23 @@ body {
   box-sizing: border-box;
 }
 
-/* --- Glassmorphism Utilities --- */
+/* --- Elegant Utility Classes --- */
 @layer utilities {
   .glass-panel {
-    @apply bg-[var(--color-panel)] border border-[var(--color-panel-border)] backdrop-blur-xl rounded-2xl shadow-lg;
+    @apply bg-[var(--color-panel)] border border-[var(--color-panel-border)] rounded-2xl shadow-sm;
   }
   .glass-panel-hover {
-    @apply transition-all duration-300 hover:bg-[var(--color-panel-hover)] hover:border-white/10 hover:shadow-xl hover:-translate-y-0.5;
+    @apply transition-all duration-300 hover:bg-[var(--color-panel-hover)] hover:shadow-md hover:-translate-y-0.5;
   }
   .glass-input {
-    @apply bg-black/20 border border-[var(--color-panel-border)] rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)] transition-all;
+    @apply bg-white border border-[var(--color-panel-border)]/40 rounded-xl px-4 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)] transition-all;
   }
   .glass-button {
-    @apply font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl border border-[var(--color-panel-border)] hover:bg-white/5 active:scale-95 transition-all;
+    @apply font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl bg-[var(--color-brand-accent)] text-black border border-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)]/85 active:scale-95 transition-all cursor-pointer;
   }
 }
 
-/* --- Sleek Scrollbar --- */
+/* --- Sleek Scrollbar (Gold-toned) --- */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -68,21 +67,21 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(224, 176, 69, 0.25);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(224, 176, 69, 0.5);
 }
 
-/* Custom Scrollbar class for internal panels if needed */
+/* Custom Scrollbar class for internal panels */
 .scrollbar-custom::-webkit-scrollbar {
   width: 4px;
 }
 .scrollbar-custom::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(224, 176, 69, 0.15);
 }
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(224, 176, 69, 0.35);
 }

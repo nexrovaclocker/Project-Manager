@@ -8,16 +8,10 @@ import { DailyStatsPanel } from '@/components/DailyStatsPanel'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 
-const TAB_COLORS: Record<string, string> = {
-    OVERVIEW: 'var(--color-brand-accent)',
-    PROJECTS: 'var(--color-orange-accent)',
-    DAILY_STATS: '#3b82f6',
-}
-
 function DashboardContent() {
     const searchParams = useSearchParams()
     const tab = searchParams.get('tab') || 'OVERVIEW'
-    const stripe = TAB_COLORS[tab] ?? TAB_COLORS.OVERVIEW
+    const stripe = 'var(--color-brand-accent)'
 
     return (
         <div className="h-full flex flex-col p-6 gap-6 overflow-hidden relative z-10">
@@ -26,13 +20,13 @@ function DashboardContent() {
                     <>
                         {/* Left Panel: Clock */}
                         <div className="w-full lg:w-1/3 flex flex-col glass-panel relative h-full overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: stripe, boxShadow: `0 0 10px ${stripe}` }}></div>
+                            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)]"></div>
                             <ClockPanel />
                         </div>
 
                         {/* Right Panel: Shared Notes */}
                         <div className="w-full lg:w-2/3 flex flex-col glass-panel relative h-full overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: stripe, boxShadow: `0 0 10px ${stripe}` }}></div>
+                            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)]"></div>
                             <NotesPanel />
                         </div>
                     </>

@@ -164,25 +164,25 @@ export function ProjectsPanel() {
         <div className="flex flex-col h-full w-full bg-transparent text-[var(--color-text-primary)] relative rounded-2xl overflow-hidden glass-panel z-10 transition-all duration-300">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-brand-accent)] via-[var(--color-orange-accent)] to-[var(--color-brand-accent)] bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]"></div>
 
-            <div className="flex items-center justify-between p-4 border-b border-[var(--color-panel-border)] bg-black/10 backdrop-blur-md relative">
+            <div className="flex items-center justify-between p-4 border-b border-[var(--color-panel-border)]/30 bg-[var(--color-panel)] relative">
                 {/* Subtle header glow */}
                 <div className="absolute -left-10 top-0 w-32 h-10 bg-[var(--color-brand-accent)]/10 blur-2xl rounded-full pointer-events-none"></div>
 
                 <div className="flex items-center gap-4 relative z-10">
-                    <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+                    <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3">
                         <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)]"></span>
                         PROJECTS
                     </h2>
-                    <div className="hidden md:flex ml-8 bg-black/20 rounded-lg p-1 border border-white/5 shadow-inner">
+                    <div className="hidden md:flex ml-8 bg-[var(--color-panel)] rounded-lg p-1 border border-[var(--color-panel-border)]/30">
                         <button
                             onClick={() => setView('MY_PROJECTS')}
-                            className={`px-4 py-1.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-md ${view === 'MY_PROJECTS' ? 'bg-[var(--color-brand-accent)] text-black shadow-[0_0_15px_rgba(45,212,191,0.4)] scale-105' : 'text-[var(--color-text-secondary)] hover:text-white hover:bg-white/5'}`}
+                            className={`px-4 py-1.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-md ${view === 'MY_PROJECTS' ? 'bg-[var(--color-brand-accent)] text-black shadow-sm scale-105' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-black/5'}`}
                         >
                             MY_PROJECTS
                         </button>
                         <button
                             onClick={() => setView('PROJECT_TRACKER')}
-                            className={`px-4 py-1.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-md ml-1 ${view === 'PROJECT_TRACKER' ? 'bg-[var(--color-brand-accent)] text-black shadow-[0_0_15px_rgba(45,212,191,0.4)] scale-105' : 'text-[var(--color-text-secondary)] hover:text-white hover:bg-white/5'}`}
+                            className={`px-4 py-1.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-md ml-1 ${view === 'PROJECT_TRACKER' ? 'bg-[var(--color-brand-accent)] text-black shadow-sm scale-105' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-black/5'}`}
                         >
                             PROJECT_TRACKER
                         </button>
@@ -194,7 +194,7 @@ export function ProjectsPanel() {
                 {view === 'MY_PROJECTS' ? (
                     <>
                         {/* Project List Sidebar */}
-                        <div className="w-full lg:w-1/3 border-r border-[var(--color-panel-border)] flex flex-col overflow-y-auto scrollbar-custom bg-black/5 backdrop-blur-sm">
+                        <div className="w-full lg:w-1/3 border-r border-[var(--color-panel-border)]/30 flex flex-col overflow-y-auto scrollbar-custom bg-[var(--color-panel)]">
                             {isAdmin && (
                                 <div className="p-5 border-b border-[var(--color-panel-border)] bg-[var(--color-orange-accent)]/5 relative overflow-hidden group">
                                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[var(--color-orange-accent)] to-transparent group-hover:via-[var(--color-orange-accent)] transition-all duration-500"></div>
@@ -218,7 +218,7 @@ export function ProjectsPanel() {
                                             value={newProjectDesc}
                                             onChange={(e) => setNewProjectDesc(e.target.value)}
                                         />
-                                        <button type="submit" className="glass-button text-[var(--color-orange-accent)] border-[var(--color-orange-accent)]/30 hover:bg-[var(--color-orange-accent)]/20 shadow-[0_0_10px_rgba(251,146,60,0.1)] hover:shadow-[0_0_15px_rgba(251,146,60,0.3)]">
+                                        <button type="submit" className="glass-button">
                                             CREATE_PROJECT
                                         </button>
                                         {pmMsg && <div className="text-[10px] text-[var(--color-orange-accent)] text-center uppercase tracking-widest font-bold drop-shadow-md">{pmMsg}</div>}
@@ -230,7 +230,7 @@ export function ProjectsPanel() {
 
                             <div className="flex-1 flex flex-col p-2 gap-2">
                                 {projects.length === 0 ? (
-                                    <div className="p-4 text-xs text-[var(--color-text-secondary)] tracking-widest text-center mt-4 border border-dashed border-[var(--color-panel-border)] rounded-xl bg-black/20">
+                                    <div className="p-4 text-xs text-[var(--color-text-secondary)] tracking-widest text-center mt-4 border border-dashed border-[var(--color-panel-border)]/30 rounded-xl bg-white">
                                         NO_PROJECTS_ASSIGNED
                                     </div>
                                 ) : (
@@ -238,18 +238,18 @@ export function ProjectsPanel() {
                                         <button
                                             key={project.id}
                                             onClick={() => setActiveProjectId(project.id)}
-                                            className={`text-left p-4 rounded-xl border border-[var(--color-panel-border)] transition-all duration-300 relative overflow-hidden group/item ${activeProjectId === project.id ? 'bg-[var(--color-brand-accent)]/10 border-[var(--color-brand-accent)]/50 shadow-[0_4px_20px_-10px_rgba(45,212,191,0.3)] scale-[1.02]' : 'bg-black/20 hover:bg-white/5 hover:border-white/10 hover:scale-[1.01]'
+                                            className={`text-left p-4 rounded-xl border border-[var(--color-panel-border)]/30 transition-all duration-300 relative overflow-hidden group/item ${activeProjectId === project.id ? 'bg-[var(--color-brand-accent)]/10 border-[var(--color-brand-accent)]/50 shadow-sm scale-[1.02]' : 'bg-white hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/60 hover:scale-[1.01]'
                                                 }`}
                                         >
                                             {/* Hover highlight bar */}
-                                            <div className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${activeProjectId === project.id ? 'bg-[var(--color-brand-accent)] h-full' : 'bg-white/20 h-0 group-hover/item:h-full group-hover/item:bg-white/40'}`}></div>
+                                            <div className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${activeProjectId === project.id ? 'bg-[var(--color-brand-accent)] h-full' : 'bg-black/10 h-0 group-hover/item:h-full group-hover/item:bg-black/20'}`}></div>
                                             
-                                            <div className={`font-bold tracking-widest text-sm uppercase flex items-center justify-between ${activeProjectId === project.id ? 'text-[var(--color-brand-accent)]' : 'text-white'
+                                            <div className={`font-bold tracking-widest text-sm uppercase flex items-center justify-between ${activeProjectId === project.id ? 'text-[var(--color-brand-accent)]' : 'text-[var(--color-text-primary)]'
                                                 }`}>
                                                 <span className="truncate pr-4">{project.name}</span>
                                                 {activeProjectId === project.id && <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)] animate-pulse shadow-[0_0_5px_var(--color-brand-accent)] shrink-0"></span>}
                                             </div>
-                                            <div className={`text-xs mt-1.5 tracking-widest truncate uppercase transition-colors ${activeProjectId === project.id ? 'text-[var(--color-brand-accent)]/70' : 'text-[var(--color-text-secondary)] group-hover/item:text-white/60'}`}>
+                                            <div className={`text-xs mt-1.5 tracking-widest truncate uppercase transition-colors ${activeProjectId === project.id ? 'text-[var(--color-brand-accent)]/70' : 'text-[var(--color-text-secondary)] group-hover/item:text-[var(--color-text-primary)]'}`}>
                                                 {project.description || 'NO_DESCRIPTION'}
                                             </div>
                                             
@@ -273,19 +273,19 @@ export function ProjectsPanel() {
                                     <div className="mb-8 pb-6 border-b border-[var(--color-panel-border)] border-dashed">
                                         <div className="flex items-start justify-between">
                                             <div>
-                                                <h3 className="text-3xl font-bold tracking-widest text-white drop-shadow-md">
+                                                <h3 className="text-3xl font-bold tracking-widest text-[var(--color-text-primary)]">
                                                     {activeProject.name}
                                                 </h3>
                                                 {activeProject.description && (
                                                     <p className="text-[10px] text-[var(--color-brand-accent)] mt-3 font-bold tracking-widest uppercase bg-[var(--color-brand-accent)]/10 inline-block px-3 py-1 rounded-full border border-[var(--color-brand-accent)]/20 shadow-sm">
-                                                        DESC: <span className="text-white/80 font-normal">{activeProject.description}</span>
+                                                        DESC: <span className="text-[var(--color-text-primary)] font-normal">{activeProject.description}</span>
                                                     </p>
                                                 )}
                                             </div>
                                             {isAdmin && (
                                                 <button
                                                     onClick={() => handleDeleteProject(activeProject.id, activeProject.name)}
-                                                    className="glass-button text-red-400 border-red-500/30 hover:bg-red-500/20 hover:border-red-500/50 shadow-[0_0_10px_rgba(239,68,68,0.1)] shrink-0 ml-4"
+                                                    className="font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl border border-red-300 text-red-500 hover:bg-red-50 hover:border-red-500 active:scale-95 transition-all cursor-pointer shrink-0 ml-4"
                                                 >
                                                     DELETE_PROJECT
                                                 </button>
@@ -303,9 +303,9 @@ export function ProjectsPanel() {
                                                         <span className="text-xs text-[var(--color-text-secondary)] italic border border-dashed border-[var(--color-panel-border)] px-3 py-1 rounded-md">NONE_ASSIGNED</span>
                                                     ) : (
                                                         activeProject.members.map(m => (
-                                                            <span key={m.id} className="group text-[10px] bg-white/5 border border-white/10 hover:border-white/20 transition-colors px-3 py-1.5 rounded-full tracking-widest uppercase flex items-center gap-2 shadow-sm font-medium">
-                                                                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-[7px] border border-white/20">{m.user.username.charAt(0).toUpperCase()}</div>
-                                                                <span className="text-white/90">{m.user.username} <span className="opacity-50">({m.user.role})</span></span>
+                                                            <span key={m.id} className="group text-[10px] bg-white border border-[var(--color-panel-border)]/30 hover:border-[var(--color-panel-border)]/60 transition-colors px-3 py-1.5 rounded-full tracking-widest uppercase flex items-center gap-2 shadow-sm font-medium">
+                                                                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-[var(--color-brand-accent)]/60 to-[var(--color-brand-accent)] flex items-center justify-center text-[7px] border border-[var(--color-brand-accent)]/20 text-black">{m.user.username.charAt(0).toUpperCase()}</div>
+                                                                <span className="text-[var(--color-text-primary)]">{m.user.username} <span className="opacity-50">({m.user.role})</span></span>
                                                                 {isAdmin && (
                                                                     <button
                                                                         onClick={() => handleRemoveMember(activeProject.id, m.userId)}
@@ -332,9 +332,9 @@ export function ProjectsPanel() {
                                                         }}
                                                         defaultValue=""
                                                     >
-                                                        <option value="" disabled className="bg-zinc-900 text-gray-400">+ ADD_MEMBER_TO_PROJECT</option>
+                                                        <option value="" disabled className="bg-white text-gray-500">+ ADD_MEMBER_TO_PROJECT</option>
                                                         {users.filter(u => !activeProject.members.some(m => m.userId === u.id)).map(u => (
-                                                            <option key={u.id} value={u.id} className="bg-zinc-900 text-white">{u.username} ({u.role})</option>
+                                                            <option key={u.id} value={u.id} className="bg-white text-black">{u.username} ({u.role})</option>
                                                         ))}
                                                     </select>
                                                     {/* custom dropdown arrow to sit over the input */}
@@ -354,12 +354,12 @@ export function ProjectsPanel() {
 
                                         <div className="space-y-3 mb-6 flex-1 overflow-y-auto scrollbar-custom pr-2">
                                             {activeProject.todos.length === 0 ? (
-                                                <div className="text-xs text-[var(--color-text-secondary)] tracking-widest flex items-center justify-center p-8 border border-dashed border-white/10 rounded-xl bg-black/20">
+                                                <div className="text-xs text-[var(--color-text-secondary)] tracking-widest flex items-center justify-center p-8 border border-dashed border-[var(--color-panel-border)]/20 rounded-xl bg-white">
                                                     NO_TASKS_FOUND
                                                 </div>
                                             ) : (
                                                 activeProject.todos.map(todo => (
-                                                    <div key={todo.id} className="flex items-start justify-between group/todo p-3.5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300">
+                                                    <div key={todo.id} className="flex items-start justify-between group/todo p-3.5 rounded-xl border border-[var(--color-panel-border)]/20 bg-white hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/40 transition-all duration-300">
                                                         <label className="flex items-start gap-4 cursor-pointer flex-1">
                                                             <div className="relative flex items-center pt-0.5 shrink-0">
                                                                 <input
@@ -368,19 +368,19 @@ export function ProjectsPanel() {
                                                                     onChange={() => toggleTodo(activeProject.id, todo.id, todo.checked)}
                                                                     className="peer sr-only"
                                                                 />
-                                                                <div className="w-5 h-5 rounded border-2 border-[var(--color-panel-border)] flex items-center justify-center peer-checked:border-[var(--color-brand-accent)] peer-checked:bg-[var(--color-brand-accent)] transition-all duration-300 shadow-[inset_0_0_10px_rgba(0,0,0,0.5)] peer-checked:shadow-[0_0_10px_rgba(45,212,191,0.4)]">
+                                                                <div className="w-5 h-5 rounded border-2 border-[var(--color-panel-border)]/40 flex items-center justify-center peer-checked:border-[var(--color-brand-accent)] peer-checked:bg-[var(--color-brand-accent)] transition-all duration-300 shadow-sm">
                                                                     {todo.checked && (
-                                                                        <svg className="w-3.5 h-3.5 text-[#09090b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                                                        <svg className="w-3.5 h-3.5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                                         </svg>
                                                                     )}
                                                                 </div>
                                                             </div>
-                                                            <div className={`text-sm mt-0.5 tracking-wide transition-all duration-300 ${todo.checked ? 'text-[var(--color-text-secondary)] line-through opacity-60' : 'text-white/90'}`}>
+                                                            <div className={`text-sm mt-0.5 tracking-wide transition-all duration-300 ${todo.checked ? 'text-[var(--color-text-secondary)] line-through opacity-60' : 'text-[var(--color-text-primary)]'}`}>
                                                                 {todo.text}
                                                                 {todo.checked && todo.checker && (
                                                                     <span className="ml-3 inline-block px-2 py-0.5 rounded-full bg-[var(--color-brand-accent)]/10 border border-[var(--color-brand-accent)]/20 text-[9px] tracking-widest text-[var(--color-brand-accent)] no-underline font-bold uppercase">
-                                                                        VERIFIED_BY: <span className="text-white ml-1">{todo.checker.username}</span>
+                                                                        VERIFIED_BY: <span className="text-[var(--color-text-primary)] ml-1">{todo.checker.username}</span>
                                                                     </span>
                                                                 )}
                                                                 <div className="mt-2 text-[9px] text-[var(--color-text-secondary)] uppercase tracking-widest font-mono">
@@ -400,7 +400,7 @@ export function ProjectsPanel() {
                                             )}
                                         </div>
 
-                                        <form onSubmit={addTodo} className="mt-auto border-t border-[var(--color-panel-border)] border-dashed pt-4 flex gap-3 shrink-0 relative bg-black/20 p-3 rounded-xl border-x border-b">
+                                        <form onSubmit={addTodo} className="mt-auto border-t border-[var(--color-panel-border)]/20 border-dashed pt-4 flex gap-3 shrink-0 relative bg-white p-3 rounded-xl border-x border-b">
                                             {/* Decorative glow line top */}
                                             <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[var(--color-brand-accent)]/50 to-transparent"></div>
                                             <input
@@ -413,7 +413,7 @@ export function ProjectsPanel() {
                                             <button
                                                 type="submit"
                                                 disabled={!newTodoText.trim()}
-                                                className="glass-button text-[var(--color-brand-accent)] border-[var(--color-brand-accent)]/30 hover:border-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)]/10 disabled:opacity-40 disabled:hover:border-transparent min-w-[120px]"
+                                                className="glass-button disabled:opacity-40 disabled:hover:border-transparent min-w-[120px]"
                                             >
                                                 ADD_TASK
                                             </button>
@@ -469,7 +469,7 @@ export function ProjectsPanel() {
                                                                 <div className={`w-3 h-3 flex-shrink-0 flex items-center justify-center border ${todo.checked ? 'border-[var(--color-brand-accent)] bg-[var(--color-brand-accent)]' : 'border-[var(--color-text-secondary)]'}`}>
                                                                     {todo.checked && <svg className="w-2.5 h-2.5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}><path strokeLinecap="square" strokeLinejoin="miter" d="M5 13l4 4L19 7" /></svg>}
                                                                 </div>
-                                                                <span className={`text-xs ${todo.checked ? 'text-[var(--color-text-secondary)] line-through' : 'text-white'}`}>
+                                                                <span className={`text-xs ${todo.checked ? 'text-[var(--color-text-secondary)] line-through' : 'text-[var(--color-text-primary)]'}`}>
                                                                     {todo.text}
                                                                 </span>
                                                             </div>

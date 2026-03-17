@@ -181,20 +181,20 @@ export function AdminPanel() {
 
     return (
         <div className="flex flex-col lg:flex-row h-full bg-transparent text-[var(--color-text-primary)] relative rounded-2xl overflow-hidden glass-panel z-10 transition-all duration-300">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-brand-accent)] via-[var(--color-orange-accent)] to-blue-500 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] z-20"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)] z-20"></div>
 
             {/* ── Left panel: ACCESS_MANAGEMENT ── */}
-            <div className="w-full lg:w-1/2 p-6 lg:p-8 border-r border-white/5 space-y-8 overflow-y-auto scrollbar-custom bg-black/10 backdrop-blur-sm relative">
+            <div className="w-full lg:w-1/2 p-6 lg:p-8 border-r border-[var(--color-panel-border)]/20 space-y-8 overflow-y-auto scrollbar-custom bg-[var(--color-panel)] relative">
                 {/* Decorative ambient background */}
-                <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--color-orange-accent)]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+                <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--color-brand-accent)]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
-                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
-                    <span className="w-2 h-2 rounded-full bg-[var(--color-orange-accent)] shadow-[0_0_10px_var(--color-orange-accent)]" />
+                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)]" />
                     ACCESS_MANAGEMENT
                 </h2>
 
                 {/* ── CREATE_USER ── */}
-                <form onSubmit={handleCreateUser} className="space-y-5 p-5 border border-white/5 rounded-xl bg-white/[0.02] shadow-inner relative overflow-hidden group">
+                <form onSubmit={handleCreateUser} className="space-y-5 p-5 border border-[var(--color-panel-border)]/20 rounded-xl bg-white shadow-sm relative overflow-hidden group">
                     <div className="absolute right-0 bottom-0 w-32 h-32 bg-[var(--color-orange-accent)]/5 rounded-full blur-2xl -z-10 pointer-events-none group-hover:bg-[var(--color-orange-accent)]/10 transition-colors duration-500"></div>
                     <div>
                         <label className={labelClass}>NAME</label>
@@ -215,9 +215,9 @@ export function AdminPanel() {
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                         >
-                            <option value="member" className="bg-zinc-900 text-white">MEMBER (STD_ACCESS)</option>
-                            <option value="intern" className="bg-zinc-900 text-white">INTERN (RESTRICTED)</option>
-                            <option value="admin" className="bg-zinc-900 text-white">ADMIN (ROOT_PRIVILEGES)</option>
+                            <option value="member" className="bg-white text-black">MEMBER (STD_ACCESS)</option>
+                            <option value="intern" className="bg-white text-black">INTERN (RESTRICTED)</option>
+                            <option value="admin" className="bg-white text-black">ADMIN (ROOT_PRIVILEGES)</option>
                         </select>
                         <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none">
                             <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
@@ -225,7 +225,7 @@ export function AdminPanel() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full glass-button text-[var(--color-orange-accent)] border-[var(--color-orange-accent)]/30 hover:bg-[var(--color-orange-accent)]/10 mt-2"
+                        className="w-full glass-button mt-2"
                     >
                         PROVISION_ACCOUNT
                     </button>
@@ -247,9 +247,9 @@ export function AdminPanel() {
                             value={cpUserId}
                             onChange={(e) => setCpUserId(e.target.value)}
                         >
-                            <option value="" className="bg-zinc-900 text-gray-500">-- SELECT_USER --</option>
+                            <option value="" className="bg-white text-gray-500">-- SELECT_USER --</option>
                             {users.map((u) => (
-                                <option key={u.id} value={u.id} className="bg-zinc-900 text-white">
+                                <option key={u.id} value={u.id} className="bg-white text-black">
                                     {u.username} [{u.role.toUpperCase()}]
                                 </option>
                             ))}
@@ -299,17 +299,17 @@ export function AdminPanel() {
 
                 <div className="space-y-3">
                     {users.length === 0 ? (
-                        <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase text-center py-6 border border-dashed border-white/10 rounded-xl bg-black/20">
+                        <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase text-center py-6 border border-dashed border-[var(--color-panel-border)]/20 rounded-xl bg-white">
                             NO_USERS_FOUND
                         </div>
                     ) : (
-                        <div className="border border-white/10 rounded-xl overflow-hidden bg-black/20 backdrop-blur-md shadow-inner">
+                        <div className="border border-[var(--color-panel-border)]/20 rounded-xl overflow-hidden bg-white shadow-sm">
                             <table className="w-full text-left border-collapse">
-                                <thead className="bg-[var(--color-orange-accent)]/10 border-b border-white/10">
+                                <thead className="bg-[var(--color-brand-accent)]/10 border-b border-[var(--color-panel-border)]/20">
                                     <tr>
-                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-orange-accent)] uppercase">USER</th>
-                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-orange-accent)] uppercase">ROLE</th>
-                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-orange-accent)] uppercase text-right">ACTION</th>
+                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">USER</th>
+                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">ROLE</th>
+                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase text-right">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -318,14 +318,14 @@ export function AdminPanel() {
                                         return (
                                             <tr
                                                 key={u.id}
-                                                className="border-b border-white/5 last:border-none hover:bg-white/[0.03] transition-colors group/row"
+                                                className="border-b border-[var(--color-panel-border)]/10 last:border-none hover:bg-black/5 transition-colors group/row"
                                             >
                                                 <td className="p-3">
                                                     <div className="flex items-center gap-3">
-                                                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 border border-white/10 flex items-center justify-center text-[10px] font-bold text-white shadow-inner">
+                                                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[var(--color-brand-accent)]/60 to-[var(--color-brand-accent)] border border-[var(--color-brand-accent)]/20 flex items-center justify-center text-[10px] font-bold text-black shadow-sm">
                                                             {u.username.charAt(0).toUpperCase()}
                                                         </div>
-                                                        <span className="font-mono text-xs text-white/90 group-hover/row:text-[var(--color-orange-accent)] transition-colors">
+                                                        <span className="font-mono text-xs text-[var(--color-text-primary)] group-hover/row:text-[var(--color-brand-accent)] transition-colors">
                                                             {u.username}
                                                         </span>
                                                     </div>
@@ -345,7 +345,7 @@ export function AdminPanel() {
                                                     ) : (
                                                         <button
                                                             onClick={() => handleDeleteUser(u.id, u.username)}
-                                                            className="glass-button text-[10px] text-red-500 border-red-500/30 hover:bg-red-500/20 hover:border-red-500/60 px-3 py-1.5 opacity-0 group-hover/row:opacity-100 transition-all ml-auto"
+                                                            className="font-bold tracking-widest text-[10px] uppercase text-red-500 border border-red-300 hover:bg-red-50 hover:border-red-500 px-3 py-1.5 rounded-xl opacity-0 group-hover/row:opacity-100 transition-all ml-auto cursor-pointer"
                                                         >
                                                             TERMINATE
                                                         </button>
@@ -372,25 +372,25 @@ export function AdminPanel() {
                 <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
-                    <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
-                        <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]" />
+                    <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)]" />
                         SYS_ANALYTICS
                     </h2>
                     <div className="relative">
                         <select
-                            className="glass-input cursor-pointer appearance-none pr-8 text-[11px] font-bold tracking-widest uppercase text-blue-400 border-blue-500/30 focus:border-blue-500 bg-blue-500/5 min-w-[220px]"
+                            className="glass-input cursor-pointer appearance-none pr-8 text-[11px] font-bold tracking-widest uppercase text-[var(--color-brand-accent)] min-w-[220px]"
                             value={selectedUserId}
                             onChange={(e) => setSelectedUserId(e.target.value)}
                         >
-                            <option value="" className="bg-zinc-900 text-gray-500">-- SELECT_PERSONNEL --</option>
+                            <option value="" className="bg-white text-gray-500">-- SELECT_PERSONNEL --</option>
                             {users.map((u) => (
-                                <option key={u.id} value={u.id} className="bg-zinc-900 text-white">
+                                <option key={u.id} value={u.id} className="bg-white text-black">
                                     {u.username} ({u.role})
                                 </option>
                             ))}
                         </select>
                         <div className="absolute right-3 bottom-0 top-0 flex items-center pointer-events-none">
-                            <svg className="w-4 h-4 text-blue-500/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                            <svg className="w-4 h-4 text-[var(--color-brand-accent)]/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                         </div>
                     </div>
                 </div>
@@ -398,78 +398,78 @@ export function AdminPanel() {
                 {analytics ? (
                     <div className="space-y-8 pb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div className="p-5 rounded-xl border border-blue-500/20 bg-blue-500/5 shadow-[inset_0_2px_15px_rgba(59,130,246,0.05)] relative overflow-hidden group">
-                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-blue-500/10 rounded-full blur-xl group-hover:bg-blue-500/20 transition-colors"></div>
-                                <div className="text-[9px] text-blue-400 font-bold tracking-widest mb-2 uppercase">TOTAL_TIME_7D</div>
-                                <div className="text-2xl font-bold text-white drop-shadow-md flex items-baseline gap-1">
-                                    {analytics.totalHours}<span className="text-sm text-blue-400">H</span> {analytics.totalMinutes}<span className="text-sm text-blue-400">M</span>
+                            <div className="p-5 rounded-xl border border-[var(--color-panel-border)]/20 bg-[var(--color-brand-accent)]/5 relative overflow-hidden group">
+                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-[var(--color-brand-accent)]/10 rounded-full blur-xl group-hover:bg-[var(--color-brand-accent)]/20 transition-colors"></div>
+                                <div className="text-[9px] text-[var(--color-brand-accent)] font-bold tracking-widest mb-2 uppercase">TOTAL_TIME_7D</div>
+                                <div className="text-2xl font-bold text-[var(--color-text-primary)] flex items-baseline gap-1">
+                                    {analytics.totalHours}<span className="text-sm text-[var(--color-brand-accent)]">H</span> {analytics.totalMinutes}<span className="text-sm text-[var(--color-brand-accent)]">M</span>
                                 </div>
                             </div>
-                            <div className="p-5 rounded-xl border border-purple-500/20 bg-purple-500/5 shadow-[inset_0_2px_15px_rgba(168,85,247,0.05)] relative overflow-hidden group">
-                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-colors"></div>
-                                <div className="text-[9px] text-purple-400 font-bold tracking-widest mb-2 uppercase">SESSIONS_LOGGED</div>
-                                <div className="text-2xl font-bold text-white drop-shadow-md">
+                            <div className="p-5 rounded-xl border border-[var(--color-panel-border)]/20 bg-[var(--color-brand-accent)]/5 relative overflow-hidden group">
+                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-[var(--color-brand-accent)]/10 rounded-full blur-xl group-hover:bg-[var(--color-brand-accent)]/20 transition-colors"></div>
+                                <div className="text-[9px] text-[var(--color-brand-accent)] font-bold tracking-widest mb-2 uppercase">SESSIONS_LOGGED</div>
+                                <div className="text-2xl font-bold text-[var(--color-text-primary)]">
                                     {analytics.sessions.length}
                                 </div>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div className="h-64 rounded-xl border border-white/5 bg-black/20 p-5 shadow-inner backdrop-blur-sm group/chart">
-                                <div className="text-[10px] font-bold tracking-widest text-white/50 mb-6 uppercase flex items-center justify-between">
+                            <div className="h-64 rounded-xl border border-[var(--color-panel-border)]/20 bg-white p-5 shadow-sm group/chart">
+                                <div className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] mb-6 uppercase flex items-center justify-between">
                                     HOURS_PER_DAY
-                                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500/50 group-hover/chart:bg-blue-500 transition-colors shadow-[0_0_5px_rgba(59,130,246,0.5)]"></div>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)]/50 group-hover/chart:bg-[var(--color-brand-accent)] transition-colors"></div>
                                 </div>
                                 <ResponsiveContainer width="100%" height="80%">
                                     <BarChart data={analytics.dailyChartData}>
                                         <XAxis dataKey="date" stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
                                         <YAxis stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip cursor={{ fill: 'rgba(255,255,255,0.05)' }} contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', backdropFilter: 'blur(8px)' }} itemStyle={{ color: '#60a5fa' }} />
-                                        <Bar dataKey="hours" fill="#3b82f6" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
+                                        <Tooltip cursor={{ fill: 'rgba(224,176,69,0.08)' }} contentStyle={{ backgroundColor: '#fff', border: '1px solid #E0B045', borderRadius: '8px' }} itemStyle={{ color: '#E0B045' }} />
+                                        <Bar dataKey="hours" fill="#E0B045" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
 
-                            <div className="h-64 rounded-xl border border-white/5 bg-black/20 p-5 shadow-inner backdrop-blur-sm group/chart">
-                                <div className="text-[10px] font-bold tracking-widest text-white/50 mb-6 uppercase flex items-center justify-between">
+                            <div className="h-64 rounded-xl border border-[var(--color-panel-border)]/20 bg-white p-5 shadow-sm group/chart">
+                                <div className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] mb-6 uppercase flex items-center justify-between">
                                     SESSION_DURATION
-                                    <div className="w-1.5 h-1.5 rounded-full bg-purple-500/50 group-hover/chart:bg-purple-500 transition-colors shadow-[0_0_5px_rgba(168,85,247,0.5)]"></div>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)]/50 group-hover/chart:bg-[var(--color-brand-accent)] transition-colors"></div>
                                 </div>
                                 <ResponsiveContainer width="100%" height="80%">
                                     <BarChart data={analytics.sessionChartData}>
                                         <XAxis dataKey="name" stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
                                         <YAxis stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip cursor={{ fill: 'rgba(255,255,255,0.05)' }} contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', backdropFilter: 'blur(8px)' }} itemStyle={{ color: '#c084fc' }} />
-                                        <Bar dataKey="duration" fill="#a855f7" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
+                                        <Tooltip cursor={{ fill: 'rgba(224,176,69,0.08)' }} contentStyle={{ backgroundColor: '#fff', border: '1px solid #E0B045', borderRadius: '8px' }} itemStyle={{ color: '#C9A035' }} />
+                                        <Bar dataKey="duration" fill="#C9A035" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>
 
-                        <div className="rounded-xl border border-white/10 overflow-hidden bg-black/20 backdrop-blur-md shadow-inner">
+                        <div className="rounded-xl border border-[var(--color-panel-border)]/20 overflow-hidden bg-white shadow-sm">
                             <table className="w-full text-left text-sm text-[var(--color-text-primary)] border-collapse">
-                                <thead className="bg-blue-500/10 border-b border-white/10">
+                                <thead className="bg-[var(--color-brand-accent)]/10 border-b border-[var(--color-panel-border)]/20">
                                     <tr>
-                                        <th className="p-4 text-[10px] font-bold tracking-widest text-blue-400/80 uppercase">CLOCK_IN</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-widest text-blue-400/80 uppercase">CLOCK_OUT</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-widest text-blue-400/80 uppercase">DUR (MIN)</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-widest text-blue-400/80 uppercase w-1/3">SESSION_NOTE</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">CLOCK_IN</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">CLOCK_OUT</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">DUR (MIN)</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase w-1/3">SESSION_NOTE</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {analytics.sessions.map((s, idx) => (
-                                        <tr key={s.id} className="border-b border-white/5 last:border-none hover:bg-white/[0.03] transition-colors">
-                                            <td className="p-4 font-mono text-[11px] text-white/80">{new Date(s.clockIn).toLocaleString()}</td>
-                                            <td className="p-4 font-mono text-[11px] text-white/80">{new Date(s.clockOut).toLocaleString()}</td>
-                                            <td className="p-4 font-mono text-xs text-blue-400 font-bold">
-                                                <div className="bg-blue-500/10 inline-block px-2 py-1 rounded-md border border-blue-500/20">{s.durationMinutes}</div>
+                                        <tr key={s.id} className="border-b border-[var(--color-panel-border)]/10 last:border-none hover:bg-black/5 transition-colors">
+                                            <td className="p-4 font-mono text-[11px] text-[var(--color-text-primary)]">{new Date(s.clockIn).toLocaleString()}</td>
+                                            <td className="p-4 font-mono text-[11px] text-[var(--color-text-primary)]">{new Date(s.clockOut).toLocaleString()}</td>
+                                            <td className="p-4 font-mono text-xs text-[var(--color-brand-accent)] font-bold">
+                                                <div className="bg-[var(--color-brand-accent)]/10 inline-block px-2 py-1 rounded-md border border-[var(--color-brand-accent)]/20">{s.durationMinutes}</div>
                                             </td>
                                             <td className="p-4 text-[11px] text-[var(--color-text-secondary)] leading-relaxed">{s.sessionNote}</td>
                                         </tr>
                                     ))}
                                     {analytics.sessions.length === 0 && (
                                         <tr>
-                                            <td colSpan={4} className="p-8 text-center text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase bg-black/10">
+                                            <td colSpan={4} className="p-8 text-center text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase bg-[var(--color-panel)]">
                                                 NO_DATA_AVAILABLE
                                             </td>
                                         </tr>
@@ -481,7 +481,7 @@ export function AdminPanel() {
                 ) : (
                     <div className="flex-1 flex items-center justify-center text-[var(--color-text-secondary)] text-sm tracking-widest uppercase relative">
                         <div className="text-center">
-                            <svg className="w-12 h-12 mx-auto text-white/5 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-12 h-12 mx-auto text-[var(--color-brand-accent)]/20 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                             </svg>
                             SELECT_PERSONNEL_TO_VIEW_ANALYTICS

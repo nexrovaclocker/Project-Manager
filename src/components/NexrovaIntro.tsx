@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
@@ -9,14 +9,16 @@ gsap.registerPlugin(useGSAP)
 
 export default function NexrovaIntro({ onComplete }: { onComplete: () => void }) {
     const container = useRef<HTMLDivElement>(null)
+    const [isLoaded, setIsLoaded] = useState(false)
 
     useGSAP(() => {
+        if (!isLoaded) return
+
         const tl = gsap.timeline({
             onComplete: () => {
-                // Fade out the entire container smoothly after the animation finishes
                 gsap.to(container.current, {
                     opacity: 0,
-                    duration: 1.0,
+                    duration: 0.8,
                     ease: 'power2.inOut',
                     onComplete: () => {
                         onComplete()
@@ -25,31 +27,31 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
             }
         })
 
-        // Stage 1 (0s-2.5s): Fade in + Cinematic Zoom
-        tl.fromTo('.logo-box',
+        // Phase 1 (0s-2.5s): Fade in + Cinematic Zoom 0.8x → 1.2x
+        tl.fromTo('.nxi-logo-box',
             { opacity: 0, scale: 0.8 },
             {
                 opacity: 1,
-                scale: 1.1,
+                scale: 1.2,
                 duration: 2.5,
                 ease: 'power2.inOut'
             },
             0
         )
 
-        // Ignite the vibrant white->yellow->orange glow
-        tl.to('.glow-layer', {
-            opacity: 0.8,
-            duration: 1.0,
+        // Ignite: White → Gold bloom glow
+        tl.to('.nxi-glow-layer', {
+            opacity: 0.9,
+            duration: 1.2,
             ease: 'power1.inOut',
-        }, 1.5)
+        }, 1.3)
 
-        // Start infinite pulsing of the glow
+        // Infinite pulse on the glow
         tl.add(() => {
-            gsap.to('.glow-layer', {
+            gsap.to('.nxi-glow-layer', {
                 opacity: 1,
-                filter: 'blur(18px)',
-                scale: 1.02,
+                filter: 'blur(20px)',
+                scale: 1.04,
                 duration: 1.25,
                 yoyo: true,
                 repeat: -1,
@@ -57,22 +59,22 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
             })
         }, 2.5)
 
-        // Stage 2 (2.5s-4s): Smooth slide + Text Clip-Path Reveal
-        tl.to('.logo-box', {
+        // Phase 2 (2.5s-4s): Logo settles to 1.0x while sliding left
+        tl.to('.nxi-logo-box', {
             scale: 1.0,
             duration: 1.5,
             ease: 'power3.inOut'
         }, 2.5)
 
-        // Expanding the text-box width visually creates the rightward 'emergence' wipe
-        tl.fromTo('.text-box',
+        // Phase 3: Text wipe-reveal from behind logo's right edge
+        tl.fromTo('.nxi-text-box',
             {
                 marginLeft: 0,
                 clipPath: 'inset(0 100% 0 0)',
                 webkitClipPath: 'inset(0 100% 0 0)'
             },
             {
-                marginLeft: 40, // Premium visual gap
+                marginLeft: 40,
                 clipPath: 'inset(0 0% 0 0)',
                 webkitClipPath: 'inset(0 0% 0 0)',
                 duration: 1.5,
@@ -81,19 +83,19 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
             2.5
         )
 
-        // Hold the final centered state for a cinematic pause before fading out entirely
+        // Phase 4: Hold centered group for a cinematic beat
         tl.to({}, { duration: 1.8 })
 
-    }, { scope: container })
+    }, { scope: container, dependencies: [isLoaded] })
 
     return (
-        <div 
-            ref={container} 
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#080808]" 
-            style={{ background: 'radial-gradient(circle at center, #111111 0%, #050505 100%)' }}
+        <div
+            ref={container}
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            style={{ background: '#F8F9F1' }}
         >
             <style>{`
-                .logo-box {
+                .nxi-logo-box {
                     width: 130px;
                     height: 130px;
                     display: flex;
@@ -105,36 +107,35 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
                     transform: scale(0.8);
                     border-radius: 20px;
                 }
-                .glow-layer {
+                .nxi-glow-layer {
                     position: absolute;
-                    top: -6px; right: -6px; bottom: -6px; left: -6px;
-                    background: linear-gradient(45deg, #ffffff, #ffea00, #ff8c00);
+                    top: -8px; right: -8px; bottom: -8px; left: -8px;
+                    background: linear-gradient(135deg, #ffffff 0%, #E0B045 100%);
                     z-index: -1;
                     border-radius: inherit;
-                    filter: blur(14px);
+                    filter: blur(16px);
                     opacity: 0;
                 }
-                .logo-img {
+                .nxi-logo-img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
                     border-radius: inherit;
                     z-index: 2;
                     position: relative;
-                    background-color: #080808;
                 }
-                .text-box {
+                .nxi-text-box {
                     display: flex;
                     align-items: center;
                     margin-left: 0;
                     clip-path: inset(0 100% 0 0);
                     -webkit-clip-path: inset(0 100% 0 0);
                 }
-                .text-content {
+                .nxi-text-content {
                     font-size: 84px;
-                    font-weight: 200;
+                    font-weight: 300;
                     letter-spacing: 24px;
-                    color: #ffffff;
+                    color: #E0B045;
                     margin: 0;
                     margin-right: -24px;
                     white-space: nowrap;
@@ -142,22 +143,23 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
                     line-height: 1;
                 }
             `}</style>
-            
+
             <div className="flex items-center justify-center">
-                <div className="logo-box">
-                    <div className="glow-layer"></div>
-                    <Image 
-                        src="/logo.jpeg" 
-                        alt="NEXROVA Logo" 
-                        width={130} 
-                        height={130} 
-                        className="logo-img" 
-                        priority 
+                <div className="nxi-logo-box">
+                    <div className="nxi-glow-layer"></div>
+                    <Image
+                        src="/logo.jpeg"
+                        alt="NEXROVA Logo"
+                        width={130}
+                        height={130}
+                        className="nxi-logo-img"
+                        priority
+                        onLoad={() => setIsLoaded(true)}
                     />
                 </div>
-                
-                <div className="text-box">
-                    <h1 className="text-content">NEXROVA</h1>
+
+                <div className="nxi-text-box">
+                    <h1 className="nxi-text-content">NEXROVA</h1>
                 </div>
             </div>
         </div>

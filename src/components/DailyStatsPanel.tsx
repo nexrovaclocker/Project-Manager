@@ -79,20 +79,20 @@ export function DailyStatsPanel() {
 
     return (
         <div className="flex flex-col h-full w-full bg-transparent text-[var(--color-text-primary)] relative rounded-2xl overflow-hidden glass-panel z-10 transition-all duration-300">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--color-brand-accent)] via-[var(--color-orange-accent)] to-[var(--color-brand-accent)] bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] z-20"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)] z-20"></div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b border-[var(--color-panel-border)] gap-4 bg-black/10 backdrop-blur-md relative">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b border-[var(--color-panel-border)]/30 gap-4 bg-[var(--color-panel)] relative">
                 {/* Subtle header glow */}
                 <div className="absolute -left-10 top-0 w-32 h-10 bg-[var(--color-brand-accent)]/10 blur-2xl rounded-full pointer-events-none"></div>
 
-                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] relative z-10">
+                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3 relative z-10">
                     <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)]"></span>
                     DAILY_STATS {"//"} 48H_ROLLING_WINDOW
                 </h2>
 
                 {isAdmin && (
                     <div className="flex items-center gap-3 relative z-10">
-                        <span className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase bg-black/40 px-3 py-1.5 rounded-l-md border border-white/5 border-r-0 h-full flex items-center">TARGET_USER:</span>
+                        <span className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase bg-[var(--color-panel)] px-3 py-1.5 rounded-l-md border border-[var(--color-panel-border)]/20 border-r-0 h-full flex items-center">TARGET_USER:</span>
                         <div className="relative">
                             <select
                                 className="glass-input cursor-pointer appearance-none pr-8 !rounded-l-none text-[11px] font-bold tracking-widest uppercase min-w-[180px]"
@@ -100,7 +100,7 @@ export function DailyStatsPanel() {
                                 onChange={(e) => setSelectedUserId(e.target.value)}
                             >
                                 {users.map(u => (
-                                    <option key={u.id} value={u.id} className="bg-zinc-900 text-white">
+                                    <option key={u.id} value={u.id} className="bg-white text-black">
                                         {u.username} ({u.role})
                                     </option>
                                 ))}
@@ -126,15 +126,15 @@ export function DailyStatsPanel() {
                     </div>
                 ) : sessionsData.length === 0 ? (
                     <div className="h-full flex items-center justify-center text-xs tracking-widest text-[var(--color-text-secondary)] uppercase text-center flex-col gap-3">
-                        <svg className="w-8 h-8 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-8 h-8 text-[var(--color-brand-accent)]/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         NO_SESSIONS_RECORDED_IN_LAST_48_HOURS
                     </div>
                 ) : (
-                    <div className="border border-white/10 rounded-xl overflow-hidden bg-black/20 backdrop-blur-md shadow-inner">
+                    <div className="border border-[var(--color-panel-border)]/20 rounded-xl overflow-hidden bg-white shadow-sm">
                         <table className="w-full text-left text-sm whitespace-nowrap border-collapse relative z-10">
-                            <thead className="bg-[var(--color-brand-accent)]/10 border-b border-white/10">
+                            <thead className="bg-[var(--color-brand-accent)]/10 border-b border-[var(--color-panel-border)]/20">
                                 <tr>
                                     <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">STATUS</th>
                                     <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">CLOCK_IN</th>
@@ -150,7 +150,7 @@ export function DailyStatsPanel() {
                                     return (
                                         <tr
                                             key={session.id}
-                                            className={`border-b border-white/5 last:border-b-0 transition-colors hover:bg-white/[0.03] group/row ${isMidnightCross ? 'bg-red-900/10' : ''}`}
+                                            className={`border-b border-[var(--color-panel-border)]/10 last:border-b-0 transition-colors hover:bg-black/5 group/row ${isMidnightCross ? 'bg-red-50' : ''}`}
                                         >
                                             <td className="p-4">
                                                 {session.clockOut ? (
@@ -166,10 +166,10 @@ export function DailyStatsPanel() {
                                                     <div className="text-[8px] font-bold tracking-widest text-red-400 mt-2 uppercase bg-red-500/10 inline-block px-1.5 py-0.5 rounded border border-red-500/20">MIDNIGHT_CROSS</div>
                                                 )}
                                             </td>
-                                            <td className="p-4 text-xs font-mono text-white/80 group-hover/row:text-white transition-colors">
+                                            <td className="p-4 text-xs font-mono text-[var(--color-text-primary)] group-hover/row:text-[var(--color-brand-accent)] transition-colors">
                                                 {new Date(session.clockIn).toLocaleString()}
                                             </td>
-                                            <td className="p-4 text-xs font-mono text-white/80 group-hover/row:text-white transition-colors">
+                                            <td className="p-4 text-xs font-mono text-[var(--color-text-primary)] group-hover/row:text-[var(--color-brand-accent)] transition-colors">
                                                 {session.clockOut ? new Date(session.clockOut).toLocaleString() : <span className="text-[var(--color-text-secondary)]">--</span>}
                                             </td>
                                             <td className="p-4 text-xs font-mono text-right font-bold text-[var(--color-brand-accent)]">
@@ -179,7 +179,7 @@ export function DailyStatsPanel() {
                                                     </div>
                                                 ) : <span className="text-[var(--color-text-secondary)]">--</span>}
                                             </td>
-                                            <td className="p-4 text-xs text-[var(--color-text-secondary)] truncate max-w-xs group-hover/row:text-white/80 transition-colors">
+                                            <td className="p-4 text-xs text-[var(--color-text-secondary)] truncate max-w-xs group-hover/row:text-[var(--color-text-primary)] transition-colors">
                                                 {session.sessionNote || <span className="italic opacity-50">NO_NOTES_PROVIDED</span>}
                                             </td>
                                         </tr>
