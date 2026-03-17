@@ -39,18 +39,18 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
             }
         )
 
-        // Phase 2: Shift Left & Text Fade
+        // Phase 2: Shift (Logo Left, Text Right)
         tl.to('.nxi-logo-box', {
-            x: -200,
+            x: -180,
             duration: 1.2,
             ease: 'power3.inOut'
         }, "+=0.2")
 
         tl.fromTo('.nxi-text-box',
-            { opacity: 0, x: 50 },
+            { opacity: 0, x: -50 },
             { 
                 opacity: 1, 
-                x: -160, // Align next to the shifted logo
+                x: 120, // Sit to the right of the shifted logo
                 duration: 1.2, 
                 ease: 'power3.out' 
             },

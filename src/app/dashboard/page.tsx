@@ -14,8 +14,8 @@ function DashboardContent() {
     const stripe = 'var(--color-brand-accent)'
 
     return (
-        <div className="h-full flex flex-col p-6 gap-6 overflow-hidden relative z-10">
-            <div className="flex-1 flex flex-col lg:flex-row gap-6 overflow-hidden">
+        <div className="min-h-full flex flex-col p-6 gap-6 relative z-10">
+            <div className="flex flex-col lg:flex-row gap-6">
                 {tab === 'OVERVIEW' ? (
                     <>
                         {/* Left Panel: Clock */}

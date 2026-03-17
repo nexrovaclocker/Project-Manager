@@ -28,7 +28,7 @@ export default function RootLayout({
           <div className="absolute top-[60%] -right-[10%] w-[40%] h-[60%] rounded-full bg-[#6366F1]/3 blur-[150px]"></div>
         </div>
         
-        <div className="relative z-0 h-screen w-full flex flex-col overflow-hidden">
+        <div className="relative z-0 min-h-screen w-full flex flex-col">
           <NextAuthProvider>
             <AnimatePresence mode="wait">
               {children}

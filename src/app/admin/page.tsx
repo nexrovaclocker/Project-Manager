@@ -14,7 +14,7 @@ function AdminContent() {
     const tab = searchParams.get('tab') || 'OVERVIEW'
 
     return (
-        <div className="p-6 h-full flex flex-col gap-6 overflow-y-auto scrollbar-custom relative z-10">
+        <div className="p-6 min-h-full flex flex-col gap-6 relative z-10">
             {tab === 'OVERVIEW' ? (
                 <>
                     <div className="flex flex-col lg:flex-row gap-6 lg:h-[500px] shrink-0">
