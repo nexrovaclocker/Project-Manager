@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +26,7 @@
             align-items: center;
             font-family: 'Outfit', sans-serif;
             overflow: hidden;
-            /* Optional: subtle radial gradient to focus center */
+            /* Subtle radial gradient to focus center */
             background: radial-gradient(circle at center, #111111 0%, #050505 100%);
         }
 
@@ -44,32 +45,52 @@
             align-items: center;
             position: relative;
             z-index: 10;
-            /* Initial states handled by GSAP, fallback for safety */
             opacity: 0;
             transform: scale(0.8);
+            border-radius: 20px; /* Slight rounding for a premium tech feel */
         }
 
-        .logo-svg {
+        /* Vibrant Glowing Gradient Transition (White -> Yellow -> Orange) */
+        .glow-layer {
+            position: absolute;
+            top: -6px; right: -6px; bottom: -6px; left: -6px;
+            background: linear-gradient(45deg, #ffffff, #ffea00, #ff8c00);
+            z-index: -1;
+            border-radius: inherit;
+            filter: blur(14px);
+            opacity: 0;
+            /* Will be triggered by GSAP upon completion of intro */
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; filter: blur(12px); transform: scale(0.98); }
+            100% { opacity: 1; filter: blur(18px); transform: scale(1.02); }
+        }
+
+        .logo-img {
             width: 100%;
             height: 100%;
-            /* Faint elegant glow */
-            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
+            object-fit: cover;
+            border-radius: inherit;
+            z-index: 2;
+            position: relative;
+            background-color: var(--bg-matte-black); /* fallback */
         }
 
-        /* Text Mask Wrapper */
+        /* Text Mask Wrapper using Clip-Path */
         .text-box {
-            width: 0;
-            overflow: hidden;
             display: flex;
             align-items: center;
-            margin-left: 0; 
-            /* To ensure wipe looks sharp */
-            border-left: 1px solid transparent; 
+            margin-left: 0;
+            /* Hide the text completely from the right via clip-path */
+            clip-path: inset(0 100% 0 0);
+            -webkit-clip-path: inset(0 100% 0 0);
         }
 
         .text-content {
             font-size: 84px;
-            font-weight: 200; /* Minimalist, high-end */
+            font-weight: 200;
+            /* Minimalist, high-end */
             letter-spacing: 24px;
             color: var(--stark-white);
             margin: 0;
@@ -77,85 +98,89 @@
             margin-right: -24px;
             white-space: nowrap;
             /* Slight bump so it doesn't immediately touch the left boundary perfectly */
-            padding-left: 5px; 
+            padding-left: 10px;
             line-height: 1;
         }
 
     </style>
 </head>
+
 <body>
 
     <div class="reveal-container">
-        <!-- The minimalist tech logo -->
+        <!-- The logo container with animated gradient glow -->
         <div class="logo-box">
-            <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="100%" stop-color="#cccccc"/>
-                    </linearGradient>
-                </defs>
-                <!-- A highly stylized N motif representing NEXROVA -->
-                <path d="M 28 80 L 28 20 L 72 80 L 72 20" stroke="url(#logoGrad)" stroke-width="5" stroke-linejoin="miter" stroke-linecap="butt" />
-                <!-- Advanced Tech accents -->
-                <circle cx="28" cy="80" r="3" fill="#ffffff" />
-                <circle cx="72" cy="20" r="3" fill="#ffffff" />
-                <path d="M 28 20 L 40 20" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-                <path d="M 72 80 L 60 80" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-            </svg>
+            <div class="glow-layer"></div>
+            <!-- Absolute path to the Next.js public directory image -->
+            <img src="/logo.jpeg" alt="NEXROVA Logo" class="logo-img" />
         </div>
-        
-        <!-- The wipe-in text reveal mask -->
+
+        <!-- The clip-path wipe-in text reveal -->
         <div class="text-box">
             <h1 class="text-content">NEXROVA</h1>
         </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const textBox = document.querySelector('.text-box');
-            const textContent = document.querySelector('.text-content');
-            
-            // Temporarily free the width constraint to accurately measure the text's natural rendered width
-            textBox.style.width = 'auto';
-            const targetWidth = textContent.getBoundingClientRect().width;
-            textBox.style.width = '0px';
-
+        // Main setup function ensures the animation only triggers when everything is ready
+        function initializeReveal() {
             const tl = gsap.timeline();
 
             // Stage 1 (0s-2.5s): Fade in + Cinematic Zoom
-            // Fade-in duration feels better slightly faster than the zoom, but zoom spans exact 2.5s
-            tl.fromTo('.logo-box', 
+            tl.fromTo('.logo-box',
                 { opacity: 0, scale: 0.8 },
-                { 
-                    opacity: 1, 
-                    scale: 1.1, 
-                    duration: 2.5, 
-                    ease: 'power2.inOut' 
-                }, 
+                {
+                    opacity: 1,
+                    scale: 1.1,
+                    duration: 2.5,
+                    ease: 'power2.inOut'
+                },
                 0
             );
 
-            // Stage 2 (2.5s-4s): Smooth slide + Text Wipe
-            // Logo returns to normal scale (1.0) while sliding left (handled by auto Flex centering)
+            // Ignite the vibrant white->yellow->orange glow
+            tl.to('.glow-layer', {
+                opacity: 0.8,
+                duration: 1.0,
+                ease: 'power1.inOut',
+                onComplete: () => {
+                    // Start pulsing infinitely after initial reveal
+                    document.querySelector('.glow-layer').style.animation = 'pulseGlow 2.5s infinite alternate ease-in-out';
+                }
+            }, 1.5);
+
+            // Stage 2 (2.5s-4s): Smooth slide + Text Clip-Path Reveal
             tl.to('.logo-box', {
                 scale: 1.0,
                 duration: 1.5,
                 ease: 'power3.inOut'
             }, 2.5);
 
-            // Expanding the text-box width creates the rightward "emergence" wipe
+            // Emerge the text directly from the right edge of the logo using clip-path 
+            // Also push the text-box out visually to create the 'emerging' tracking
             tl.fromTo('.text-box',
-                { width: 0, marginLeft: 0 },
-                { 
-                    width: targetWidth, 
+                { marginLeft: 0, clipPath: 'inset(0 100% 0 0)', webkitClipPath: 'inset(0 100% 0 0)' },
+                {
                     marginLeft: 40, // Premium visual gap
-                    duration: 1.5, 
-                    ease: 'power3.inOut' 
-                }, 
+                    clipPath: 'inset(0 0% 0 0)',
+                    webkitClipPath: 'inset(0 0% 0 0)',
+                    duration: 1.5,
+                    ease: 'power3.inOut'
+                },
                 2.5
             );
-        });
+        }
+
+        // DEPLOYMENT FIX:
+        // Use the window load event rather than DOMContentLoaded. 
+        // This ensures all assets (specifically /logo.jpeg) are fully downloaded out of the public folder
+        // so that the animation isn't skipped during the hydration phase in Vercel/Next.js production.
+        if (document.readyState === 'complete') {
+            initializeReveal();
+        } else {
+            window.addEventListener('load', initializeReveal);
+        }
     </script>
 </body>
+
 </html>
