@@ -42,24 +42,20 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
 
         // Phase 3: The Physical Emergence (2.5s - 4s)
         tl.to('.nxi-logo-box', {
-            x: -160, // Slide smoothly to the LEFT
+            x: -350, // Move far completely to the LEFT so it doesn't hide text
             duration: 1.5,
             ease: 'easeInOut' // Use exact easing requested
         }, 2.5) // Starts at 2.5s
 
-        // Text 'NEXROVA' stays relative to its center but 'unwipes' from left-to-right
-        // with a clip-path reveal. The text container starts closed: inset(0% 100% 0% 0%)
-        tl.to('.nxi-text-box', {
-            clipPath: 'inset(0% 0% 0% 0%)', // Pull out revealing text left-to-right
-            duration: 1.5, 
-            ease: 'easeInOut' 
-        }, 2.5)
-
-        // To keep the [Logo] and [NEXROVA] perfectly centered as a single unit on screen
-        // we shift the shared wrapper (.nxi-unit) to the right by half the difference
-        tl.fromTo('.nxi-unit', 
-            { x: 0 },
-            { x: 80, duration: 1.5, ease: 'easeInOut' },
+        // Text 'NEXROVA' stays in the absolute center and appears
+        tl.fromTo('.nxi-text-box', 
+            { clipPath: 'inset(0% 50% 0% 50%)', opacity: 0 },
+            { 
+                clipPath: 'inset(0% 0% 0% 0%)', 
+                opacity: 1,
+                duration: 1.5, 
+                ease: 'easeInOut' 
+            }, 
             2.5
         )
 
@@ -110,8 +106,7 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
                     align-items: center;
                     justify-content: center;
                     z-index: 5; /* behind logo */
-                    margin-left: 170px; /* shift text right so it sits behind right half of logo initially */
-                    clip-path: inset(0% 100% 0% 0%); /* totally hidden from the right */
+                    width: 100%; /* take full width to stay perfectly centered */
                 }
                 .nxi-text-content {
                     font-family: inherit;
@@ -144,10 +139,6 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
                         style={{ mixBlendMode: 'screen' }}
                         onLoad={() => setIsLoaded(true)}
                     />
-                </div>
-
-                <div className="nxi-text-box">
-                    <h1 className="nxi-text-content">NEXROVA</h1>
                 </div>
             </div>
         </div>
