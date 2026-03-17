@@ -1,130 +1,121 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-mono);   /* Monospace everywhere */
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   
-  /* Hacker Terminal Theme */
-  --color-bg-dark: #000000;               /* Pure Black */
-  --color-panel: transparent;              /* Transparent HUD panels */
-  --color-panel-hover: rgba(224, 176, 69, 0.05);
-  --color-panel-border: #E0B045;           /* Gold borders */
+  /* Cyber-Professional Theme */
+  --color-bg-dark: #000000;
+  --color-panel: #1E1E2E;
+  --color-panel-hover: #252539;
+  --color-panel-border: #6366F1;
+  --color-brand-accent: #6366F1;
+  --color-brand-gold: #E0B045;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #94A3B8;
   
-  /* Accents */
-  --color-brand-accent: #E0B045;           /* Gold */
-  --color-brand-accent-glow: rgba(224, 176, 69, 0.4);
-  --color-orange-accent: #E0B045;
-  --color-orange-accent-glow: rgba(224, 176, 69, 0.3);
-  --color-blue-accent: #39FF14;            /* Matrix Green */
-  
-  /* Text */
-  --color-text-primary: #FFFFFF;           /* White */
-  --color-text-secondary: #39FF14;         /* Matrix Green */
+  --shadow-indigo: 0 0 10px rgba(99, 102, 241, 0.3);
+  --shadow-indigo-hover: 0 0 20px rgba(99, 102, 241, 0.5);
 }
 
-:root {
-  color-scheme: dark;
+@layer base {
+  body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
 }
 
-body {
-  background-color: #000000;
-  color: #FFFFFF;
-  font-family: var(--font-geist-mono), 'Courier New', monospace;
-  margin: 0;
-  padding: 0;
-  overscroll-behavior: none; 
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* --- HUD Utility Classes --- */
-@layer utilities {
+@layer components {
   .glass-panel {
-    background: transparent;
-    border: 1px solid #E0B045;
+    background: var(--color-panel);
+    border: 1px solid var(--color-panel-border);
+    box-shadow: var(--shadow-indigo);
+    backdrop-filter: blur(8px);
     border-radius: 1rem;
-    box-shadow: 0 0 10px #E0B045; /* Fixed shadow per rules */
+    transition: all 0.3s ease;
   }
-  .glass-panel-hover {
-    @apply transition-all duration-300;
+  
+  .glass-panel:hover {
+    box-shadow: var(--shadow-indigo-hover);
+    border-color: rgba(99, 102, 241, 0.8);
   }
-  .glass-panel-hover:hover {
-    box-shadow: 0 0 18px #E0B045;
-    transform: translateY(-2px);
-  }
-  .glass-input {
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid #E0B045;
+
+  .glass-button {
+    background: var(--color-brand-accent);
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
     border-radius: 0.75rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    color: #FFFFFF;
+    transition: all 0.2s ease;
+    border: 1px solid var(--color-brand-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .glass-button:hover:not(:disabled) {
+    background: #4f46e5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  }
+
+  .glass-button:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .glass-input {
+    background: rgba(15, 15, 20, 0.6);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: var(--color-text-primary);
+    border-radius: 0.75rem;
+    padding: 0.6rem 1rem;
+    transition: all 0.2s ease;
+    width: 100%;
     font-family: inherit;
-    box-shadow: 0 0 5px rgba(224, 176, 69, 0.15);
   }
-  .glass-input::placeholder {
-    color: rgba(57, 255, 20, 0.4);
-  }
+
   .glass-input:focus {
     outline: none;
-    border-color: #39FF14;
-    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+    border-color: var(--color-brand-accent);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    background: rgba(15, 15, 20, 0.8);
   }
-  .glass-button {
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    padding: 0.5rem 1rem;
-    border-radius: 2px; /* Sharper terminal look */
-    background: #000000;
-    color: #E0B045;
-    border: 1px solid #E0B045;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-family: inherit;
-  }
-  .glass-button:hover {
-    background: #E0B045;
-    color: #000000;
-    box-shadow: 0 0 15px rgba(224, 176, 69, 0.5);
-  }
-  .glass-button:active {
-    transform: scale(0.95);
+
+  .glass-input::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.5;
   }
 }
 
-/* --- Sleek Scrollbar (Gold glow on dark) --- */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* Custom Scrollbar */
+@layer utilities {
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.2);
+    border-radius: 10px;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.4);
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+/* Animation utilities */
+.animate-indigo-pulse {
+  animation: indigo-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(224, 176, 69, 0.3);
-  border-radius: 9999px;
-  box-shadow: 0 0 4px rgba(224, 176, 69, 0.2);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(224, 176, 69, 0.6);
-}
-
-/* Custom Scrollbar for internal panels */
-.scrollbar-custom::-webkit-scrollbar {
-  width: 4px;
-}
-.scrollbar-custom::-webkit-scrollbar-thumb {
-  background: rgba(224, 176, 69, 0.2);
-}
-.scrollbar-custom::-webkit-scrollbar-thumb:hover {
-  background: rgba(224, 176, 69, 0.45);
+@keyframes indigo-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(99, 102, 241, 0.3); }
+  50% { opacity: 0.8; box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
 }

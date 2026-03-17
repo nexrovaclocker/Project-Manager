@@ -27,57 +27,45 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
             }
         })
 
-        // Phase 1: Logo Reveal
+        // Phase 1: Logo Reveal (Start 0.8x, scale to 1.1x with indigo glow)
         tl.fromTo('.nxi-logo-box',
             { opacity: 0, scale: 0.8 },
             {
                 opacity: 1,
-                scale: 1,
-                duration: 1.5,
-                ease: 'power2.inOut'
+                scale: 1.1,
+                duration: 2.5,
+                ease: 'power2.out',
+                clearProps: 'filter' // We'll handle glow via CSS to avoid conflict
             }
         )
 
-        // Phase 2: Typewriter Effect
-        // We'll use a simple character-by-character reveal since we don't assume TextPlugin is available in the bundle
-        const textElement = document.querySelector('.nxi-text-content');
-        if (textElement) {
-            const fullText = "NEXROVA";
-            textElement.textContent = "";
-            
-            tl.to({}, {
-                duration: 1.5,
-                onUpdate: function() {
-                    const progress = this.progress();
-                    const currentCount = Math.floor(progress * fullText.length);
-                    textElement.textContent = fullText.slice(0, currentCount);
-                },
-                ease: "none"
-            }, "+=0.5");
-        }
+        // Phase 2: Shift Left & Text Fade
+        tl.to('.nxi-logo-box', {
+            x: -200,
+            duration: 1.2,
+            ease: 'power3.inOut'
+        }, "+=0.2")
 
-        // Phase 3: Hold for a beat
-        tl.to({}, { 
-            duration: 1.5,
-            onStart: () => {
-                // Start the infinite blink separately so it doesn't block the timeline from finishing
-                gsap.to('.nxi-text-content', {
-                    borderRightColor: 'transparent',
-                    repeat: -1,
-                    duration: 0.5,
-                    yoyo: true,
-                    ease: 'sine.inOut'
-                })
-            }
-        })
+        tl.fromTo('.nxi-text-box',
+            { opacity: 0, x: 50 },
+            { 
+                opacity: 1, 
+                x: -160, // Align next to the shifted logo
+                duration: 1.2, 
+                ease: 'power3.out' 
+            },
+            "<"
+        )
+
+        // Hold for a beat
+        tl.to({}, { duration: 1.5 })
 
     }, { scope: container, dependencies: [isLoaded] })
 
     return (
         <div
             ref={container}
-            className="fixed inset-0 z-50 flex items-center justify-center font-mono"
-            style={{ background: '#000000' }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black"
         >
             <style>{`
                 .nxi-logo-box {
@@ -88,39 +76,33 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
                     align-items: center;
                     position: relative;
                     z-index: 10;
-                    opacity: 0;
-                    transform: scale(0.8);
-                    border: 1px solid #E0B045;
-                    box-shadow: 0 0 10px #E0B045;
+                    box-shadow: 0 0 30px rgba(99,102,241,0.4);
+                    border-radius: 50%;
                 }
                 .nxi-logo-img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    z-index: 2;
-                    position: relative;
+                    border-radius: 50%;
+                    mix-blend-mode: screen;
                 }
                 .nxi-text-box {
+                    position: absolute;
                     display: flex;
                     align-items: center;
-                    margin-left: 40px;
                 }
                 .nxi-text-content {
-                    font-size: 84px;
-                    font-weight: 300;
+                    font-size: 72px;
+                    font-weight: 700;
                     letter-spacing: 12px;
-                    color: #E0B045;
+                    color: #E0B045; /* GOLD Signature */
                     margin: 0;
                     white-space: nowrap;
-                    padding-left: 10px;
                     line-height: 1;
-                    border-right: 2px solid #E0B045;
-                    padding-right: 5px;
-                    min-width: 1ch;
                 }
             `}</style>
 
-            <div className="flex items-center justify-center">
+            <div className="relative flex items-center justify-center w-full max-w-4xl">
                 <div className="nxi-logo-box">
                     <Image
                         src="/logo.jpeg"
@@ -134,7 +116,7 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
                 </div>
 
                 <div className="nxi-text-box">
-                    <h1 className="nxi-text-content"></h1>
+                    <h1 className="nxi-text-content">NEXROVA</h1>
                 </div>
             </div>
         </div>

@@ -122,96 +122,97 @@ export function NotesPanel() {
     const activeNote = notes.find((n) => n.id === activeNoteId)
 
     return (
-        <div className="flex flex-col h-full w-full bg-transparent text-[var(--color-text-primary)] relative z-10">
-            <div className="flex items-center justify-between p-4 border-b border-[var(--color-panel-border)]/30 shadow-sm bg-[var(--color-panel)]">
-                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)]"></span>
-                    Notes
+        <div className="flex flex-col h-full w-full bg-transparent text-white relative z-10 glass-panel !border-0 !shadow-none">
+            <div className="flex items-center justify-between p-6 border-b border-[#6366F1]/20 bg-[#1E1E2E]">
+                <h2 className="text-sm font-bold tracking-[0.2em] uppercase flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_#6366F1]"></span>
+                    Intelligence_Logs
                 </h2>
                 <button
                     onClick={() => setIsCreatingNote(true)}
-                    className="glass-button transition-all border-dashed"
+                    className="glass-button !py-2 !px-4 text-[10px]"
                 >
-                    + NEW_RECORD
+                    + NEW_ENTRY
                 </button>
             </div>
 
             {isCreatingNote && (
-                <form onSubmit={createNote} className="p-4 border-b border-[var(--color-brand-accent)]/30 flex gap-3 bg-[var(--color-brand-accent)]/5 animate-in slide-in-from-top-2">
+                <form onSubmit={createNote} className="p-6 border-b border-[#6366F1]/20 flex gap-4 bg-[#6366F1]/5 animate-in slide-in-from-top-2">
                     <input
                         autoFocus
-                        className="flex-1 bg-transparent border-b border-black/10 text-sm font-medium tracking-wide focus:outline-none focus:border-[var(--color-brand-accent)] px-2 py-1 transition-colors"
-                        placeholder="RECORD_TITLE..."
+                        className="flex-1 bg-black/40 border border-[#6366F1]/20 rounded-xl text-[10px] font-bold tracking-widest uppercase focus:outline-none focus:border-[#6366F1] px-4 py-2 text-white transition-all"
+                        placeholder="ENTRY_IDENTIFIER..."
                         value={newNoteTitle}
                         onChange={(e) => setNewNoteTitle(e.target.value)}
                     />
-                    <button type="submit" className="text-xs text-[var(--color-brand-accent)] tracking-widest px-2">CREATE</button>
-                    <button type="button" onClick={() => setIsCreatingNote(false)} className="text-xs text-red-500 tracking-widest px-2">CANCEL</button>
+                    <button type="submit" className="text-[10px] text-[#6366F1] font-bold tracking-widest px-4 uppercase hover:bg-[#6366F1]/10 rounded-xl transition-all">INITIALIZE</button>
+                    <button type="button" onClick={() => setIsCreatingNote(false)} className="text-[10px] text-red-400 font-bold tracking-widest px-4 uppercase hover:bg-red-500/10 rounded-xl transition-all">ABORT</button>
                 </form>
             )}
 
             {/* Tabs */}
-            <div className="flex overflow-x-auto border-b border-[var(--color-panel-border)]/30 scrollbar-hide bg-[var(--color-panel)]">
+            <div className="flex overflow-x-auto border-b border-[#6366F1]/20 scrollbar-hide bg-[#1E1E2E]/40">
                 {notes.map((note) => (
                     <button
                         key={note.id}
                         onClick={() => setActiveNoteId(note.id)}
-                        className={`flex-shrink-0 px-5 py-3 text-xs font-bold tracking-widest border-r border-[var(--color-panel-border)]/30 transition-all duration-300 ${activeNoteId === note.id
-                            ? 'bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] border-b-2 border-b-[var(--color-brand-accent)]'
-                            : 'text-[var(--color-text-secondary)]/60 hover:bg-[var(--color-brand-accent)]/10 hover:text-[var(--color-text-secondary)]'
+                        className={`flex-shrink-0 px-6 py-4 text-[10px] font-bold tracking-widest border-r border-[#6366F1]/20 transition-all duration-300 uppercase ${activeNoteId === note.id
+                            ? 'bg-[#6366F1]/10 text-white border-b-2 border-b-[#6366F1]'
+                            : 'text-[#94A3B8] hover:bg-[#6366F1]/5 hover:text-white'
                             }`}
                     >
-                        {note.title.toUpperCase()}
+                        {note.title}
                     </button>
                 ))}
             </div>
 
             {/* Content */}
-            <div className="flex-1 overflow-y-auto p-6 scrollbar-custom bg-transparent group/content">
+            <div className="flex-1 overflow-y-auto p-8 scrollbar-custom bg-transparent group/content">
                 {activeNote ? (
-                    <div className="space-y-6 max-w-3xl mx-auto pb-12">
-                        <div className="flex justify-between items-start mb-8 border-b border-[var(--color-panel-border)] pb-6 relative">
+                    <div className="space-y-8 max-w-4xl mx-auto pb-16">
+                        <div className="flex justify-between items-start mb-10 border-b border-[#6366F1]/10 pb-8 relative">
                             {/* Decorative title glow */}
-                            <div className="absolute -left-4 top-0 w-20 h-20 bg-[var(--color-brand-accent)]/10 rounded-full blur-xl -z-10 pointer-events-none"></div>
+                            <div className="absolute -left-10 top-0 w-32 h-32 bg-[#6366F1]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
                             
                             <div>
-                                <h3 className="text-2xl font-bold tracking-widest text-[var(--color-text-primary)] flex items-center gap-3">
+                                <h3 className="text-3xl font-bold tracking-[0.1em] text-white flex items-center gap-3 uppercase">
                                     {activeNote.title}
-                                    <span className="text-[var(--color-brand-accent)] animate-pulse">_</span>
+                                    <span className="text-[#6366F1] animate-pulse">_</span>
                                 </h3>
-                                <p className="text-[10px] text-[var(--color-text-secondary)] mt-2 font-bold tracking-widest uppercase">
-                                    AUTHOR: <span className="text-[var(--color-text-primary)]">{activeNote.creator.username}</span>
+                                <p className="text-[10px] text-[#94A3B8] mt-4 font-bold tracking-widest uppercase flex items-center gap-3">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#6366F1]"></span>
+                                    Origin: <span className="text-white">{activeNote.creator.username.toUpperCase()}</span>
                                 </p>
                             </div>
                             {(session?.user.id === activeNote.createdBy || session?.user.role === 'admin') && (
                                 <button
                                     onClick={() => deleteNote(activeNote.id)}
-                                    className="font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl border border-red-500/30 text-red-500 hover:bg-red-500/10 hover:border-red-500 active:scale-95 transition-all cursor-pointer"
+                                    className="font-bold tracking-widest text-[10px] uppercase px-4 py-2 rounded-xl border border-red-500/30 text-red-400 hover:bg-red-500/10 transition-all"
                                 >
-                                    DELETE
+                                    ERASE_RECORD
                                 </button>
                             )}
                         </div>
 
-                        <div className="space-y-5">
+                        <div className="space-y-6">
                             {activeNote.blocks.map((block) => (
-                                <div key={block.id} className="p-4 border border-[var(--color-panel-border)]/30 bg-black rounded-xl hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/60 transition-all duration-300 relative group/block">
+                                <div key={block.id} className="p-6 border border-[#6366F1]/10 bg-black/40 rounded-2xl hover:border-[#6366F1]/30 transition-all duration-300 relative group/block">
                                     {/* Left accent bar */}
-                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-0 bg-[var(--color-brand-accent)] transition-all duration-300 group-hover/block:h-[60%] rounded-r-md"></div>
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-0 bg-[#6366F1] transition-all duration-300 group-hover/block:h-[60%] rounded-r-md shadow-[0_0_10px_#6366F1]"></div>
                                     
                                     {block.type === 'text' ? (
                                         editingBlockId === block.id ? (
-                                            <div className="space-y-3">
+                                            <div className="space-y-4">
                                                 <textarea
-                                                    className="glass-input w-full resize-none font-medium"
+                                                    className="glass-input w-full resize-none font-medium !bg-black/40"
                                                     value={editingContent}
                                                     onChange={(e) => setEditingContent(e.target.value)}
-                                                    rows={Math.max(3, editingContent.split('\n').length)}
+                                                    rows={Math.max(4, editingContent.split('\n').length)}
                                                     autoFocus
                                                 />
                                                 <div className="flex gap-3">
-                                                    <button onClick={saveEdit} className="glass-button text-[var(--color-brand-accent)] border-[var(--color-brand-accent)]/30 hover:bg-[var(--color-brand-accent)]/10">SAVE_CHANGES</button>
-                                                    <button onClick={cancelEdit} className="glass-button">CANCEL</button>
+                                                    <button onClick={saveEdit} className="glass-button !py-2 !px-4 text-[10px] border-[#6366F1] hover:bg-[#6366F1]/10">COMMIT_CHANGES</button>
+                                                    <button onClick={cancelEdit} className="glass-button !py-2 !px-4 text-[10px]">CANCEL</button>
                                                 </div>
                                             </div>
                                         ) : (
@@ -219,19 +220,19 @@ export function NotesPanel() {
                                                 className="group relative cursor-text min-h-[24px]"
                                                 onDoubleClick={() => startEditing(block)}
                                             >
-                                                <p className="text-sm whitespace-pre-wrap pr-12">{block.content}</p>
+                                                <p className="text-sm leading-relaxed text-[#D1D5DB] pr-12">{block.content}</p>
                                                 <button
                                                     onClick={() => startEditing(block)}
-                                                    className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 text-[10px] text-[var(--color-brand-accent)] tracking-widest border border-[var(--color-brand-accent)] px-1 transition-opacity"
+                                                    className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 text-[9px] text-[#6366F1] font-bold tracking-widest border border-[#6366F1]/40 px-2 py-0.5 rounded transition-all hover:bg-[#6366F1]/10"
                                                 >
-                                                    EDIT
+                                                    MODIFY
                                                 </button>
                                             </div>
                                         )
                                     ) : (
-                                        <div className="space-y-3">
+                                        <div className="space-y-4">
                                             {block.todoItems.map((todo) => (
-                                                <label key={todo.id} className="flex items-start gap-3 cursor-pointer group/todo p-2 rounded-lg hover:bg-[var(--color-brand-accent)]/5 transition-colors border border-transparent hover:border-[var(--color-brand-accent)]/20">
+                                                <label key={todo.id} className="flex items-start gap-4 cursor-pointer group/todo p-3 rounded-xl hover:bg-[#6366F1]/5 transition-all border border-transparent hover:border-[#6366F1]/20">
                                                     <div className="relative flex items-center pt-0.5 shrink-0">
                                                         <input
                                                             type="checkbox"
@@ -239,19 +240,19 @@ export function NotesPanel() {
                                                             onChange={() => toggleTodo(todo.id, todo.checked)}
                                                             className="peer sr-only"
                                                         />
-                                                        <div className="w-5 h-5 rounded-md border-2 border-[var(--color-panel-border)]/40 flex items-center justify-center peer-checked:border-[var(--color-brand-accent)] peer-checked:bg-[var(--color-brand-accent)] transition-all duration-300 shadow-sm">
+                                                        <div className="w-5 h-5 rounded-lg border-2 border-[#6366F1]/30 flex items-center justify-center peer-checked:bg-[#6366F1] peer-checked:border-[#6366F1] transition-all duration-300">
                                                             {todo.checked && (
-                                                                <svg className="w-3.5 h-3.5 text-black pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                                                <svg className="w-3 h-3 text-white pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
                                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                                                 </svg>
                                                             )}
                                                         </div>
                                                     </div>
-                                                    <div className={`text-sm tracking-wide mt-0.5 transition-all duration-300 ${todo.checked ? 'text-[var(--color-text-secondary)] line-through opacity-60' : 'text-[var(--color-text-primary)]'}`}>
+                                                    <div className={`text-sm tracking-wide transition-all duration-300 ${todo.checked ? 'text-[#94A3B8] line-through opacity-50' : 'text-white'}`}>
                                                         {todo.text}
                                                         {todo.checked && todo.checker && (
-                                                            <span className="ml-3 inline-block px-2 py-0.5 rounded-full bg-[var(--color-brand-accent)]/10 border border-[var(--color-brand-accent)]/20 text-[10px] tracking-widest text-[var(--color-brand-accent)] no-underline">
-                                                                VERIFIER: {todo.checker.username}
+                                                            <span className="ml-4 inline-block px-3 py-0.5 rounded-full bg-[#6366F1]/10 border border-[#6366F1]/20 text-[9px] tracking-widest text-[#6366F1] font-bold uppercase no-underline">
+                                                                VERIFIED_BY: {todo.checker.username.toUpperCase()}
                                                             </span>
                                                         )}
                                                     </div>
@@ -263,17 +264,17 @@ export function NotesPanel() {
                             ))}
                         </div>
 
-                        <div className="mt-8 pt-6 border-t border-[var(--color-panel-border)] grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                        <div className="mt-12 pt-10 border-t border-[#6366F1]/10 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
                             {/* Decorative divider glow */}
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[var(--color-brand-accent)]/30 to-transparent"></div>
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#6366F1]/40 to-transparent"></div>
                             
                             {/* Add Text Block */}
-                            <div className="space-y-3 p-4 rounded-xl bg-black border border-[var(--color-panel-border)]/20 shadow-sm">
-                                <label className="block text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase">APPEND_REPORT_LOG</label>
+                            <div className="space-y-4 p-6 rounded-2xl bg-black/40 border border-[#6366F1]/10">
+                                <label className="block text-[9px] font-bold tracking-widest text-[#94A3B8] uppercase">Append_Report_Matrix</label>
                                 <textarea
-                                    rows={2}
-                                    className="glass-input w-full resize-none"
-                                    placeholder="Enter descriptive block..."
+                                    rows={3}
+                                    className="glass-input w-full resize-none text-xs"
+                                    placeholder="Enter descriptive data..."
                                     value={newText}
                                     onChange={(e) => setNewText(e.target.value)}
                                     onKeyDown={(e) => {
@@ -285,19 +286,19 @@ export function NotesPanel() {
                                 />
                                 <button
                                     onClick={() => addBlock('text', newText)}
-                                    className="w-full glass-button"
+                                    className="w-full glass-button !py-2.5 text-[10px]"
                                 >
-                                    ADD_TEXT_BLOCK
+                                    INJECT_LOG_BLOCK
                                 </button>
                             </div>
 
                             {/* Add Todo Block */}
-                            <div className="space-y-3 p-4 rounded-xl bg-[var(--color-brand-accent)]/5 border border-[var(--color-brand-accent)]/20 shadow-sm">
-                                <label className="block text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase">APPEND_ACTION_ITEM</label>
+                            <div className="space-y-4 p-6 rounded-2xl bg-[#6366F1]/5 border border-[#6366F1]/20">
+                                <label className="block text-[9px] font-bold tracking-widest text-[#94A3B8] uppercase">Append_Action_Vector</label>
                                 <input
                                     type="text"
-                                    className="glass-input w-full"
-                                    placeholder="Enter to-do task..."
+                                    className="glass-input w-full text-xs"
+                                    placeholder="Enter directive..."
                                     value={newTodo}
                                     onChange={(e) => setNewTodo(e.target.value)}
                                     onKeyDown={(e) => {
@@ -309,16 +310,16 @@ export function NotesPanel() {
                                 />
                                 <button
                                     onClick={() => addBlock('todo', newTodo)}
-                                    className="w-full glass-button"
+                                    className="w-full glass-button !py-2.5 text-[10px]"
                                 >
-                                    ADD_TODO_BLOCK
+                                    INJECT_DIRECTIVE
                                 </button>
                             </div>
                         </div>
                     </div>
                 ) : (
-                    <div className="h-full flex items-center justify-center text-[var(--color-text-secondary)] text-sm tracking-widest">
-                        {notes.length === 0 ? 'NO_RECORDS_FOUND' : 'SELECT_A_RECORD'}
+                    <div className="h-full flex items-center justify-center text-[10px] tracking-widest text-[#94A3B8] uppercase">
+                        {notes.length === 0 ? 'NULL_RECORD_ARRAY' : 'SELECT_LOG_ENTRY'}
                     </div>
                 )}
             </div>

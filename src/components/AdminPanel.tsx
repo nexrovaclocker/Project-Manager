@@ -183,54 +183,54 @@ export function AdminPanel() {
         <div className="flex flex-col lg:flex-row h-full bg-transparent text-[var(--color-text-primary)] relative rounded-2xl overflow-hidden glass-panel z-10 transition-all duration-300">
             <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)] z-20"></div>
 
-            {/* ── Left panel: ACCESS_MANAGEMENT ── */}
-            <div className="w-full lg:w-1/2 p-6 lg:p-8 border-r border-[var(--color-panel-border)]/20 space-y-8 overflow-y-auto scrollbar-custom bg-[var(--color-panel)] relative">
+            {/* ── Left panel: Personnel_Ops ── */}
+            <div className="w-full lg:w-1/2 p-6 lg:p-8 border-r border-[#6366F1]/20 space-y-8 overflow-y-auto scrollbar-custom bg-[#1E1E2E]/40 relative">
                 {/* Decorative ambient background */}
-                <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--color-brand-accent)]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+                <div className="absolute top-0 left-0 w-64 h-64 bg-[#6366F1]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
-                <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)]" />
-                    ACCESS_MANAGEMENT
+                <h2 className="text-sm font-bold tracking-[0.2em] uppercase flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_#6366F1]" />
+                    Personnel_Intelligence
                 </h2>
 
                 {/* ── CREATE_USER ── */}
-                <form onSubmit={handleCreateUser} className="space-y-5 p-5 border border-[var(--color-panel-border)]/30 rounded-xl bg-transparent shadow-[0_0_15px_rgba(224,176,69,0.1)] relative overflow-hidden group">
-                    <div className="absolute right-0 bottom-0 w-32 h-32 bg-[var(--color-orange-accent)]/5 rounded-full blur-2xl -z-10 pointer-events-none group-hover:bg-[var(--color-orange-accent)]/10 transition-colors duration-500"></div>
+                <form onSubmit={handleCreateUser} className="space-y-5 p-6 border border-[#6366F1]/20 rounded-2xl bg-black/40 relative overflow-hidden group">
+                    <div className="absolute right-0 bottom-0 w-32 h-32 bg-[#6366F1]/5 rounded-full blur-2xl -z-10 pointer-events-none group-hover:bg-[#6366F1]/10 transition-colors duration-500"></div>
                     <div>
-                        <label className={labelClass}>NAME</label>
+                        <label className={labelClass}>Unit_Name</label>
                         <input type="text" required className={inputClass} value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
                     <div>
-                        <label className={labelClass}>USERNAME</label>
+                        <label className={labelClass}>Signature_Key</label>
                         <input type="text" required className={inputClass} value={username} onChange={(e) => setUsername(e.target.value)} />
                     </div>
                     <div>
-                        <label className={labelClass}>PASSWORD (INITIAL)</label>
+                        <label className={labelClass}>Access_Hash (Initial)</label>
                         <input type="password" required className={inputClass} value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
                     <div className="relative">
-                        <label className={labelClass}>ROLE_LEVEL</label>
+                        <label className={labelClass}>Clearance_Level</label>
                         <select
-                            className={`${inputClass} cursor-pointer appearance-none pr-8`}
+                            className={`${inputClass} cursor-pointer appearance-none pr-8 !py-2.5`}
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                         >
-                            <option value="member" className="bg-[#1a1a1a] text-white">MEMBER (STD_ACCESS)</option>
-                            <option value="intern" className="bg-[#1a1a1a] text-white">INTERN (RESTRICTED)</option>
-                            <option value="admin" className="bg-[#1a1a1a] text-white">ADMIN (ROOT_PRIVILEGES)</option>
+                            <option value="member" className="bg-[#1E1E2E] text-white">LEVEL_1: PERSONNEL</option>
+                            <option value="intern" className="bg-[#1E1E2E] text-white">LEVEL_0: RESTRICTED</option>
+                            <option value="admin" className="bg-[#1E1E2E] text-white">LEVEL_2: ROOT_OVERRIDE</option>
                         </select>
-                        <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                        <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none text-[#6366F1]">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                         </div>
                     </div>
                     <button
                         type="submit"
-                        className="w-full glass-button mt-2"
+                        className="w-full glass-button mt-4 py-3"
                     >
-                        PROVISION_ACCOUNT
+                        PROVISION_CLEARANCE
                     </button>
                     {createMsg && (
-                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center mt-2 drop-shadow-md ${createMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-brand-accent)]'}`}>
+                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center mt-3 drop-shadow-md ${createMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[#6366F1]'}`}>
                             {createMsg}
                         </div>
                     )}
@@ -241,21 +241,21 @@ export function AdminPanel() {
 
                 <form onSubmit={handleChangePassword} className="space-y-5">
                     <div className="relative">
-                        <label className={labelClass}>TARGET_USER</label>
+                        <label className={labelClass}>Target_Node</label>
                         <select
-                            className={`${inputClass} cursor-pointer appearance-none pr-8`}
+                            className={`${inputClass} cursor-pointer appearance-none pr-8 !py-2.5`}
                             value={cpUserId}
                             onChange={(e) => setCpUserId(e.target.value)}
                         >
-                            <option value="" className="bg-[#1a1a1a] text-gray-400">-- SELECT_USER --</option>
+                            <option value="" className="bg-[#1E1E2E] text-[#94A3B8]">-- SELECT_UNIT --</option>
                             {users.map((u) => (
-                                <option key={u.id} value={u.id} className="bg-[#1a1a1a] text-white">
-                                    {u.username} [{u.role.toUpperCase()}]
+                                <option key={u.id} value={u.id} className="bg-[#1E1E2E] text-white">
+                                    {u.username.toUpperCase()} [{u.role.toUpperCase()}]
                                 </option>
                             ))}
                         </select>
-                        <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                        <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none text-[#6366F1]">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                         </div>
                     </div>
                     <div>
@@ -283,12 +283,12 @@ export function AdminPanel() {
                     <button
                         type="submit"
                         disabled={cpLoading}
-                        className="w-full glass-button disabled:opacity-40 disabled:hover:scale-100 disabled:shadow-none mt-2"
+                        className="w-full glass-button mt-4 py-3"
                     >
-                        UPDATE_PASSWORD
+                        EXECUTE_OVERRIDE
                     </button>
                     {cpMsg && (
-                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center mt-2 drop-shadow-md ${cpMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[var(--color-brand-accent)]'}`}>
+                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center mt-3 drop-shadow-md ${cpMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[#6366F1]'}`}>
                             {cpMsg}
                         </div>
                     )}
@@ -297,19 +297,19 @@ export function AdminPanel() {
                 {/* ── DELETE_USER ── */}
                 <SubDivider label="ROSTER_CONTROL" />
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                     {users.length === 0 ? (
-                        <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase text-center py-6 border border-dashed border-[var(--color-panel-border)]/20 rounded-xl bg-black">
-                            NO_USERS_FOUND
+                        <div className="text-[10px] tracking-widest text-[#94A3B8] uppercase text-center py-10 border border-dashed border-[#6366F1]/20 rounded-2xl bg-black/20">
+                            UNIT_ARRAY_EMPTY
                         </div>
                     ) : (
-                        <div className="border border-[var(--color-panel-border)]/30 rounded-xl overflow-hidden bg-transparent shadow-[0_0_15px_rgba(224,176,69,0.1)]">
+                        <div className="border border-[#6366F1]/20 rounded-2xl overflow-hidden bg-black/40">
                             <table className="w-full text-left border-collapse">
-                                <thead className="bg-[var(--color-brand-accent)]/10 border-b border-[var(--color-panel-border)]/20">
+                                <thead className="bg-[#6366F1]/10 border-b border-[#6366F1]/20">
                                     <tr>
-                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">USER</th>
-                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">ROLE</th>
-                                        <th className="p-3 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase text-right">ACTION</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase">Operator</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase">Access</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase text-right">State</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -320,32 +320,32 @@ export function AdminPanel() {
                                                 key={u.id}
                                                 className="border-b border-[var(--color-panel-border)]/10 last:border-none hover:bg-black/5 transition-colors group/row"
                                             >
-                                                <td className="p-3">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[var(--color-brand-accent)]/60 to-[var(--color-brand-accent)] border border-[var(--color-brand-accent)]/20 flex items-center justify-center text-[10px] font-bold text-black shadow-sm">
+                                                <td className="p-4">
+                                                    <div className="flex items-center gap-4">
+                                                        <div className="w-7 h-7 rounded-full bg-[#6366F1]/20 border border-[#6366F1]/40 flex items-center justify-center text-[11px] font-bold text-white shadow-[0_0_8px_rgba(99,102,241,0.2)]">
                                                             {u.username.charAt(0).toUpperCase()}
                                                         </div>
-                                                        <span className="font-mono text-xs text-[var(--color-text-primary)] group-hover/row:text-[var(--color-brand-accent)] transition-colors">
-                                                            {u.username}
+                                                        <span className="font-bold text-xs text-white tracking-widest">
+                                                            {u.username.toUpperCase()}
                                                         </span>
                                                     </div>
                                                 </td>
-                                                <td className="p-3">
-                                                    <span className={`text-[9px] font-bold tracking-widest px-2 py-1 rounded-md border ${
+                                                <td className="p-4">
+                                                    <span className={`text-[9px] font-bold tracking-widest px-2.5 py-1 rounded-md border ${
                                                         u.role === 'admin' ? 'bg-red-500/10 border-red-500/20 text-red-400' :
-                                                        u.role === 'intern' ? 'bg-yellow-500/10 border-yellow-500/20 text-yellow-400' :
-                                                        'bg-blue-500/10 border-blue-500/20 text-blue-400'
+                                                        u.role === 'intern' ? 'bg-[#6366F1]/10 border-[#6366F1]/20 text-[#6366F1]' :
+                                                        'bg-indigo-500/10 border-indigo-500/20 text-indigo-400'
                                                     }`}>
                                                         {u.role.toUpperCase()}
                                                     </span>
                                                 </td>
-                                                <td className="p-3 text-right">
+                                                <td className="p-4 text-right">
                                                     {isSelf ? (
-                                                        <span className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] opacity-50 px-3 uppercase">[SELF]</span>
+                                                        <span className="text-[10px] font-bold tracking-widest text-[#94A3B8] opacity-50 px-3 uppercase">[LOCAL_NODE]</span>
                                                     ) : (
                                                         <button
                                                             onClick={() => handleDeleteUser(u.id, u.username)}
-                                                            className="font-bold tracking-widest text-[10px] uppercase text-red-500 border border-red-500/30 hover:bg-red-500/10 hover:border-red-500 px-3 py-1.5 rounded-xl opacity-0 group-hover/row:opacity-100 transition-all ml-auto cursor-pointer"
+                                                            className="font-bold tracking-widest text-[9px] uppercase text-red-400 border border-red-500/30 hover:bg-red-500/10 px-3 py-1.5 rounded-xl opacity-0 group-hover/row:opacity-100 transition-all ml-auto"
                                                         >
                                                             TERMINATE
                                                         </button>
@@ -371,26 +371,26 @@ export function AdminPanel() {
                 {/* Decorative ambient background */}
                 <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
-                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
-                    <h2 className="text-sm font-bold tracking-widest uppercase flex items-center gap-3">
-                        <span className="w-2 h-2 rounded-full bg-[var(--color-brand-accent)] shadow-[0_0_10px_var(--color-brand-accent)]" />
-                        SYS_ANALYTICS
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-10 relative z-20">
+                    <h2 className="text-sm font-bold tracking-[0.2em] uppercase flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_#6366F1]" />
+                        Deep_Analytics
                     </h2>
                     <div className="relative">
                         <select
-                            className="glass-input cursor-pointer appearance-none pr-8 text-[11px] font-bold tracking-widest uppercase text-[var(--color-brand-accent)] min-w-[220px]"
+                            className="glass-input cursor-pointer appearance-none pr-8 text-[10px] font-bold tracking-widest uppercase text-white min-w-[200px] !py-2.5"
                             value={selectedUserId}
                             onChange={(e) => setSelectedUserId(e.target.value)}
                         >
-                            <option value="" className="bg-[#1a1a1a] text-gray-400">-- SELECT_PERSONNEL --</option>
+                            <option value="" className="bg-[#1E1E2E] text-[#94A3B8]">-- PERSONNEL_QUERY --</option>
                             {users.map((u) => (
-                                <option key={u.id} value={u.id} className="bg-[#1a1a1a] text-white">
-                                    {u.username} ({u.role})
+                                <option key={u.id} value={u.id} className="bg-[#1E1E2E] text-white">
+                                    {u.username.toUpperCase()} ({u.role})
                                 </option>
                             ))}
                         </select>
-                        <div className="absolute right-3 bottom-0 top-0 flex items-center pointer-events-none">
-                            <svg className="w-4 h-4 text-[var(--color-brand-accent)]/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                        <div className="absolute right-3 bottom-0 top-0 flex items-center pointer-events-none text-[#6366F1]">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                         </div>
                     </div>
                 </div>
@@ -398,79 +398,79 @@ export function AdminPanel() {
                 {analytics ? (
                     <div className="space-y-8 pb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div className="p-5 rounded-xl border border-[var(--color-panel-border)]/20 bg-[var(--color-brand-accent)]/5 relative overflow-hidden group">
-                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-[var(--color-brand-accent)]/10 rounded-full blur-xl group-hover:bg-[var(--color-brand-accent)]/20 transition-colors"></div>
-                                <div className="text-[9px] text-[var(--color-brand-accent)] font-bold tracking-widest mb-2 uppercase">TOTAL_TIME_7D</div>
-                                <div className="text-2xl font-bold text-[var(--color-text-primary)] flex items-baseline gap-1">
-                                    {analytics.totalHours}<span className="text-sm text-[var(--color-brand-accent)]">H</span> {analytics.totalMinutes}<span className="text-sm text-[var(--color-brand-accent)]">M</span>
+                            <div className="p-6 rounded-2xl border border-[#6366F1]/20 bg-[#6366F1]/5 relative overflow-hidden group">
+                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-[#6366F1]/10 rounded-full blur-xl group-hover:bg-[#6366F1]/20 transition-colors"></div>
+                                <div className="text-[9px] text-[#94A3B8] font-bold tracking-widest mb-3 uppercase">Total_Work_Cycle</div>
+                                <div className="text-2xl font-bold text-white flex items-baseline gap-1">
+                                    {analytics.totalHours}<span className="text-xs text-[#6366F1]">H</span> {analytics.totalMinutes}<span className="text-xs text-[#6366F1]">M</span>
                                 </div>
                             </div>
-                            <div className="p-5 rounded-xl border border-[var(--color-panel-border)]/20 bg-[var(--color-brand-accent)]/5 relative overflow-hidden group">
-                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-[var(--color-brand-accent)]/10 rounded-full blur-xl group-hover:bg-[var(--color-brand-accent)]/20 transition-colors"></div>
-                                <div className="text-[9px] text-[var(--color-brand-accent)] font-bold tracking-widest mb-2 uppercase">SESSIONS_LOGGED</div>
-                                <div className="text-2xl font-bold text-[var(--color-text-primary)]">
+                            <div className="p-6 rounded-2xl border border-[#6366F1]/20 bg-[#6366F1]/5 relative overflow-hidden group">
+                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-[#6366F1]/10 rounded-full blur-xl group-hover:bg-[#6366F1]/20 transition-colors"></div>
+                                <div className="text-[9px] text-[#94A3B8] font-bold tracking-widest mb-3 uppercase">Sessions_Detected</div>
+                                <div className="text-2xl font-bold text-white">
                                     {analytics.sessions.length}
                                 </div>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div className="h-64 rounded-xl border border-[var(--color-panel-border)]/20 bg-black p-5 shadow-sm group/chart">
-                                <div className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] mb-6 uppercase flex items-center justify-between">
-                                    HOURS_PER_DAY
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)]/50 group-hover/chart:bg-[var(--color-brand-accent)] transition-colors"></div>
+                            <div className="h-72 rounded-2xl border border-[#6366F1]/20 bg-black/40 p-6 shadow-sm group/chart">
+                                <div className="text-[10px] font-bold tracking-widest text-[#94A3B8] mb-8 uppercase flex items-center justify-between">
+                                    Productivity_Matrix
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#6366F1] shadow-[0_0_8px_#6366F1] animate-pulse"></div>
                                 </div>
-                                <ResponsiveContainer width="100%" height="80%">
+                                <ResponsiveContainer width="100%" height="75%">
                                     <BarChart data={analytics.dailyChartData}>
-                                        <XAxis dataKey="date" stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
-                                        <YAxis stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip cursor={{ fill: 'rgba(224,176,69,0.08)' }} contentStyle={{ backgroundColor: 'rgba(0,0,0,0.9)', border: '1px solid #E0B045', borderRadius: '8px' }} itemStyle={{ color: '#E0B045' }} />
-                                        <Bar dataKey="hours" fill="#E0B045" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
+                                        <XAxis dataKey="date" stroke="#4B5563" fontSize={10} tickLine={false} axisLine={false} />
+                                        <YAxis stroke="#4B5563" fontSize={10} tickLine={false} axisLine={false} />
+                                        <Tooltip cursor={{ fill: 'rgba(99,102,241,0.05)' }} contentStyle={{ backgroundColor: '#1E1E2E', border: '1px solid #6366F1', borderRadius: '12px' }} itemStyle={{ color: '#6366F1' }} />
+                                        <Bar dataKey="hours" fill="#6366F1" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
 
-                            <div className="h-64 rounded-xl border border-[var(--color-panel-border)]/30 bg-transparent p-5 shadow-[0_0_15px_rgba(224,176,69,0.1)] group/chart">
-                                <div className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] mb-6 uppercase flex items-center justify-between">
-                                    SESSION_DURATION
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)]/50 group-hover/chart:bg-[var(--color-brand-accent)] transition-colors"></div>
+                            <div className="h-72 rounded-2xl border border-[#6366F1]/20 bg-black/40 p-6 shadow-sm group/chart">
+                                <div className="text-[10px] font-bold tracking-widest text-[#94A3B8] mb-8 uppercase flex items-center justify-between">
+                                    Session_Granularity
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#6366F1] shadow-[0_0_8px_#6366F1] animate-pulse"></div>
                                 </div>
-                                <ResponsiveContainer width="100%" height="80%">
+                                <ResponsiveContainer width="100%" height="75%">
                                     <BarChart data={analytics.sessionChartData}>
-                                        <XAxis dataKey="name" stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
-                                        <YAxis stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip cursor={{ fill: 'rgba(224,176,69,0.08)' }} contentStyle={{ backgroundColor: 'rgba(0,0,0,0.9)', border: '1px solid #E0B045', borderRadius: '8px' }} itemStyle={{ color: '#C9A035' }} />
-                                        <Bar dataKey="duration" fill="#C9A035" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
+                                        <XAxis dataKey="name" stroke="#4B5563" fontSize={10} tickLine={false} axisLine={false} />
+                                        <YAxis stroke="#4B5563" fontSize={10} tickLine={false} axisLine={false} />
+                                        <Tooltip cursor={{ fill: 'rgba(99,102,241,0.05)' }} contentStyle={{ backgroundColor: '#1E1E2E', border: '1px solid #6366F1', borderRadius: '12px' }} itemStyle={{ color: '#6366F1' }} />
+                                        <Bar dataKey="duration" fill="#6366F1" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>
 
-                        <div className="rounded-xl border border-[var(--color-panel-border)]/20 overflow-hidden bg-black shadow-sm">
-                            <table className="w-full text-left text-sm text-[var(--color-text-primary)] border-collapse">
-                                <thead className="bg-[var(--color-brand-accent)]/10 border-b border-[var(--color-panel-border)]/20">
+                        <div className="rounded-2xl border border-[#6366F1]/20 overflow-hidden bg-black/40">
+                            <table className="w-full text-left text-sm text-white border-collapse">
+                                <thead className="bg-[#6366F1]/10 border-b border-[#6366F1]/20">
                                     <tr>
-                                        <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">CLOCK_IN</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">CLOCK_OUT</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase">DUR (MIN)</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-widest text-[var(--color-brand-accent)] uppercase w-1/3">SESSION_NOTE</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase">Init_Sync</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase">Term_Sync</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase">Cycle (Min)</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase w-1/3">Data_Log</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {analytics.sessions.map((s, idx) => (
-                                        <tr key={s.id} className="border-b border-[var(--color-panel-border)]/10 last:border-none hover:bg-black/5 transition-colors">
-                                            <td className="p-4 font-mono text-[11px] text-[var(--color-text-primary)]">{new Date(s.clockIn).toLocaleString()}</td>
-                                            <td className="p-4 font-mono text-[11px] text-[var(--color-text-primary)]">{new Date(s.clockOut).toLocaleString()}</td>
-                                            <td className="p-4 font-mono text-xs text-[var(--color-brand-accent)] font-bold">
-                                                <div className="bg-[var(--color-brand-accent)]/10 inline-block px-2 py-1 rounded-md border border-[var(--color-brand-accent)]/20">{s.durationMinutes}</div>
+                                        <tr key={s.id} className="border-b border-[#6366F1]/10 last:border-none hover:bg-white/5 transition-colors">
+                                            <td className="p-4 font-bold text-[10px] text-[#94A3B8] tracking-widest">{new Date(s.clockIn).toLocaleString().toUpperCase()}</td>
+                                            <td className="p-4 font-bold text-[10px] text-[#94A3B8] tracking-widest">{new Date(s.clockOut).toLocaleString().toUpperCase()}</td>
+                                            <td className="p-4">
+                                                <div className="bg-[#6366F1]/20 inline-block px-3 py-1 rounded-full border border-[#6366F1]/40 text-[10px] font-bold text-white shadow-[0_0_10px_rgba(99,102,241,0.2)]">{s.durationMinutes}</div>
                                             </td>
-                                            <td className="p-4 text-[11px] text-[var(--color-text-secondary)] leading-relaxed">{s.sessionNote}</td>
+                                            <td className="p-4 text-[11px] text-[#94A3B8] leading-relaxed uppercase italic">{s.sessionNote}</td>
                                         </tr>
                                     ))}
                                     {analytics.sessions.length === 0 && (
                                         <tr>
-                                            <td colSpan={4} className="p-8 text-center text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase bg-[var(--color-panel)]">
-                                                NO_DATA_AVAILABLE
+                                            <td colSpan={4} className="p-10 text-center text-[10px] tracking-widest text-[#94A3B8] uppercase">
+                                                NULL_DATA_STREAM
                                             </td>
                                         </tr>
                                     )}
