@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-outfit);
+  --font-sans: var(--font-geist-mono);   /* Monospace everywhere */
   --font-mono: var(--font-geist-mono);
   
-  /* Nexrova Dark Mode Theme */
-  --color-bg-dark: #000000;           /* Pure Black (page background) */
-  --color-panel: #F7F7EF;             /* Off-White (cards/containers) */
-  --color-panel-hover: #EFEFE7;       /* Slightly darker hover */
-  --color-panel-border: #E0B045;      /* Gold borders */
+  /* Hacker Terminal Theme */
+  --color-bg-dark: #000000;               /* Pure Black */
+  --color-panel: transparent;              /* Transparent HUD panels */
+  --color-panel-hover: rgba(224, 176, 69, 0.05);
+  --color-panel-border: #E0B045;           /* Gold borders */
   
   /* Accents */
-  --color-brand-accent: #E0B045;      /* Gold */
-  --color-brand-accent-glow: rgba(224, 176, 69, 0.25);
-  --color-orange-accent: #E0B045;     /* Unified Gold */
-  --color-orange-accent-glow: rgba(224, 176, 69, 0.2);
-  --color-blue-accent: #C9A035;       /* Warm gold variant */
+  --color-brand-accent: #E0B045;           /* Gold */
+  --color-brand-accent-glow: rgba(224, 176, 69, 0.4);
+  --color-orange-accent: #E0B045;
+  --color-orange-accent-glow: rgba(224, 176, 69, 0.3);
+  --color-blue-accent: #39FF14;            /* Matrix Green */
   
-  /* Text (page-level — light for dark bg) */
-  --color-text-primary: #F8F9F1;      /* Off-White */
-  --color-text-secondary: #aaaaaa;    /* Muted gray */
+  /* Text */
+  --color-text-primary: #FFFFFF;           /* White */
+  --color-text-secondary: #39FF14;         /* Matrix Green */
 }
 
 :root {
@@ -27,8 +27,9 @@
 }
 
 body {
-  background-color: var(--color-bg-dark);
-  color: var(--color-text-primary);
+  background-color: #000000;
+  color: #FFFFFF;
+  font-family: var(--font-geist-mono), 'Courier New', monospace;
   margin: 0;
   padding: 0;
   overscroll-behavior: none; 
@@ -40,27 +41,64 @@ body {
   box-sizing: border-box;
 }
 
-/* --- Elegant Utility Classes --- */
+/* --- HUD Utility Classes --- */
 @layer utilities {
   .glass-panel {
-    @apply bg-[var(--color-panel)] border border-[var(--color-panel-border)] rounded-2xl shadow-sm;
-    /* Scoped text color overrides — dark text readable on light card bg */
-    --color-text-primary: #000000;
-    --color-text-secondary: #555555;
-    color: #000000;
+    background: transparent;
+    border: 1px solid #E0B045;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px #E0B045; /* Fixed shadow per rules */
   }
   .glass-panel-hover {
-    @apply transition-all duration-300 hover:bg-[var(--color-panel-hover)] hover:shadow-md hover:-translate-y-0.5;
+    @apply transition-all duration-300;
+  }
+  .glass-panel-hover:hover {
+    box-shadow: 0 0 18px #E0B045;
+    transform: translateY(-2px);
   }
   .glass-input {
-    @apply bg-white border border-[var(--color-panel-border)]/40 rounded-xl px-4 py-2 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)] transition-all;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #E0B045;
+    border-radius: 0.75rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: #FFFFFF;
+    font-family: inherit;
+    box-shadow: 0 0 5px rgba(224, 176, 69, 0.15);
+  }
+  .glass-input::placeholder {
+    color: rgba(57, 255, 20, 0.4);
+  }
+  .glass-input:focus {
+    outline: none;
+    border-color: #39FF14;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
   }
   .glass-button {
-    @apply font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl bg-[var(--color-brand-accent)] text-black border border-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)]/85 active:scale-95 transition-all cursor-pointer;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    border-radius: 2px; /* Sharper terminal look */
+    background: #000000;
+    color: #E0B045;
+    border: 1px solid #E0B045;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+  }
+  .glass-button:hover {
+    background: #E0B045;
+    color: #000000;
+    box-shadow: 0 0 15px rgba(224, 176, 69, 0.5);
+  }
+  .glass-button:active {
+    transform: scale(0.95);
   }
 }
 
-/* --- Sleek Scrollbar (Gold-toned on dark) --- */
+/* --- Sleek Scrollbar (Gold glow on dark) --- */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -71,21 +109,22 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(224, 176, 69, 0.25);
+  background: rgba(224, 176, 69, 0.3);
   border-radius: 9999px;
+  box-shadow: 0 0 4px rgba(224, 176, 69, 0.2);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(224, 176, 69, 0.5);
+  background: rgba(224, 176, 69, 0.6);
 }
 
-/* Custom Scrollbar class for internal panels */
+/* Custom Scrollbar for internal panels */
 .scrollbar-custom::-webkit-scrollbar {
   width: 4px;
 }
 .scrollbar-custom::-webkit-scrollbar-thumb {
-  background: rgba(224, 176, 69, 0.15);
+  background: rgba(224, 176, 69, 0.2);
 }
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-  background: rgba(224, 176, 69, 0.35);
+  background: rgba(224, 176, 69, 0.45);
 }

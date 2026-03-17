@@ -72,12 +72,12 @@ export function DailyLogPanel() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-white/[0.01] blur-3xl -z-10 rounded-full pointer-events-none"></div>
 
                 {logs.length === 0 ? (
-                    <div className="text-xs text-[var(--color-text-secondary)] tracking-widest text-center py-8 border border-dashed border-[var(--color-panel-border)]/20 rounded-xl bg-white">
+                    <div className="text-xs text-[var(--color-text-secondary)] tracking-widest text-center py-8 border border-dashed border-[var(--color-panel-border)]/20 rounded-xl bg-black">
                         NO_LOGS_FOUND
                     </div>
                 ) : (
                     logs.map(log => (
-                        <div key={log.id} className="p-4 rounded-xl border border-[var(--color-panel-border)]/20 bg-white hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/40 transition-all duration-300 relative group overflow-hidden">
+                        <div key={log.id} className="p-4 rounded-xl border border-[var(--color-panel-border)]/20 bg-black hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/40 transition-all duration-300 relative group overflow-hidden">
                             {/* Hover highlight bar */}
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[var(--color-brand-accent)]/80 to-transparent"></div>
                             
@@ -102,7 +102,7 @@ export function DailyLogPanel() {
                                     </button>
                                 )}
                             </div>
-                            <div className="text-sm whitespace-pre-wrap pl-2 text-[var(--color-text-primary)] leading-relaxed font-sans">
+                            <div className="text-sm whitespace-pre-wrap pl-2 text-[var(--color-text-primary)] leading-relaxed font-mono">
                                 {log.content}
                             </div>
                         </div>

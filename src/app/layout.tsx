@@ -1,12 +1,7 @@
 import { NextAuthProvider } from '@/components/Providers'
 import type { Metadata } from 'next'
-import { Outfit, Geist_Mono } from 'next/font/google'
+import { Geist_Mono } from 'next/font/google'
 import './globals.css'
-
-const outfit = Outfit({
-  variable: '--font-outfit',
-  subsets: ['latin'],
-})
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
@@ -25,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${outfit.variable} ${geistMono.variable} font-sans antialiased text-[var(--color-text-primary)] bg-[var(--color-bg-dark)] min-h-screen relative`}>
+      <body className={`${geistMono.variable} font-mono antialiased text-[var(--color-text-primary)] bg-[var(--color-bg-dark)] min-h-screen relative`}>
         {/* Dark Ambient Background Glows */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden overscroll-none -z-10">
           <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-[var(--color-brand-accent)]/5 blur-[150px]"></div>

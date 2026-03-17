@@ -230,7 +230,7 @@ export function ProjectsPanel() {
 
                             <div className="flex-1 flex flex-col p-2 gap-2">
                                 {projects.length === 0 ? (
-                                    <div className="p-4 text-xs text-[var(--color-text-secondary)] tracking-widest text-center mt-4 border border-dashed border-[var(--color-panel-border)]/30 rounded-xl bg-white">
+                                    <div className="p-4 text-xs text-[var(--color-text-secondary)] tracking-widest text-center mt-4 border border-dashed border-[var(--color-panel-border)]/30 rounded-xl bg-black">
                                         NO_PROJECTS_ASSIGNED
                                     </div>
                                 ) : (
@@ -238,7 +238,7 @@ export function ProjectsPanel() {
                                         <button
                                             key={project.id}
                                             onClick={() => setActiveProjectId(project.id)}
-                                            className={`text-left p-4 rounded-xl border border-[var(--color-panel-border)]/30 transition-all duration-300 relative overflow-hidden group/item ${activeProjectId === project.id ? 'bg-[var(--color-brand-accent)]/10 border-[var(--color-brand-accent)]/50 shadow-sm scale-[1.02]' : 'bg-white hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/60 hover:scale-[1.01]'
+                                            className={`text-left p-4 rounded-xl border border-[var(--color-panel-border)]/30 transition-all duration-300 relative overflow-hidden group/item ${activeProjectId === project.id ? 'bg-[var(--color-brand-accent)]/10 border-[var(--color-brand-accent)]/50 shadow-sm scale-[1.02]' : 'bg-black hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/60 hover:scale-[1.01]'
                                                 }`}
                                         >
                                             {/* Hover highlight bar */}
@@ -303,7 +303,7 @@ export function ProjectsPanel() {
                                                         <span className="text-xs text-[var(--color-text-secondary)] italic border border-dashed border-[var(--color-panel-border)] px-3 py-1 rounded-md">NONE_ASSIGNED</span>
                                                     ) : (
                                                         activeProject.members.map(m => (
-                                                            <span key={m.id} className="group text-[10px] bg-white border border-[var(--color-panel-border)]/30 hover:border-[var(--color-panel-border)]/60 transition-colors px-3 py-1.5 rounded-full tracking-widest uppercase flex items-center gap-2 shadow-sm font-medium">
+                                                            <span key={m.id} className="group text-[10px] bg-black border border-[var(--color-panel-border)]/30 hover:border-[var(--color-panel-border)]/60 transition-colors px-3 py-1.5 rounded-full tracking-widest uppercase flex items-center gap-2 shadow-sm font-medium">
                                                                 <div className="w-4 h-4 rounded-full bg-gradient-to-br from-[var(--color-brand-accent)]/60 to-[var(--color-brand-accent)] flex items-center justify-center text-[7px] border border-[var(--color-brand-accent)]/20 text-black">{m.user.username.charAt(0).toUpperCase()}</div>
                                                                 <span className="text-[var(--color-text-primary)]">{m.user.username} <span className="opacity-50">({m.user.role})</span></span>
                                                                 {isAdmin && (
@@ -354,12 +354,12 @@ export function ProjectsPanel() {
 
                                         <div className="space-y-3 mb-6 flex-1 overflow-y-auto scrollbar-custom pr-2">
                                             {activeProject.todos.length === 0 ? (
-                                                <div className="text-xs text-[var(--color-text-secondary)] tracking-widest flex items-center justify-center p-8 border border-dashed border-[var(--color-panel-border)]/20 rounded-xl bg-white">
+                                                <div className="text-xs text-[var(--color-text-secondary)] tracking-widest flex items-center justify-center p-8 border border-dashed border-[var(--color-panel-border)]/20 rounded-xl bg-black">
                                                     NO_TASKS_FOUND
                                                 </div>
                                             ) : (
                                                 activeProject.todos.map(todo => (
-                                                    <div key={todo.id} className="flex items-start justify-between group/todo p-3.5 rounded-xl border border-[var(--color-panel-border)]/20 bg-white hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/40 transition-all duration-300">
+                                                    <div key={todo.id} className="flex items-start justify-between group/todo p-3.5 rounded-xl border border-[var(--color-panel-border)]/20 bg-black hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/40 transition-all duration-300">
                                                         <label className="flex items-start gap-4 cursor-pointer flex-1">
                                                             <div className="relative flex items-center pt-0.5 shrink-0">
                                                                 <input
@@ -400,7 +400,7 @@ export function ProjectsPanel() {
                                             )}
                                         </div>
 
-                                        <form onSubmit={addTodo} className="mt-auto border-t border-[var(--color-panel-border)]/20 border-dashed pt-4 flex gap-3 shrink-0 relative bg-white p-3 rounded-xl border-x border-b">
+                                        <form onSubmit={addTodo} className="mt-auto border-t border-[var(--color-panel-border)]/20 border-dashed pt-4 flex gap-3 shrink-0 relative bg-black p-3 rounded-xl border-x border-b">
                                             {/* Decorative glow line top */}
                                             <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[var(--color-brand-accent)]/50 to-transparent"></div>
                                             <input

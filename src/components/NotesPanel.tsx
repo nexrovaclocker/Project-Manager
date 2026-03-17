@@ -195,7 +195,7 @@ export function NotesPanel() {
 
                         <div className="space-y-5">
                             {activeNote.blocks.map((block) => (
-                                <div key={block.id} className="p-4 border border-[var(--color-panel-border)]/30 bg-white rounded-xl hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/60 transition-all duration-300 relative group/block">
+                                <div key={block.id} className="p-4 border border-[var(--color-panel-border)]/30 bg-black rounded-xl hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/60 transition-all duration-300 relative group/block">
                                     {/* Left accent bar */}
                                     <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-0 bg-[var(--color-brand-accent)] transition-all duration-300 group-hover/block:h-[60%] rounded-r-md"></div>
                                     
@@ -268,7 +268,7 @@ export function NotesPanel() {
                             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[var(--color-brand-accent)]/30 to-transparent"></div>
                             
                             {/* Add Text Block */}
-                            <div className="space-y-3 p-4 rounded-xl bg-white border border-[var(--color-panel-border)]/20 shadow-sm">
+                            <div className="space-y-3 p-4 rounded-xl bg-black border border-[var(--color-panel-border)]/20 shadow-sm">
                                 <label className="block text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] uppercase">APPEND_REPORT_LOG</label>
                                 <textarea
                                     rows={2}

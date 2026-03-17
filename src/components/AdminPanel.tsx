@@ -194,7 +194,7 @@ export function AdminPanel() {
                 </h2>
 
                 {/* ── CREATE_USER ── */}
-                <form onSubmit={handleCreateUser} className="space-y-5 p-5 border border-[var(--color-panel-border)]/20 rounded-xl bg-white shadow-sm relative overflow-hidden group">
+                <form onSubmit={handleCreateUser} className="space-y-5 p-5 border border-[var(--color-panel-border)]/20 rounded-xl bg-black shadow-sm relative overflow-hidden group">
                     <div className="absolute right-0 bottom-0 w-32 h-32 bg-[var(--color-orange-accent)]/5 rounded-full blur-2xl -z-10 pointer-events-none group-hover:bg-[var(--color-orange-accent)]/10 transition-colors duration-500"></div>
                     <div>
                         <label className={labelClass}>NAME</label>
@@ -299,11 +299,11 @@ export function AdminPanel() {
 
                 <div className="space-y-3">
                     {users.length === 0 ? (
-                        <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase text-center py-6 border border-dashed border-[var(--color-panel-border)]/20 rounded-xl bg-white">
+                        <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase text-center py-6 border border-dashed border-[var(--color-panel-border)]/20 rounded-xl bg-black">
                             NO_USERS_FOUND
                         </div>
                     ) : (
-                        <div className="border border-[var(--color-panel-border)]/20 rounded-xl overflow-hidden bg-white shadow-sm">
+                        <div className="border border-[var(--color-panel-border)]/20 rounded-xl overflow-hidden bg-black shadow-sm">
                             <table className="w-full text-left border-collapse">
                                 <thead className="bg-[var(--color-brand-accent)]/10 border-b border-[var(--color-panel-border)]/20">
                                     <tr>
@@ -415,7 +415,7 @@ export function AdminPanel() {
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div className="h-64 rounded-xl border border-[var(--color-panel-border)]/20 bg-white p-5 shadow-sm group/chart">
+                            <div className="h-64 rounded-xl border border-[var(--color-panel-border)]/20 bg-black p-5 shadow-sm group/chart">
                                 <div className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] mb-6 uppercase flex items-center justify-between">
                                     HOURS_PER_DAY
                                     <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)]/50 group-hover/chart:bg-[var(--color-brand-accent)] transition-colors"></div>
@@ -430,7 +430,7 @@ export function AdminPanel() {
                                 </ResponsiveContainer>
                             </div>
 
-                            <div className="h-64 rounded-xl border border-[var(--color-panel-border)]/20 bg-white p-5 shadow-sm group/chart">
+                            <div className="h-64 rounded-xl border border-[var(--color-panel-border)]/20 bg-black p-5 shadow-sm group/chart">
                                 <div className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] mb-6 uppercase flex items-center justify-between">
                                     SESSION_DURATION
                                     <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)]/50 group-hover/chart:bg-[var(--color-brand-accent)] transition-colors"></div>
@@ -446,7 +446,7 @@ export function AdminPanel() {
                             </div>
                         </div>
 
-                        <div className="rounded-xl border border-[var(--color-panel-border)]/20 overflow-hidden bg-white shadow-sm">
+                        <div className="rounded-xl border border-[var(--color-panel-border)]/20 overflow-hidden bg-black shadow-sm">
                             <table className="w-full text-left text-sm text-[var(--color-text-primary)] border-collapse">
                                 <thead className="bg-[var(--color-brand-accent)]/10 border-b border-[var(--color-panel-border)]/20">
                                     <tr>

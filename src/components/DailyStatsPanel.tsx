@@ -132,7 +132,7 @@ export function DailyStatsPanel() {
                         NO_SESSIONS_RECORDED_IN_LAST_48_HOURS
                     </div>
                 ) : (
-                    <div className="border border-[var(--color-panel-border)]/20 rounded-xl overflow-hidden bg-white shadow-sm">
+                    <div className="border border-[var(--color-panel-border)]/20 rounded-xl overflow-hidden bg-black shadow-sm">
                         <table className="w-full text-left text-sm whitespace-nowrap border-collapse relative z-10">
                             <thead className="bg-[var(--color-brand-accent)]/10 border-b border-[var(--color-panel-border)]/20">
                                 <tr>
