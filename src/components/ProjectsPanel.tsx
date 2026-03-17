@@ -230,7 +230,7 @@ export function ProjectsPanel() {
 
                             <div className="flex-1 flex flex-col p-2 gap-2">
                                 {projects.length === 0 ? (
-                                    <div className="p-4 text-xs text-[var(--color-text-secondary)] tracking-widest text-center mt-4 border border-dashed border-[var(--color-panel-border)]/30 rounded-xl bg-black">
+                                    <div className="p-4 text-xs text-[var(--color-text-secondary)] tracking-widest text-center mt-4 border border-dashed border-[var(--color-brand-accent)]/30 rounded-xl bg-transparent shadow-[inset_0_0_10px_rgba(224,176,69,0.05)]">
                                         NO_PROJECTS_ASSIGNED
                                     </div>
                                 ) : (
@@ -238,7 +238,7 @@ export function ProjectsPanel() {
                                         <button
                                             key={project.id}
                                             onClick={() => setActiveProjectId(project.id)}
-                                            className={`text-left p-4 rounded-xl border border-[var(--color-panel-border)]/30 transition-all duration-300 relative overflow-hidden group/item ${activeProjectId === project.id ? 'bg-[var(--color-brand-accent)]/10 border-[var(--color-brand-accent)]/50 shadow-sm scale-[1.02]' : 'bg-black hover:bg-[var(--color-panel-hover)] hover:border-[var(--color-panel-border)]/60 hover:scale-[1.01]'
+                                            className={`text-left p-4 rounded-xl border border-[var(--color-panel-border)]/30 transition-all duration-300 relative overflow-hidden group/item ${activeProjectId === project.id ? 'bg-[var(--color-brand-accent)]/10 border-[var(--color-brand-accent)] shadow-[0_0_15px_var(--color-brand-accent)] scale-[1.02]' : 'bg-transparent hover:bg-[var(--color-brand-accent)]/5 hover:border-[var(--color-brand-accent)]/60 hover:scale-[1.01]'
                                                 }`}
                                         >
                                             {/* Hover highlight bar */}

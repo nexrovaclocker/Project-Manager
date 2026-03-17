@@ -82,7 +82,7 @@ export function DailyLogPanel() {
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[var(--color-brand-accent)]/80 to-transparent"></div>
                             
                             <div className="flex justify-between items-start mb-3 pl-2">
-                                <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase flex items-center gap-2">
+                                <div className="text-[10px] tracking-widest text-[var(--color-text-secondary)] uppercase flex items-center gap-2 font-mono">
                                     <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[var(--color-brand-accent)]/60 to-[var(--color-brand-accent)] flex items-center justify-center text-[9px] border border-[var(--color-brand-accent)]/20 text-black font-bold shadow-sm">
                                         {log.user.username.charAt(0).toUpperCase()}
                                     </div>

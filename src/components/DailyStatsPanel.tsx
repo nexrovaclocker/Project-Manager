@@ -132,7 +132,7 @@ export function DailyStatsPanel() {
                         NO_SESSIONS_RECORDED_IN_LAST_48_HOURS
                     </div>
                 ) : (
-                    <div className="border border-[var(--color-panel-border)]/20 rounded-xl overflow-hidden bg-black shadow-sm">
+                    <div className="border border-[var(--color-panel-border)]/30 rounded-xl overflow-hidden bg-transparent shadow-[0_0_15px_rgba(224,176,69,0.1)]">
                         <table className="w-full text-left text-sm whitespace-nowrap border-collapse relative z-10">
                             <thead className="bg-[var(--color-brand-accent)]/10 border-b border-[var(--color-panel-border)]/20">
                                 <tr>
@@ -169,8 +169,8 @@ export function DailyStatsPanel() {
                                             <td className="p-4 text-xs font-mono text-[var(--color-text-primary)] group-hover/row:text-[var(--color-brand-accent)] transition-colors">
                                                 {new Date(session.clockIn).toLocaleString()}
                                             </td>
-                                            <td className="p-4 text-xs font-mono text-[var(--color-text-primary)] group-hover/row:text-[var(--color-brand-accent)] transition-colors">
-                                                {session.clockOut ? new Date(session.clockOut).toLocaleString() : <span className="text-[var(--color-text-secondary)]">--</span>}
+                                            <td className="p-4 text-xs font-mono text-[var(--color-text-secondary)] group-hover/row:text-[var(--color-brand-accent)] transition-colors">
+                                                {session.clockOut ? new Date(session.clockOut).toLocaleString() : <span className="text-red-500 opacity-50">--</span>}
                                             </td>
                                             <td className="p-4 text-xs font-mono text-right font-bold text-[var(--color-brand-accent)]">
                                                 {session.durationMinutes !== null ? (
@@ -179,8 +179,8 @@ export function DailyStatsPanel() {
                                                     </div>
                                                 ) : <span className="text-[var(--color-text-secondary)]">--</span>}
                                             </td>
-                                            <td className="p-4 text-xs text-[var(--color-text-secondary)] truncate max-w-xs group-hover/row:text-[var(--color-text-primary)] transition-colors">
-                                                {session.sessionNote || <span className="italic opacity-50">NO_NOTES_PROVIDED</span>}
+                                            <td className="p-4 text-xs text-[var(--color-text-secondary)] truncate max-w-xs group-hover/row:text-[var(--color-text-primary)] transition-colors font-mono">
+                                                {session.sessionNote || <span className="italic opacity-50">&lt;DATA_MISSING&gt;</span>}
                                             </td>
                                         </tr>
                                     )

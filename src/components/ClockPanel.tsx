@@ -92,8 +92,8 @@ export function ClockPanel() {
                     <>
                         <div className="text-center space-y-2">
                             <div className="text-xs font-bold tracking-widest text-[var(--color-text-secondary)] uppercase">CURRENT_STATUS:</div>
-                            <div className={`text-2xl font-bold tracking-widest drop-shadow-lg ${status === 'clocked_in' ? 'text-[var(--color-brand-accent)]' : 'text-[var(--color-orange-accent)]'}`}>
-                                [{status === 'clocked_in' ? 'ACTIVE_SESSION' : 'OFFLINE'}]
+                            <div className={`text-2xl font-bold tracking-widest drop-shadow-[0_0_10px_currentColor] ${status === 'clocked_in' ? 'text-[var(--color-text-secondary)]' : 'text-red-500'}`}>
+                                [{status === 'clocked_in' ? 'SYSTEM_ONLINE' : 'LINK_OFFLINE'}]
                             </div>
                         </div>
 
@@ -114,9 +114,9 @@ export function ClockPanel() {
                                 </div>
                                 <button
                                     onClick={handleClockIn}
-                                    className="w-full py-4 rounded-xl border border-[var(--color-brand-accent)]/50 bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] font-bold tracking-widest uppercase transition-all duration-300 hover:bg-[var(--color-brand-accent)]/20 hover:border-[var(--color-brand-accent)] hover:-translate-y-1 shadow-sm hover:shadow-md active:scale-95"
+                                    className="w-full py-4 rounded-xl border border-[var(--color-brand-accent)] bg-transparent text-[var(--color-brand-accent)] font-bold tracking-widest uppercase transition-all duration-300 hover:bg-[var(--color-brand-accent)] hover:text-black hover:-translate-y-1 shadow-[0_0_10px_rgba(224,176,69,0.2)] hover:shadow-[0_0_20px_rgba(224,176,69,0.4)] active:scale-95"
                                 >
-                                    CLOCK_IN
+                                    CLOCK_IN_EXEC
                                 </button>
                             </div>
                         )}
@@ -124,9 +124,9 @@ export function ClockPanel() {
                         {status === 'clocked_in' && !isClockingOut && (
                             <button
                                 onClick={() => setIsClockingOut(true)}
-                                className="w-full max-w-xs py-4 rounded-xl border border-[var(--color-brand-accent)]/50 bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] font-bold tracking-widest uppercase transition-all duration-300 hover:bg-[var(--color-brand-accent)]/20 hover:border-[var(--color-brand-accent)] hover:-translate-y-1 shadow-sm hover:shadow-md active:scale-95"
+                                className="w-full max-w-xs py-4 rounded-xl border border-[var(--color-brand-accent)] bg-transparent text-[var(--color-brand-accent)] font-bold tracking-widest uppercase transition-all duration-300 hover:bg-[var(--color-brand-accent)] hover:text-black hover:-translate-y-1 shadow-[0_0_10px_rgba(224,176,69,0.2)] hover:shadow-[0_0_20px_rgba(224,176,69,0.4)] active:scale-95"
                             >
-                                INITIATE_CLOCK_OUT
+                                INITIATE_LOGOFF_SEQ
                             </button>
                         )}
 

@@ -56,17 +56,20 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
             }, "+=0.5");
         }
 
-        // Phase 3: Blink Cursor after typing
-        tl.to('.nxi-text-content', {
-            borderRightColor: 'transparent',
-            repeat: -1,
-            duration: 0.5,
-            yoyo: true,
-            ease: 'sine.inOut'
+        // Phase 3: Hold for a beat
+        tl.to({}, { 
+            duration: 1.5,
+            onStart: () => {
+                // Start the infinite blink separately so it doesn't block the timeline from finishing
+                gsap.to('.nxi-text-content', {
+                    borderRightColor: 'transparent',
+                    repeat: -1,
+                    duration: 0.5,
+                    yoyo: true,
+                    ease: 'sine.inOut'
+                })
+            }
         })
-
-        // Hold for a beat
-        tl.to({}, { duration: 1.5 })
 
     }, { scope: container, dependencies: [isLoaded] })
 

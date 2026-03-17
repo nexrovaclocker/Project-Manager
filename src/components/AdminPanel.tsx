@@ -194,7 +194,7 @@ export function AdminPanel() {
                 </h2>
 
                 {/* ── CREATE_USER ── */}
-                <form onSubmit={handleCreateUser} className="space-y-5 p-5 border border-[var(--color-panel-border)]/20 rounded-xl bg-black shadow-sm relative overflow-hidden group">
+                <form onSubmit={handleCreateUser} className="space-y-5 p-5 border border-[var(--color-panel-border)]/30 rounded-xl bg-transparent shadow-[0_0_15px_rgba(224,176,69,0.1)] relative overflow-hidden group">
                     <div className="absolute right-0 bottom-0 w-32 h-32 bg-[var(--color-orange-accent)]/5 rounded-full blur-2xl -z-10 pointer-events-none group-hover:bg-[var(--color-orange-accent)]/10 transition-colors duration-500"></div>
                     <div>
                         <label className={labelClass}>NAME</label>
@@ -303,7 +303,7 @@ export function AdminPanel() {
                             NO_USERS_FOUND
                         </div>
                     ) : (
-                        <div className="border border-[var(--color-panel-border)]/20 rounded-xl overflow-hidden bg-black shadow-sm">
+                        <div className="border border-[var(--color-panel-border)]/30 rounded-xl overflow-hidden bg-transparent shadow-[0_0_15px_rgba(224,176,69,0.1)]">
                             <table className="w-full text-left border-collapse">
                                 <thead className="bg-[var(--color-brand-accent)]/10 border-b border-[var(--color-panel-border)]/20">
                                     <tr>
@@ -430,7 +430,7 @@ export function AdminPanel() {
                                 </ResponsiveContainer>
                             </div>
 
-                            <div className="h-64 rounded-xl border border-[var(--color-panel-border)]/20 bg-black p-5 shadow-sm group/chart">
+                            <div className="h-64 rounded-xl border border-[var(--color-panel-border)]/30 bg-transparent p-5 shadow-[0_0_15px_rgba(224,176,69,0.1)] group/chart">
                                 <div className="text-[10px] font-bold tracking-widest text-[var(--color-text-secondary)] mb-6 uppercase flex items-center justify-between">
                                     SESSION_DURATION
                                     <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-accent)]/50 group-hover/chart:bg-[var(--color-brand-accent)] transition-colors"></div>

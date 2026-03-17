@@ -158,7 +158,7 @@ export function NotesPanel() {
                         onClick={() => setActiveNoteId(note.id)}
                         className={`flex-shrink-0 px-5 py-3 text-xs font-bold tracking-widest border-r border-[var(--color-panel-border)]/30 transition-all duration-300 ${activeNoteId === note.id
                             ? 'bg-[var(--color-brand-accent)]/10 text-[var(--color-brand-accent)] border-b-2 border-b-[var(--color-brand-accent)]'
-                            : 'text-[var(--color-text-secondary)] hover:bg-black/5 hover:text-[var(--color-text-primary)]'
+                            : 'text-[var(--color-text-secondary)]/60 hover:bg-[var(--color-brand-accent)]/10 hover:text-[var(--color-text-secondary)]'
                             }`}
                     >
                         {note.title.toUpperCase()}
@@ -231,7 +231,7 @@ export function NotesPanel() {
                                     ) : (
                                         <div className="space-y-3">
                                             {block.todoItems.map((todo) => (
-                                                <label key={todo.id} className="flex items-start gap-3 cursor-pointer group/todo p-2 rounded-lg hover:bg-black/5 transition-colors border border-transparent hover:border-black/5">
+                                                <label key={todo.id} className="flex items-start gap-3 cursor-pointer group/todo p-2 rounded-lg hover:bg-[var(--color-brand-accent)]/5 transition-colors border border-transparent hover:border-[var(--color-brand-accent)]/20">
                                                     <div className="relative flex items-center pt-0.5 shrink-0">
                                                         <input
                                                             type="checkbox"

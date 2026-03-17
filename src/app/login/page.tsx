@@ -40,12 +40,12 @@ export default function LoginPage() {
             <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg-dark)] px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8">
                     <div>
-                        <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-[var(--color-text-primary)]">
-                            NEXROVA PROJECT MANAGER
+                        <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-[var(--color-brand-accent)] drop-shadow-[0_0_8px_#E0B045]">
+                            NEXROVA_OS_v4.7
                         </h2>
                     </div>
                     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                        <div className="border border-[var(--color-panel-border)]/40 bg-[var(--color-panel)] p-6 space-y-6 rounded-2xl overflow-hidden shadow-sm text-black">
+                        <div className="glass-panel p-6 space-y-6 overflow-hidden">
                             {error && (
                                 <div className="text-red-600 text-sm font-semibold border border-red-500/30 bg-red-500/10 p-2 rounded-lg">
                                     [ERROR] {error}
@@ -53,8 +53,8 @@ export default function LoginPage() {
                             )}
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-                                        &gt; Username
+                                    <label className="block text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-1">
+                                        [SYS] USERNAME
                                     </label>
                                     <input
                                         id="username"
@@ -68,8 +68,8 @@ export default function LoginPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-                                        &gt; Password
+                                    <label className="block text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-1">
+                                        [X] ACCESS_KEY
                                     </label>
                                     <input
                                         id="password"

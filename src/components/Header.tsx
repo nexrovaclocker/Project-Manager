@@ -23,7 +23,7 @@ function HeaderContent() {
     }
 
     return (
-        <div className="w-full flex items-center justify-between p-4 sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-[var(--color-panel-border)]/30 shadow-lg">
+        <div className="w-full flex items-center justify-between p-4 sticky top-0 z-50 bg-transparent border-b border-[var(--color-panel-border)]/50 shadow-[0_4px_20px_rgba(224,176,69,0.15)] backdrop-blur-md">
             <div className="flex items-center gap-8">
                 <Link href="/dashboard" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                     <Image 
