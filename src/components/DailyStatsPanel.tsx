@@ -100,7 +100,7 @@ export function DailyStatsPanel() {
                                 onChange={(e) => setSelectedUserId(e.target.value)}
                             >
                                 {users.map(u => (
-                                    <option key={u.id} value={u.id} className="bg-white text-black">
+                                    <option key={u.id} value={u.id} className="bg-[#1a1a1a] text-white">
                                         {u.username} ({u.role})
                                     </option>
                                 ))}
@@ -150,7 +150,7 @@ export function DailyStatsPanel() {
                                     return (
                                         <tr
                                             key={session.id}
-                                            className={`border-b border-[var(--color-panel-border)]/10 last:border-b-0 transition-colors hover:bg-black/5 group/row ${isMidnightCross ? 'bg-red-50' : ''}`}
+                                            className={`border-b border-[var(--color-panel-border)]/10 last:border-b-0 transition-colors hover:bg-black/5 group/row ${isMidnightCross ? 'bg-red-500/10' : ''}`}
                                         >
                                             <td className="p-4">
                                                 {session.clockOut ? (

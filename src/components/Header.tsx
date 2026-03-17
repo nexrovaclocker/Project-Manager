@@ -23,7 +23,7 @@ function HeaderContent() {
     }
 
     return (
-        <div className="w-full flex items-center justify-between p-4 sticky top-0 z-50 bg-[var(--color-bg-dark)]/90 backdrop-blur-md border-b border-[var(--color-panel-border)]/30 shadow-sm">
+        <div className="w-full flex items-center justify-between p-4 sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-[var(--color-panel-border)]/30 shadow-lg">
             <div className="flex items-center gap-8">
                 <Link href="/dashboard" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                     <Image 
@@ -48,7 +48,7 @@ function HeaderContent() {
                                 onClick={() => navigate(t)}
                                 className={`text-xs font-bold tracking-widest px-4 py-2 rounded-lg transition-all uppercase border-b-2 ${isActive
                                     ? 'border-[var(--color-brand-accent)] text-[var(--color-brand-accent)] bg-[var(--color-brand-accent)]/10'
-                                    : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-black/5 hover:-translate-y-0.5'
+                                    : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/5 hover:-translate-y-0.5'
                                     }`}
                             >
                                 {t.replace('_', ' ')}
@@ -58,7 +58,7 @@ function HeaderContent() {
                 </div>
             </div>
             <div className="flex items-center gap-4">
-                <div className="text-xs font-medium tracking-widest text-[var(--color-text-secondary)] uppercase bg-[var(--color-panel)] px-3 py-1.5 rounded-full border border-[var(--color-panel-border)]/30">
+                <div className="text-xs font-medium tracking-widest text-[var(--color-text-secondary)] uppercase bg-white/5 px-3 py-1.5 rounded-full border border-[var(--color-panel-border)]/30">
                     <span className="text-[var(--color-brand-accent)] mr-2">●</span>
                     {session.user.username}
                 </div>

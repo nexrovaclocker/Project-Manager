@@ -186,7 +186,7 @@ export function NotesPanel() {
                             {(session?.user.id === activeNote.createdBy || session?.user.role === 'admin') && (
                                 <button
                                     onClick={() => deleteNote(activeNote.id)}
-                                    className="font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl border border-red-300 text-red-500 hover:bg-red-50 hover:border-red-500 active:scale-95 transition-all cursor-pointer"
+                                    className="font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl border border-red-500/30 text-red-500 hover:bg-red-500/10 hover:border-red-500 active:scale-95 transition-all cursor-pointer"
                                 >
                                     DELETE
                                 </button>

@@ -97,7 +97,7 @@ export function ClockPanel() {
                             </div>
                         </div>
 
-                        {error && <div className="text-red-600 text-xs tracking-widest font-medium bg-red-50 border border-red-300 rounded-xl p-3 w-full text-center shadow-sm">{error}</div>}
+                        {error && <div className="text-red-500 text-xs tracking-widest font-medium bg-red-500/10 border border-red-500/30 rounded-xl p-3 w-full text-center shadow-sm">{error}</div>}
 
                         {status === 'clocked_out' && (
                             <div className="w-full max-w-xs flex flex-col gap-5">

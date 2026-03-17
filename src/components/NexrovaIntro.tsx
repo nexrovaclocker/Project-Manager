@@ -92,7 +92,7 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
         <div
             ref={container}
             className="fixed inset-0 z-50 flex items-center justify-center"
-            style={{ background: '#F8F9F1' }}
+            style={{ background: '#000000' }}
         >
             <style>{`
                 .nxi-logo-box {
@@ -135,7 +135,7 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
                     font-size: 84px;
                     font-weight: 300;
                     letter-spacing: 24px;
-                    color: #E0B045;
+                    color: #F8F9F1;
                     margin: 0;
                     margin-right: -24px;
                     white-space: nowrap;

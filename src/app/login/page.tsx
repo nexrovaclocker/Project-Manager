@@ -45,15 +45,15 @@ export default function LoginPage() {
                         </h2>
                     </div>
                     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                        <div className="border border-[var(--color-panel-border)]/40 bg-[var(--color-panel)] p-6 space-y-6 rounded-2xl overflow-hidden shadow-sm">
+                        <div className="border border-[var(--color-panel-border)]/40 bg-[var(--color-panel)] p-6 space-y-6 rounded-2xl overflow-hidden shadow-sm text-black">
                             {error && (
-                                <div className="text-red-600 text-sm font-semibold border border-red-400/50 bg-red-50 p-2 rounded-lg">
+                                <div className="text-red-600 text-sm font-semibold border border-red-500/30 bg-red-500/10 p-2 rounded-lg">
                                     [ERROR] {error}
                                 </div>
                             )}
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-1">
+                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
                                         &gt; Username
                                     </label>
                                     <input
@@ -68,7 +68,7 @@ export default function LoginPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider mb-1">
+                                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
                                         &gt; Password
                                     </label>
                                     <input

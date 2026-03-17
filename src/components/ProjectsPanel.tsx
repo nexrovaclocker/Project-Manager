@@ -285,7 +285,7 @@ export function ProjectsPanel() {
                                             {isAdmin && (
                                                 <button
                                                     onClick={() => handleDeleteProject(activeProject.id, activeProject.name)}
-                                                    className="font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl border border-red-300 text-red-500 hover:bg-red-50 hover:border-red-500 active:scale-95 transition-all cursor-pointer shrink-0 ml-4"
+                                                    className="font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl border border-red-500/30 text-red-500 hover:bg-red-500/10 hover:border-red-500 active:scale-95 transition-all cursor-pointer shrink-0 ml-4"
                                                 >
                                                     DELETE_PROJECT
                                                 </button>
@@ -332,9 +332,9 @@ export function ProjectsPanel() {
                                                         }}
                                                         defaultValue=""
                                                     >
-                                                        <option value="" disabled className="bg-white text-gray-500">+ ADD_MEMBER_TO_PROJECT</option>
+                                                        <option value="" disabled className="bg-[#1a1a1a] text-gray-400">+ ADD_MEMBER_TO_PROJECT</option>
                                                         {users.filter(u => !activeProject.members.some(m => m.userId === u.id)).map(u => (
-                                                            <option key={u.id} value={u.id} className="bg-white text-black">{u.username} ({u.role})</option>
+                                                            <option key={u.id} value={u.id} className="bg-[#1a1a1a] text-white">{u.username} ({u.role})</option>
                                                         ))}
                                                     </select>
                                                     {/* custom dropdown arrow to sit over the input */}

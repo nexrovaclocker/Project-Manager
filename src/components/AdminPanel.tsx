@@ -215,9 +215,9 @@ export function AdminPanel() {
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                         >
-                            <option value="member" className="bg-white text-black">MEMBER (STD_ACCESS)</option>
-                            <option value="intern" className="bg-white text-black">INTERN (RESTRICTED)</option>
-                            <option value="admin" className="bg-white text-black">ADMIN (ROOT_PRIVILEGES)</option>
+                            <option value="member" className="bg-[#1a1a1a] text-white">MEMBER (STD_ACCESS)</option>
+                            <option value="intern" className="bg-[#1a1a1a] text-white">INTERN (RESTRICTED)</option>
+                            <option value="admin" className="bg-[#1a1a1a] text-white">ADMIN (ROOT_PRIVILEGES)</option>
                         </select>
                         <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none">
                             <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
@@ -247,9 +247,9 @@ export function AdminPanel() {
                             value={cpUserId}
                             onChange={(e) => setCpUserId(e.target.value)}
                         >
-                            <option value="" className="bg-white text-gray-500">-- SELECT_USER --</option>
+                            <option value="" className="bg-[#1a1a1a] text-gray-400">-- SELECT_USER --</option>
                             {users.map((u) => (
-                                <option key={u.id} value={u.id} className="bg-white text-black">
+                                <option key={u.id} value={u.id} className="bg-[#1a1a1a] text-white">
                                     {u.username} [{u.role.toUpperCase()}]
                                 </option>
                             ))}
@@ -345,7 +345,7 @@ export function AdminPanel() {
                                                     ) : (
                                                         <button
                                                             onClick={() => handleDeleteUser(u.id, u.username)}
-                                                            className="font-bold tracking-widest text-[10px] uppercase text-red-500 border border-red-300 hover:bg-red-50 hover:border-red-500 px-3 py-1.5 rounded-xl opacity-0 group-hover/row:opacity-100 transition-all ml-auto cursor-pointer"
+                                                            className="font-bold tracking-widest text-[10px] uppercase text-red-500 border border-red-500/30 hover:bg-red-500/10 hover:border-red-500 px-3 py-1.5 rounded-xl opacity-0 group-hover/row:opacity-100 transition-all ml-auto cursor-pointer"
                                                         >
                                                             TERMINATE
                                                         </button>
@@ -382,9 +382,9 @@ export function AdminPanel() {
                             value={selectedUserId}
                             onChange={(e) => setSelectedUserId(e.target.value)}
                         >
-                            <option value="" className="bg-white text-gray-500">-- SELECT_PERSONNEL --</option>
+                            <option value="" className="bg-[#1a1a1a] text-gray-400">-- SELECT_PERSONNEL --</option>
                             {users.map((u) => (
-                                <option key={u.id} value={u.id} className="bg-white text-black">
+                                <option key={u.id} value={u.id} className="bg-[#1a1a1a] text-white">
                                     {u.username} ({u.role})
                                 </option>
                             ))}
@@ -424,7 +424,7 @@ export function AdminPanel() {
                                     <BarChart data={analytics.dailyChartData}>
                                         <XAxis dataKey="date" stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
                                         <YAxis stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip cursor={{ fill: 'rgba(224,176,69,0.08)' }} contentStyle={{ backgroundColor: '#fff', border: '1px solid #E0B045', borderRadius: '8px' }} itemStyle={{ color: '#E0B045' }} />
+                                        <Tooltip cursor={{ fill: 'rgba(224,176,69,0.08)' }} contentStyle={{ backgroundColor: 'rgba(0,0,0,0.9)', border: '1px solid #E0B045', borderRadius: '8px' }} itemStyle={{ color: '#E0B045' }} />
                                         <Bar dataKey="hours" fill="#E0B045" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
                                     </BarChart>
                                 </ResponsiveContainer>
@@ -439,7 +439,7 @@ export function AdminPanel() {
                                     <BarChart data={analytics.sessionChartData}>
                                         <XAxis dataKey="name" stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
                                         <YAxis stroke="#888888" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip cursor={{ fill: 'rgba(224,176,69,0.08)' }} contentStyle={{ backgroundColor: '#fff', border: '1px solid #E0B045', borderRadius: '8px' }} itemStyle={{ color: '#C9A035' }} />
+                                        <Tooltip cursor={{ fill: 'rgba(224,176,69,0.08)' }} contentStyle={{ backgroundColor: 'rgba(0,0,0,0.9)', border: '1px solid #E0B045', borderRadius: '8px' }} itemStyle={{ color: '#C9A035' }} />
                                         <Bar dataKey="duration" fill="#C9A035" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
                                     </BarChart>
                                 </ResponsiveContainer>

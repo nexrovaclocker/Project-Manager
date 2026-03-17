@@ -4,26 +4,26 @@
   --font-sans: var(--font-outfit);
   --font-mono: var(--font-geist-mono);
   
-  /* Nexrova Gold & Off-White Theme */
-  --color-bg-dark: #F8F9F1;        /* Primary Off-White (page background) */
-  --color-panel: #F7F7EF;           /* Secondary Off-White (cards/containers) */
-  --color-panel-hover: #EFEFE7;     /* Slightly darker hover state */
-  --color-panel-border: #E0B045;    /* Gold borders */
+  /* Nexrova Dark Mode Theme */
+  --color-bg-dark: #000000;           /* Pure Black (page background) */
+  --color-panel: #F7F7EF;             /* Off-White (cards/containers) */
+  --color-panel-hover: #EFEFE7;       /* Slightly darker hover */
+  --color-panel-border: #E0B045;      /* Gold borders */
   
   /* Accents */
-  --color-brand-accent: #E0B045;    /* Gold */
+  --color-brand-accent: #E0B045;      /* Gold */
   --color-brand-accent-glow: rgba(224, 176, 69, 0.25);
-  --color-orange-accent: #E0B045;   /* Unified Gold */
+  --color-orange-accent: #E0B045;     /* Unified Gold */
   --color-orange-accent-glow: rgba(224, 176, 69, 0.2);
-  --color-blue-accent: #C9A035;     /* Warm gold variant */
+  --color-blue-accent: #C9A035;       /* Warm gold variant */
   
-  /* Text */
-  --color-text-primary: #000000;    /* Black */
-  --color-text-secondary: #555555;  /* Medium gray */
+  /* Text (page-level — light for dark bg) */
+  --color-text-primary: #F8F9F1;      /* Off-White */
+  --color-text-secondary: #aaaaaa;    /* Muted gray */
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 body {
@@ -44,19 +44,23 @@ body {
 @layer utilities {
   .glass-panel {
     @apply bg-[var(--color-panel)] border border-[var(--color-panel-border)] rounded-2xl shadow-sm;
+    /* Scoped text color overrides — dark text readable on light card bg */
+    --color-text-primary: #000000;
+    --color-text-secondary: #555555;
+    color: #000000;
   }
   .glass-panel-hover {
     @apply transition-all duration-300 hover:bg-[var(--color-panel-hover)] hover:shadow-md hover:-translate-y-0.5;
   }
   .glass-input {
-    @apply bg-white border border-[var(--color-panel-border)]/40 rounded-xl px-4 py-2 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)] transition-all;
+    @apply bg-white border border-[var(--color-panel-border)]/40 rounded-xl px-4 py-2 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)] transition-all;
   }
   .glass-button {
     @apply font-bold tracking-widest text-xs uppercase px-4 py-2 rounded-xl bg-[var(--color-brand-accent)] text-black border border-[var(--color-brand-accent)] hover:bg-[var(--color-brand-accent)]/85 active:scale-95 transition-all cursor-pointer;
   }
 }
 
-/* --- Sleek Scrollbar (Gold-toned) --- */
+/* --- Sleek Scrollbar (Gold-toned on dark) --- */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
