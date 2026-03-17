@@ -40,28 +40,31 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
             }
         )
 
-        // Phase 3: The Dual-Direction Slide (2.5s - 4s)
+        // Phase 3: The Physical Emergence (2.5s - 4s)
         tl.to('.nxi-logo-box', {
-            x: -180, // Slide smoothly to the LEFT
+            x: -160, // Slide smoothly to the LEFT
             duration: 1.5,
             ease: 'easeInOut' // Use exact easing requested
         }, 2.5) // Starts at 2.5s
 
-        // Text 'NEXROVA' emerges from center and moves to the RIGHT
-        // With a 'wipe' clip-path reveal
-        tl.fromTo('.nxi-text-box',
-            { x: -40, clipPath: 'inset(0% 100% 0% 0%)' },
-            { 
-                x: 120, // Move smoothly to the RIGHT
-                clipPath: 'inset(0% 0% 0% 0%)', // Pull out from behind logo
-                duration: 1.5, 
-                ease: 'easeInOut' 
-            },
+        // Text 'NEXROVA' stays relative to its center but 'unwipes' from left-to-right
+        // with a clip-path reveal. The text container starts closed: inset(0% 100% 0% 0%)
+        tl.to('.nxi-text-box', {
+            clipPath: 'inset(0% 0% 0% 0%)', // Pull out revealing text left-to-right
+            duration: 1.5, 
+            ease: 'easeInOut' 
+        }, 2.5)
+
+        // To keep the [Logo] and [NEXROVA] perfectly centered as a single unit on screen
+        // we shift the shared wrapper (.nxi-unit) to the right by half the difference
+        tl.fromTo('.nxi-unit', 
+            { x: 0 },
+            { x: 80, duration: 1.5, ease: 'easeInOut' },
             2.5
         )
 
-        // Hold for a moment so user can read it
-        tl.to({}, { duration: 1.2 })
+        // Hold for 1 second so user can read it before fading out
+        tl.to({}, { duration: 1.0 })
 
     }, { scope: container, dependencies: [isLoaded] })
 
@@ -73,13 +76,19 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
             style={{ backgroundColor: '#000000' }}
         >
             <style>{`
+                .nxi-unit {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
                 .nxi-logo-box {
                     width: 140px;
                     height: 140px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    position: absolute; /* Ensures it is absolute center */
+                    position: absolute; /* absolute center */
                     z-index: 10;
                     border-radius: 50%;
                     /* Soft pulsing Indigo outer glow */
@@ -100,7 +109,9 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    z-index: 5;
+                    z-index: 5; /* behind logo */
+                    margin-left: 170px; /* shift text right so it sits behind right half of logo initially */
+                    clip-path: inset(0% 100% 0% 0%); /* totally hidden from the right */
                 }
                 .nxi-text-content {
                     font-family: inherit;
@@ -115,7 +126,12 @@ export default function NexrovaIntro({ onComplete }: { onComplete: () => void })
                 }
             `}</style>
 
-            <div className="relative flex items-center justify-center w-full max-w-5xl h-full">
+            <div className="relative flex items-center justify-center w-full max-w-5xl h-full nxi-unit">
+                {/* Text is declared first to ensure it stays in background layer naturally without jumping, just z-index safety */}
+                <div className="nxi-text-box">
+                    <h1 className="nxi-text-content">NEXROVA</h1>
+                </div>
+
                 <div className="nxi-logo-box">
                     {/* Image path exactly as requested, with mixBlendMode: 'screen' */}
                     <Image
