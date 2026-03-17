@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import NexrovaIntro from '@/components/NexrovaIntro'
 
 export default function LoginPage() {
     const router = useRouter()
@@ -10,7 +11,11 @@ export default function LoginPage() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const [showIntro, setShowIntro] = useState(true)
 
+    // Optional: Only show intro once per session by saving to sessionStorage
+    // For now we will always show it on the login page mount for maximum impact.
+    
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
@@ -32,8 +37,11 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg-dark)] px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8">
+        <>
+            {showIntro && <NexrovaIntro onComplete={() => setShowIntro(false)} />}
+            
+            <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg-dark)] px-4 sm:px-6 lg:px-8">
+                <div className="max-w-md w-full space-y-8">
                 <div>
                     <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-[var(--color-text-primary)]">
                         NEXROVA PROJECT MANAGER
@@ -92,5 +100,6 @@ export default function LoginPage() {
                 </form>
             </div>
         </div>
+        </>
     )
 }
