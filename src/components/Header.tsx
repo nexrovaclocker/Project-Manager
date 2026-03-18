@@ -2,18 +2,44 @@
 
 import { useSession, signOut } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
-import { Suspense } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { supabase } from '@/lib/supabase'
 
 function HeaderContent() {
     const { data: session } = useSession()
     const searchParams = useSearchParams()
     const tab = searchParams.get('tab') || 'OVERVIEW'
 
+    const [onlineCount, setOnlineCount] = useState(0)
+
+    useEffect(() => {
+        const fetchOnlineCount = async () => {
+            const { count } = await supabase
+                .from('User')
+                .select('*', { count: 'exact', head: true })
+                .eq('status', 'online')
+            
+            if (count !== null) setOnlineCount(count)
+        }
+        fetchOnlineCount()
+
+        const sub = supabase.channel('header_online_users')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'User' }, () => {
+                fetchOnlineCount()
+            })
+            .subscribe()
+
+        return () => {
+            supabase.removeChannel(sub)
+        }
+    }, [])
+
     if (!session) return null
 
-    const tabs = ['OVERVIEW', 'PROJECTS', 'DAILY_STATS'] as const
+    const isAdmin = (session.user as any).role?.toUpperCase() === 'ADMIN' || (session.user as any).role === 'ADMIN'
+    const tabs = ['OVERVIEW', 'LIVE_STATUS', 'PROJECTS', 'DAILY_STATS', ...(isAdmin ? ['MEMBERS', 'SETTINGS'] : [])]
 
     const navigate = (t: string) => {
         const params = new URLSearchParams(window.location.search)
@@ -46,11 +72,17 @@ function HeaderContent() {
                             <button
                                 key={t}
                                 onClick={() => navigate(t)}
-                                className={`text-xs font-bold tracking-widest px-4 py-2 rounded-lg transition-all uppercase border-b-2 ${isActive
-                                    ? 'border-[#f97316] text-white bg-[#f97316]/20'
-                                    : 'border-transparent text-[#94A3B8] hover:text-white hover:bg-white/5 hover:-translate-y-0.5'
+                                className={`font-['JetBrains_Mono'] text-[10px] tracking-[1.5px] font-bold px-4 py-2 rounded-lg transition-all uppercase border-b-2 flex items-center gap-2 ${isActive
+                                    ? 'border-[#f97316] text-[#ffffff] bg-[#f97316]/20'
+                                    : 'border-transparent text-[#94A3B8] hover:text-[#ffffff] hover:bg-white/5 hover:-translate-y-0.5'
                                     }`}
                             >
+                                {t === 'LIVE_STATUS' && (
+                                    <span className="flex items-center gap-1.5">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-orange-pulse"></span>
+                                        <span className="bg-[#f97316]/20 text-[#f97316] px-1.5 py-0.5 rounded text-[9px] font-black">{onlineCount}</span>
+                                    </span>
+                                )}
                                 {t.replace('_', ' ')}
                             </button>
                         )

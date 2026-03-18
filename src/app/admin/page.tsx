@@ -1,64 +1,69 @@
 'use client'
 
-import { ClockPanel } from '@/components/ClockPanel'
-import { NotesPanel } from '@/components/NotesPanel'
-import { AdminPanel } from '@/components/AdminPanel'
+import { OverviewTab } from '@/components/OverviewTab'
+import { LiveStatusTab } from '@/components/LiveStatusTab'
 import { ProjectsPanel } from '@/components/ProjectsPanel'
+import { DailyStatsTab } from '@/components/DailyStatsTab'
 import { DailyLogPanel } from '@/components/DailyLogPanel'
-import { DailyStatsPanel } from '@/components/DailyStatsPanel'
+import { MembersTab } from '@/components/MembersTab'
+import { SettingsTab } from '@/components/SettingsTab'
 import { useSearchParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { Suspense } from 'react'
 
 function AdminContent() {
     const searchParams = useSearchParams()
     const tab = searchParams.get('tab') || 'OVERVIEW'
+    const { data: session } = useSession()
+    const isAdmin = (session?.user as any)?.role?.toUpperCase() === 'ADMIN'
+
+    const renderTab = () => {
+        switch (tab) {
+            case 'OVERVIEW':
+                return <OverviewTab />
+            case 'LIVE_STATUS':
+                return <LiveStatusTab />
+            case 'PROJECTS':
+                return (
+                    <div className="flex-1 min-h-[600px] relative">
+                        <ProjectsPanel />
+                    </div>
+                )
+            case 'DAILY_STATS':
+                return <DailyStatsTab />
+            case 'MEMBERS':
+                return isAdmin ? <MembersTab /> : <AccessDenied />
+            case 'SETTINGS':
+                return isAdmin ? <SettingsTab /> : <AccessDenied />
+            default:
+                return <OverviewTab />
+        }
+    }
 
     return (
         <div className="p-6 min-h-full flex flex-col gap-6 relative z-10">
-            {tab === 'OVERVIEW' ? (
-                <>
-                    <div className="flex flex-col lg:flex-row gap-6 lg:h-[500px] shrink-0">
-                        {/* Top Left: Clock */}
-                        <div className="w-full lg:w-1/3 flex flex-col glass-panel relative h-full overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-[#f97316] shadow-[0_0_10px_#f97316] z-20"></div>
-                            <ClockPanel />
-                        </div>
+            {renderTab()}
 
-                        {/* Top Right: Shared Notes */}
-                        <div className="w-full lg:w-2/3 flex flex-col glass-panel relative h-full overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-[#f97316] shadow-[0_0_10px_#f97316] z-20"></div>
-                            <NotesPanel />
-                        </div>
-                    </div>
-
-                    {/* Separator block */}
-                    <div className="flex items-center gap-6 my-4">
-                        <div className="h-px bg-gradient-to-r from-transparent via-[#f97316]/30 to-transparent flex-1"></div>
-                        <div className="text-[#f97316] font-bold tracking-[0.2em] text-[10px] uppercase">
-                            // CORE_SYSTEM_ORCHESTRATION
-                        </div>
-                        <div className="h-px bg-gradient-to-r from-transparent via-[#f97316]/30 to-transparent flex-1"></div>
-                    </div>
-
-                    {/* Admin Block */}
-                    <div className="glass-panel relative flex-1 min-h-[400px] overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-[#f97316] shadow-[0_0_10px_#f97316] z-20"></div>
-                        <AdminPanel />
-                    </div>
-                </>
-            ) : tab === 'PROJECTS' ? (
-                <div className="flex-1 min-h-[600px] relative">
-                    <ProjectsPanel />
-                </div>
-            ) : (
-                <div className="flex-1 min-h-[600px] relative">
-                    <DailyStatsPanel />
+            {/* Daily Log strip at the bottom - always visible */}
+            {(tab === 'OVERVIEW' || tab === 'PROJECTS') && (
+                <div className="h-[300px] shrink-0 glass-panel relative overflow-hidden">
+                    <DailyLogPanel />
                 </div>
             )}
+        </div>
+    )
+}
 
-            <div className="h-[300px] shrink-0 mt-6 glass-panel relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-[#f97316] shadow-[0_0_10px_#f97316] z-20"></div>
-                <DailyLogPanel />
+function AccessDenied() {
+    return (
+        <div className="flex items-center justify-center py-24">
+            <div className="glass-panel p-8 text-center max-w-sm">
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#f97316', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 8 }}>
+                    ACCESS_DENIED
+                </div>
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#555555' }}>
+                    ADMIN_CLEARANCE_REQUIRED
+                </div>
             </div>
         </div>
     )
@@ -66,7 +71,7 @@ function AdminContent() {
 
 export default function AdminPage() {
     return (
-        <Suspense fallback={<div className="p-8 text-[#94A3B8] text-[10px] font-bold tracking-[0.2em] uppercase animate-pulse">Initializing_Root_Environment...</div>}>
+        <Suspense fallback={<div className="p-8 text-[#a3a3a3] text-[10px] font-bold tracking-[0.2em] uppercase animate-pulse" style={{ fontFamily: "'JetBrains Mono', monospace" }}>INITIALIZING_ROOT_ENVIRONMENT...</div>}>
             <AdminContent />
         </Suspense>
     )
