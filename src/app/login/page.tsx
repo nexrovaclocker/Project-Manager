@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -13,8 +13,14 @@ export default function LoginPage() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const [showIntro, setShowIntro] = useState(true)
+    const [revealDone, setRevealDone] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
+
+    useEffect(() => {
+        const handleReveal = () => setRevealDone(true)
+        window.addEventListener('revealComplete', handleReveal)
+        return () => window.removeEventListener('revealComplete', handleReveal)
+    }, [])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -43,11 +49,7 @@ export default function LoginPage() {
 
     return (
         <div className="relative min-h-screen bg-black overflow-hidden">
-            <AnimatePresence>
-                {showIntro && (
-                    <NexrovaIntro key="intro" onComplete={() => setShowIntro(false)} />
-                )}
-            </AnimatePresence>
+            {!revealDone && <NexrovaIntro />}
 
             <AnimatePresence>
                 {isSuccess && (
@@ -56,8 +58,10 @@ export default function LoginPage() {
             </AnimatePresence>
 
             <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={false}
+                animate={{ opacity: revealDone ? 1 : 0 }}
+                transition={{ duration: 0.4 }}
+                style={{ visibility: revealDone ? 'visible' : 'hidden' }}
                 className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
             >
                 <div className="max-w-md w-full space-y-8 relative z-10">
