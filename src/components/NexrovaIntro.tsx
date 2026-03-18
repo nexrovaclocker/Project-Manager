@@ -9,7 +9,7 @@ export default function NexrovaIntro() {
             setTimeout(() => {
                 revealEl.style.opacity = '0'
                 setTimeout(() => {
-                    revealEl.remove()
+                    // revealEl.remove() // REMOVED: Let React securely unmount this to prevent hydration/removeChild crashes
                     window.dispatchEvent(new Event('revealComplete'))
                 }, 700)
             }, 5200)
