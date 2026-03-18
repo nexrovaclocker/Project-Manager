@@ -78,13 +78,13 @@ export function ClockPanel() {
     return (
         <div className="flex flex-col h-full w-full p-6 text-white overflow-y-auto scrollbar-custom bg-transparent relative z-10">
             <h2 className="text-sm font-bold tracking-widest uppercase mb-8 flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_#6366F1] inline-block"></span>
+                <span className="w-2 h-2 rounded-full bg-[#f97316] shadow-[0_0_10px_#f97316] inline-block"></span>
                 Time_Control_Center
             </h2>
 
             <div className="flex-1 flex flex-col items-center justify-center gap-8 relative">
                 {/* Decorative background glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#6366F1]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#f97316]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
                 {status === 'loading' ? (
                     <div className="animate-pulse text-[#94A3B8] tracking-widest text-sm font-medium uppercase font-mono">System_Syncing...</div>
@@ -145,7 +145,7 @@ export function ClockPanel() {
                                 </div>
                                 <div>
                                     <label className="block text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2 pl-1 flex items-center gap-2">
-                                        <span className="text-[#6366F1]">↳</span> Performance_Log
+                                        <span className="text-[#f97316]">↳</span> Performance_Log
                                     </label>
                                     <textarea
                                         rows={3}

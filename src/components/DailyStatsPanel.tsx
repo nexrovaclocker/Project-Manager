@@ -79,9 +79,9 @@ export function DailyStatsPanel() {
 
     return (
         <div className="flex flex-col h-full w-full bg-transparent text-white relative rounded-2xl overflow-hidden glass-panel z-10">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-6 border-b border-[#6366F1]/20 gap-4 bg-[#1E1E2E] relative">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-6 border-b border-[#f97316]/20 gap-4 bg-[#1E1E2E] relative">
                 <h2 className="text-sm font-bold tracking-[0.2em] uppercase flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_#6366F1]"></span>
+                    <span className="w-2 h-2 rounded-full bg-[#f97316] shadow-[0_0_10px_#f97316]"></span>
                     Performance_Analytics
                 </h2>
 
@@ -107,26 +107,26 @@ export function DailyStatsPanel() {
 
             <div className="flex-1 overflow-y-auto scrollbar-custom p-6">
                 {loading ? (
-                    <div className="h-full flex items-center justify-center text-[10px] tracking-widest text-[#6366F1] uppercase animate-pulse">
+                    <div className="h-full flex items-center justify-center text-[10px] tracking-widest text-[#f97316] uppercase animate-pulse">
                         Synchronizing_Data...
                     </div>
                 ) : sessionsData.length === 0 ? (
-                    <div className="h-full flex items-center justify-center text-[10px] tracking-widest text-[#94A3B8] uppercase text-center border border-dashed border-[#6366F1]/20 rounded-2xl">
+                    <div className="h-full flex items-center justify-center text-[10px] tracking-widest text-[#94A3B8] uppercase text-center border border-dashed border-[#f97316]/20 rounded-2xl">
                         Null_Data_Retrieved_48H
                     </div>
                 ) : (
-                    <div className="border border-[#6366F1]/20 rounded-xl overflow-hidden bg-[#1E1E2E]/40 backdrop-blur-md">
+                    <div className="border border-[#f97316]/20 rounded-xl overflow-hidden bg-[#1E1E2E]/40 backdrop-blur-md">
                         <table className="w-full text-left text-xs whitespace-nowrap">
-                            <thead className="bg-[#6366F1]/10 border-b border-[#6366F1]/20">
+                            <thead className="bg-[#f97316]/10 border-b border-[#f97316]/20">
                                 <tr>
-                                    <th className="p-4 font-bold tracking-widest text-[#6366F1] uppercase">Status</th>
-                                    <th className="p-4 font-bold tracking-widest text-[#6366F1] uppercase">Entry</th>
-                                    <th className="p-4 font-bold tracking-widest text-[#6366F1] uppercase">Exit</th>
-                                    <th className="p-4 font-bold tracking-widest text-[#6366F1] uppercase text-right">Duration</th>
-                                    <th className="p-4 font-bold tracking-widest text-[#6366F1] uppercase">Reports</th>
+                                    <th className="p-4 font-bold tracking-widest text-[#f97316] uppercase">Status</th>
+                                    <th className="p-4 font-bold tracking-widest text-[#f97316] uppercase">Entry</th>
+                                    <th className="p-4 font-bold tracking-widest text-[#f97316] uppercase">Exit</th>
+                                    <th className="p-4 font-bold tracking-widest text-[#f97316] uppercase text-right">Duration</th>
+                                    <th className="p-4 font-bold tracking-widest text-[#f97316] uppercase">Reports</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-[#6366F1]/5">
+                            <tbody className="divide-y divide-[#f97316]/5">
                                 {sessionsData.map((session) => {
                                     const isMidnightCross = crossesMidnight(session.clockIn, session.clockOut)
 
@@ -134,8 +134,8 @@ export function DailyStatsPanel() {
                                         <tr key={session.id} className={`transition-colors hover:bg-white/5 ${isMidnightCross ? 'bg-red-500/5' : ''}`}>
                                             <td className="p-4">
                                                 <div className="flex items-center gap-2">
-                                                    <span className={`w-1.5 h-1.5 rounded-full ${session.clockOut ? 'bg-[#94A3B8]' : 'bg-[#6366F1] shadow-[0_0_8px_#6366F1] animate-pulse'}`}></span>
-                                                    <span className={`text-[10px] font-bold tracking-widest ${session.clockOut ? 'text-[#94A3B8]' : 'text-[#6366F1]'} uppercase`}>
+                                                    <span className={`w-1.5 h-1.5 rounded-full ${session.clockOut ? 'bg-[#94A3B8]' : 'bg-[#f97316] shadow-[0_0_8px_#f97316] animate-pulse'}`}></span>
+                                                    <span className={`text-[10px] font-bold tracking-widest ${session.clockOut ? 'text-[#94A3B8]' : 'text-[#f97316]'} uppercase`}>
                                                         {session.clockOut ? 'Archive' : 'Active'}
                                                     </span>
                                                 </div>
@@ -153,7 +153,7 @@ export function DailyStatsPanel() {
                                                 ) : '--:--'}
                                             </td>
                                             <td className="p-4 text-right">
-                                                <span className="px-2 py-1 rounded bg-[#6366F1]/10 border border-[#6366F1]/20 text-[#6366F1] font-bold">
+                                                <span className="px-2 py-1 rounded bg-[#f97316]/10 border border-[#f97316]/20 text-[#f97316] font-bold">
                                                     {session.durationMinutes !== null ? `${session.durationMinutes}m` : '---'}
                                                 </span>
                                             </td>

@@ -20,11 +20,11 @@ export default function SuccessCover({ onComplete }: { onComplete: () => void })
                     viewBox="0 0 120 120"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="drop-shadow-[0_0_15px_rgba(99,102,241,0.8)]"
+                    className="drop-shadow-[0_0_15px_rgba(249, 115, 22,0.8)]"
                 >
                     <motion.path
                         d="M30 60L50 80L90 40"
-                        stroke="#6366F1"
+                        stroke="#f97316"
                         strokeWidth="8"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -44,7 +44,7 @@ export default function SuccessCover({ onComplete }: { onComplete: () => void })
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.2 }}
-                    className="mt-6 text-[#6366F1] font-bold tracking-[0.2em] uppercase text-sm"
+                    className="mt-6 text-[#f97316] font-bold tracking-[0.2em] uppercase text-sm"
                 >
                     Access_Granted
                 </motion.div>

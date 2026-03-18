@@ -2,7 +2,7 @@ import { Header } from '@/components/Header'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="flex flex-col min-h-screen bg-[var(--color-bg-dark)]">
+        <div className="flex flex-col min-h-screen bg-[var(--color-bg-base)]">
             <Header />
             <main className="flex-1 p-4 lg:p-8 space-y-8">
                 {children}

@@ -184,18 +184,18 @@ export function AdminPanel() {
             <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-accent)] z-20"></div>
 
             {/* ── Left panel: Personnel_Ops ── */}
-            <div className="w-full lg:w-1/2 p-6 lg:p-8 border-r border-[#6366F1]/20 space-y-8 overflow-y-auto scrollbar-custom bg-[#1E1E2E]/40 relative">
+            <div className="w-full lg:w-1/2 p-6 lg:p-8 border-r border-[#f97316]/20 space-y-8 overflow-y-auto scrollbar-custom bg-[#1E1E2E]/40 relative">
                 {/* Decorative ambient background */}
-                <div className="absolute top-0 left-0 w-64 h-64 bg-[#6366F1]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+                <div className="absolute top-0 left-0 w-64 h-64 bg-[#f97316]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
                 <h2 className="text-sm font-bold tracking-[0.2em] uppercase flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_#6366F1]" />
+                    <span className="w-2 h-2 rounded-full bg-[#f97316] shadow-[0_0_10px_#f97316]" />
                     Personnel_Intelligence
                 </h2>
 
                 {/* ── CREATE_USER ── */}
-                <form onSubmit={handleCreateUser} className="space-y-5 p-6 border border-[#6366F1]/20 rounded-2xl bg-black/40 relative overflow-hidden group">
-                    <div className="absolute right-0 bottom-0 w-32 h-32 bg-[#6366F1]/5 rounded-full blur-2xl -z-10 pointer-events-none group-hover:bg-[#6366F1]/10 transition-colors duration-500"></div>
+                <form onSubmit={handleCreateUser} className="space-y-5 p-6 border border-[#f97316]/20 rounded-2xl bg-black/40 relative overflow-hidden group">
+                    <div className="absolute right-0 bottom-0 w-32 h-32 bg-[#f97316]/5 rounded-full blur-2xl -z-10 pointer-events-none group-hover:bg-[#f97316]/10 transition-colors duration-500"></div>
                     <div>
                         <label className={labelClass}>Unit_Name</label>
                         <input type="text" required className={inputClass} value={name} onChange={(e) => setName(e.target.value)} />
@@ -219,7 +219,7 @@ export function AdminPanel() {
                             <option value="intern" className="bg-[#1E1E2E] text-white">LEVEL_0: RESTRICTED</option>
                             <option value="admin" className="bg-[#1E1E2E] text-white">LEVEL_2: ROOT_OVERRIDE</option>
                         </select>
-                        <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none text-[#6366F1]">
+                        <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none text-[#f97316]">
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                         </div>
                     </div>
@@ -230,7 +230,7 @@ export function AdminPanel() {
                         PROVISION_CLEARANCE
                     </button>
                     {createMsg && (
-                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center mt-3 drop-shadow-md ${createMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[#6366F1]'}`}>
+                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center mt-3 drop-shadow-md ${createMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[#f97316]'}`}>
                             {createMsg}
                         </div>
                     )}
@@ -254,7 +254,7 @@ export function AdminPanel() {
                                 </option>
                             ))}
                         </select>
-                        <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none text-[#6366F1]">
+                        <div className="absolute right-3 bottom-0 top-6 flex items-center pointer-events-none text-[#f97316]">
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                         </div>
                     </div>
@@ -288,7 +288,7 @@ export function AdminPanel() {
                         EXECUTE_OVERRIDE
                     </button>
                     {cpMsg && (
-                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center mt-3 drop-shadow-md ${cpMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[#6366F1]'}`}>
+                        <div className={`text-[10px] font-bold tracking-widest uppercase text-center mt-3 drop-shadow-md ${cpMsg.startsWith('ERROR') ? 'text-red-400' : 'text-[#f97316]'}`}>
                             {cpMsg}
                         </div>
                     )}
@@ -299,17 +299,17 @@ export function AdminPanel() {
 
                 <div className="space-y-4">
                     {users.length === 0 ? (
-                        <div className="text-[10px] tracking-widest text-[#94A3B8] uppercase text-center py-10 border border-dashed border-[#6366F1]/20 rounded-2xl bg-black/20">
+                        <div className="text-[10px] tracking-widest text-[#94A3B8] uppercase text-center py-10 border border-dashed border-[#f97316]/20 rounded-2xl bg-black/20">
                             UNIT_ARRAY_EMPTY
                         </div>
                     ) : (
-                        <div className="border border-[#6366F1]/20 rounded-2xl overflow-hidden bg-black/40">
+                        <div className="border border-[#f97316]/20 rounded-2xl overflow-hidden bg-black/40">
                             <table className="w-full text-left border-collapse">
-                                <thead className="bg-[#6366F1]/10 border-b border-[#6366F1]/20">
+                                <thead className="bg-[#f97316]/10 border-b border-[#f97316]/20">
                                     <tr>
-                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase">Operator</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase">Access</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase text-right">State</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#f97316] uppercase">Operator</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#f97316] uppercase">Access</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#f97316] uppercase text-right">State</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -322,7 +322,7 @@ export function AdminPanel() {
                                             >
                                                 <td className="p-4">
                                                     <div className="flex items-center gap-4">
-                                                        <div className="w-7 h-7 rounded-full bg-[#6366F1]/20 border border-[#6366F1]/40 flex items-center justify-center text-[11px] font-bold text-white shadow-[0_0_8px_rgba(99,102,241,0.2)]">
+                                                        <div className="w-7 h-7 rounded-full bg-[#f97316]/20 border border-[#f97316]/40 flex items-center justify-center text-[11px] font-bold text-white shadow-[0_0_8px_rgba(249, 115, 22,0.2)]">
                                                             {u.username.charAt(0).toUpperCase()}
                                                         </div>
                                                         <span className="font-bold text-xs text-white tracking-widest">
@@ -333,8 +333,8 @@ export function AdminPanel() {
                                                 <td className="p-4">
                                                     <span className={`text-[9px] font-bold tracking-widest px-2.5 py-1 rounded-md border ${
                                                         u.role === 'admin' ? 'bg-red-500/10 border-red-500/20 text-red-400' :
-                                                        u.role === 'intern' ? 'bg-[#6366F1]/10 border-[#6366F1]/20 text-[#6366F1]' :
-                                                        'bg-indigo-500/10 border-indigo-500/20 text-indigo-400'
+                                                        u.role === 'intern' ? 'bg-[#f97316]/10 border-[#f97316]/20 text-[#f97316]' :
+                                                        'bg-orange-500/10 border-orange-500/20 text-orange-400'
                                                     }`}>
                                                         {u.role.toUpperCase()}
                                                     </span>
@@ -369,11 +369,11 @@ export function AdminPanel() {
             {/* ── Right panel: SYS_ANALYTICS ── */}
             <div className="w-full lg:w-1/2 p-6 lg:p-8 flex flex-col h-full overflow-y-auto scrollbar-custom relative bg-transparent">
                 {/* Decorative ambient background */}
-                <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+                <div className="absolute bottom-0 right-0 w-80 h-80 bg-orange-500/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-10 relative z-20">
                     <h2 className="text-sm font-bold tracking-[0.2em] uppercase flex items-center gap-3">
-                        <span className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_#6366F1]" />
+                        <span className="w-2 h-2 rounded-full bg-[#f97316] shadow-[0_0_10px_#f97316]" />
                         Deep_Analytics
                     </h2>
                     <div className="relative">
@@ -389,7 +389,7 @@ export function AdminPanel() {
                                 </option>
                             ))}
                         </select>
-                        <div className="absolute right-3 bottom-0 top-0 flex items-center pointer-events-none text-[#6366F1]">
+                        <div className="absolute right-3 bottom-0 top-0 flex items-center pointer-events-none text-[#f97316]">
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                         </div>
                     </div>
@@ -398,15 +398,15 @@ export function AdminPanel() {
                 {analytics ? (
                     <div className="space-y-8 pb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div className="p-6 rounded-2xl border border-[#6366F1]/20 bg-[#6366F1]/5 relative overflow-hidden group">
-                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-[#6366F1]/10 rounded-full blur-xl group-hover:bg-[#6366F1]/20 transition-colors"></div>
+                            <div className="p-6 rounded-2xl border border-[#f97316]/20 bg-[#f97316]/5 relative overflow-hidden group">
+                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-[#f97316]/10 rounded-full blur-xl group-hover:bg-[#f97316]/20 transition-colors"></div>
                                 <div className="text-[9px] text-[#94A3B8] font-bold tracking-widest mb-3 uppercase">Total_Work_Cycle</div>
                                 <div className="text-2xl font-bold text-white flex items-baseline gap-1">
-                                    {analytics.totalHours}<span className="text-xs text-[#6366F1]">H</span> {analytics.totalMinutes}<span className="text-xs text-[#6366F1]">M</span>
+                                    {analytics.totalHours}<span className="text-xs text-[#f97316]">H</span> {analytics.totalMinutes}<span className="text-xs text-[#f97316]">M</span>
                                 </div>
                             </div>
-                            <div className="p-6 rounded-2xl border border-[#6366F1]/20 bg-[#6366F1]/5 relative overflow-hidden group">
-                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-[#6366F1]/10 rounded-full blur-xl group-hover:bg-[#6366F1]/20 transition-colors"></div>
+                            <div className="p-6 rounded-2xl border border-[#f97316]/20 bg-[#f97316]/5 relative overflow-hidden group">
+                                <div className="absolute right-0 bottom-0 w-16 h-16 bg-[#f97316]/10 rounded-full blur-xl group-hover:bg-[#f97316]/20 transition-colors"></div>
                                 <div className="text-[9px] text-[#94A3B8] font-bold tracking-widest mb-3 uppercase">Sessions_Detected</div>
                                 <div className="text-2xl font-bold text-white">
                                     {analytics.sessions.length}
@@ -415,54 +415,54 @@ export function AdminPanel() {
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div className="h-72 rounded-2xl border border-[#6366F1]/20 bg-black/40 p-6 shadow-sm group/chart">
+                            <div className="h-72 rounded-2xl border border-[#f97316]/20 bg-black/40 p-6 shadow-sm group/chart">
                                 <div className="text-[10px] font-bold tracking-widest text-[#94A3B8] mb-8 uppercase flex items-center justify-between">
                                     Productivity_Matrix
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#6366F1] shadow-[0_0_8px_#6366F1] animate-pulse"></div>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] shadow-[0_0_8px_#f97316] animate-pulse"></div>
                                 </div>
                                 <ResponsiveContainer width="100%" height="75%">
                                     <BarChart data={analytics.dailyChartData}>
                                         <XAxis dataKey="date" stroke="#4B5563" fontSize={10} tickLine={false} axisLine={false} />
                                         <YAxis stroke="#4B5563" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip cursor={{ fill: 'rgba(99,102,241,0.05)' }} contentStyle={{ backgroundColor: '#1E1E2E', border: '1px solid #6366F1', borderRadius: '12px' }} itemStyle={{ color: '#6366F1' }} />
-                                        <Bar dataKey="hours" fill="#6366F1" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
+                                        <Tooltip cursor={{ fill: 'rgba(249, 115, 22,0.05)' }} contentStyle={{ backgroundColor: '#1E1E2E', border: '1px solid #f97316', borderRadius: '12px' }} itemStyle={{ color: '#f97316' }} />
+                                        <Bar dataKey="hours" fill="#f97316" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
 
-                            <div className="h-72 rounded-2xl border border-[#6366F1]/20 bg-black/40 p-6 shadow-sm group/chart">
+                            <div className="h-72 rounded-2xl border border-[#f97316]/20 bg-black/40 p-6 shadow-sm group/chart">
                                 <div className="text-[10px] font-bold tracking-widest text-[#94A3B8] mb-8 uppercase flex items-center justify-between">
                                     Session_Granularity
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#6366F1] shadow-[0_0_8px_#6366F1] animate-pulse"></div>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] shadow-[0_0_8px_#f97316] animate-pulse"></div>
                                 </div>
                                 <ResponsiveContainer width="100%" height="75%">
                                     <BarChart data={analytics.sessionChartData}>
                                         <XAxis dataKey="name" stroke="#4B5563" fontSize={10} tickLine={false} axisLine={false} />
                                         <YAxis stroke="#4B5563" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip cursor={{ fill: 'rgba(99,102,241,0.05)' }} contentStyle={{ backgroundColor: '#1E1E2E', border: '1px solid #6366F1', borderRadius: '12px' }} itemStyle={{ color: '#6366F1' }} />
-                                        <Bar dataKey="duration" fill="#6366F1" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
+                                        <Tooltip cursor={{ fill: 'rgba(249, 115, 22,0.05)' }} contentStyle={{ backgroundColor: '#1E1E2E', border: '1px solid #f97316', borderRadius: '12px' }} itemStyle={{ color: '#f97316' }} />
+                                        <Bar dataKey="duration" fill="#f97316" radius={[4, 4, 0, 0]} className="hover:opacity-80 transition-opacity" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>
 
-                        <div className="rounded-2xl border border-[#6366F1]/20 overflow-hidden bg-black/40">
+                        <div className="rounded-2xl border border-[#f97316]/20 overflow-hidden bg-black/40">
                             <table className="w-full text-left text-sm text-white border-collapse">
-                                <thead className="bg-[#6366F1]/10 border-b border-[#6366F1]/20">
+                                <thead className="bg-[#f97316]/10 border-b border-[#f97316]/20">
                                     <tr>
-                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase">Init_Sync</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase">Term_Sync</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase">Cycle (Min)</th>
-                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#6366F1] uppercase w-1/3">Data_Log</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#f97316] uppercase">Init_Sync</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#f97316] uppercase">Term_Sync</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#f97316] uppercase">Cycle (Min)</th>
+                                        <th className="p-4 text-[10px] font-bold tracking-[0.2em] text-[#f97316] uppercase w-1/3">Data_Log</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {analytics.sessions.map((s, idx) => (
-                                        <tr key={s.id} className="border-b border-[#6366F1]/10 last:border-none hover:bg-white/5 transition-colors">
+                                        <tr key={s.id} className="border-b border-[#f97316]/10 last:border-none hover:bg-white/5 transition-colors">
                                             <td className="p-4 font-bold text-[10px] text-[#94A3B8] tracking-widest">{new Date(s.clockIn).toLocaleString().toUpperCase()}</td>
                                             <td className="p-4 font-bold text-[10px] text-[#94A3B8] tracking-widest">{new Date(s.clockOut).toLocaleString().toUpperCase()}</td>
                                             <td className="p-4">
-                                                <div className="bg-[#6366F1]/20 inline-block px-3 py-1 rounded-full border border-[#6366F1]/40 text-[10px] font-bold text-white shadow-[0_0_10px_rgba(99,102,241,0.2)]">{s.durationMinutes}</div>
+                                                <div className="bg-[#f97316]/20 inline-block px-3 py-1 rounded-full border border-[#f97316]/40 text-[10px] font-bold text-white shadow-[0_0_10px_rgba(249, 115, 22,0.2)]">{s.durationMinutes}</div>
                                             </td>
                                             <td className="p-4 text-[11px] text-[#94A3B8] leading-relaxed uppercase italic">{s.sessionNote}</td>
                                         </tr>

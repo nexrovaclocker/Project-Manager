@@ -20,13 +20,13 @@ function DashboardContent() {
                     <>
                         {/* Left Panel: Clock */}
                         <div className="w-full lg:w-1/3 flex flex-col glass-panel relative h-full overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-[#6366F1] shadow-[0_0_10px_#6366F1] z-20"></div>
+                            <div className="absolute top-0 left-0 w-full h-1 bg-[#f97316] shadow-[0_0_10px_#f97316] z-20"></div>
                             <ClockPanel />
                         </div>
 
                         {/* Right Panel: Shared Notes */}
                         <div className="w-full lg:w-2/3 flex flex-col glass-panel relative h-full overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-[#6366F1] shadow-[0_0_10px_#6366F1] z-20"></div>
+                            <div className="absolute top-0 left-0 w-full h-1 bg-[#f97316] shadow-[0_0_10px_#f97316] z-20"></div>
                             <NotesPanel />
                         </div>
                     </>
@@ -42,7 +42,7 @@ function DashboardContent() {
             </div>
 
             <div className="h-[300px] shrink-0 w-full glass-panel relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-[#6366F1] shadow-[0_0_10px_#6366F1] z-20"></div>
+                <div className="absolute top-0 left-0 w-full h-1 bg-[#f97316] shadow-[0_0_10px_#f97316] z-20"></div>
                 <DailyLogPanel />
             </div>
         </div>

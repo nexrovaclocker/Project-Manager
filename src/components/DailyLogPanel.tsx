@@ -55,26 +55,26 @@ export function DailyLogPanel() {
 
     return (
         <div className="flex flex-col h-full w-full bg-transparent text-white relative rounded-2xl overflow-hidden glass-panel z-10">
-            <div className="flex items-center justify-between p-6 border-b border-[#6366F1]/20 bg-[#1E1E2E] relative">
+            <div className="flex items-center justify-between p-6 border-b border-[#f97316]/20 bg-[#1E1E2E] relative">
                 <h2 className="text-sm font-bold tracking-[0.2em] uppercase flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_#6366F1]"></span>
+                    <span className="w-2 h-2 rounded-full bg-[#f97316] shadow-[0_0_10px_#f97316]"></span>
                     Operational_Logs
                 </h2>
             </div>
 
             <div className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-custom bg-[#1E1E2E]/20">
                 {logs.length === 0 ? (
-                    <div className="text-[10px] text-[#94A3B8] tracking-widest text-center py-10 border border-dashed border-[#6366F1]/20 rounded-2xl bg-[#1E1E2E]">
+                    <div className="text-[10px] text-[#94A3B8] tracking-widest text-center py-10 border border-dashed border-[#f97316]/20 rounded-2xl bg-[#1E1E2E]">
                         EMPTY_LOG_RETRIEVAL
                     </div>
                 ) : (
                     logs.map(log => (
-                        <div key={log.id} className="p-5 rounded-2xl border border-[#6366F1]/10 bg-[#1E1E2E]/60 hover:border-[#6366F1]/30 transition-all duration-300 relative group overflow-hidden">
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#6366F1]/50"></div>
+                        <div key={log.id} className="p-5 rounded-2xl border border-[#f97316]/10 bg-[#1E1E2E]/60 hover:border-[#f97316]/30 transition-all duration-300 relative group overflow-hidden">
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#f97316]/50"></div>
                             
                             <div className="flex justify-between items-start mb-3">
                                 <div className="text-[10px] tracking-widest text-[#94A3B8] uppercase flex items-center gap-2">
-                                    <span className={`px-2 py-0.5 rounded bg-[#6366F1]/10 text-[#6366F1] font-bold border border-[#6366F1]/20`}>
+                                    <span className={`px-2 py-0.5 rounded bg-[#f97316]/10 text-[#f97316] font-bold border border-[#f97316]/20`}>
                                         {log.user.username}
                                     </span>
                                     <span className="opacity-40">/</span> 
@@ -97,7 +97,7 @@ export function DailyLogPanel() {
                 )}
             </div>
 
-            <form onSubmit={postLog} className="p-6 border-t border-[#6366F1]/20 bg-[#1E1E2E] flex flex-col gap-4">
+            <form onSubmit={postLog} className="p-6 border-t border-[#f97316]/20 bg-[#1E1E2E] flex flex-col gap-4">
                 <div className="relative">
                     <textarea
                         rows={3}

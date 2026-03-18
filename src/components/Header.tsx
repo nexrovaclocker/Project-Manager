@@ -35,11 +35,11 @@ function HeaderContent() {
                         priority
                     />
                     <div className="text-xl font-bold tracking-widest text-white uppercase hidden sm:block">
-                        NEXROVA<span className="text-[#6366F1]">_MANAGEMENT</span>
+                        NEXROVA<span className="text-[#f97316]">_MANAGEMENT</span>
                     </div>
                 </Link>
 
-                <div className="hidden md:flex items-center gap-2 border-l border-[#6366F1]/30 pl-8">
+                <div className="hidden md:flex items-center gap-2 border-l border-[#f97316]/30 pl-8">
                     {tabs.map((t) => {
                         const isActive = tab === t
                         return (
@@ -47,7 +47,7 @@ function HeaderContent() {
                                 key={t}
                                 onClick={() => navigate(t)}
                                 className={`text-xs font-bold tracking-widest px-4 py-2 rounded-lg transition-all uppercase border-b-2 ${isActive
-                                    ? 'border-[#6366F1] text-white bg-[#6366F1]/20'
+                                    ? 'border-[#f97316] text-white bg-[#f97316]/20'
                                     : 'border-transparent text-[#94A3B8] hover:text-white hover:bg-white/5 hover:-translate-y-0.5'
                                     }`}
                             >
@@ -58,8 +58,8 @@ function HeaderContent() {
                 </div>
             </div>
             <div className="flex items-center gap-4">
-                <div className="text-xs font-medium tracking-widest text-[#94A3B8] uppercase bg-white/5 px-3 py-1.5 rounded-full border border-[#6366F1]/30">
-                    <span className="text-[#6366F1] mr-2">●</span>
+                <div className="text-xs font-medium tracking-widest text-[#94A3B8] uppercase bg-white/5 px-3 py-1.5 rounded-full border border-[#f97316]/30">
+                    <span className="text-[#f97316] mr-2">●</span>
                     {session.user.username}
                 </div>
                 <button

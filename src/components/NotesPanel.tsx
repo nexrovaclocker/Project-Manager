@@ -123,9 +123,9 @@ export function NotesPanel() {
 
     return (
         <div className="flex flex-col h-full w-full bg-transparent text-white relative z-10 glass-panel !border-0 !shadow-none">
-            <div className="flex items-center justify-between p-6 border-b border-[#6366F1]/20 bg-[#1E1E2E]">
+            <div className="flex items-center justify-between p-6 border-b border-[#f97316]/20 bg-[#1E1E2E]">
                 <h2 className="text-sm font-bold tracking-[0.2em] uppercase flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-[#6366F1] shadow-[0_0_10px_#6366F1]"></span>
+                    <span className="w-2 h-2 rounded-full bg-[#f97316] shadow-[0_0_10px_#f97316]"></span>
                     Intelligence_Logs
                 </h2>
                 <button
@@ -137,28 +137,28 @@ export function NotesPanel() {
             </div>
 
             {isCreatingNote && (
-                <form onSubmit={createNote} className="p-6 border-b border-[#6366F1]/20 flex gap-4 bg-[#6366F1]/5 animate-in slide-in-from-top-2">
+                <form onSubmit={createNote} className="p-6 border-b border-[#f97316]/20 flex gap-4 bg-[#f97316]/5 animate-in slide-in-from-top-2">
                     <input
                         autoFocus
-                        className="flex-1 bg-black/40 border border-[#6366F1]/20 rounded-xl text-[10px] font-bold tracking-widest uppercase focus:outline-none focus:border-[#6366F1] px-4 py-2 text-white transition-all"
+                        className="flex-1 bg-black/40 border border-[#f97316]/20 rounded-xl text-[10px] font-bold tracking-widest uppercase focus:outline-none focus:border-[#f97316] px-4 py-2 text-white transition-all"
                         placeholder="ENTRY_IDENTIFIER..."
                         value={newNoteTitle}
                         onChange={(e) => setNewNoteTitle(e.target.value)}
                     />
-                    <button type="submit" className="text-[10px] text-[#6366F1] font-bold tracking-widest px-4 uppercase hover:bg-[#6366F1]/10 rounded-xl transition-all">INITIALIZE</button>
+                    <button type="submit" className="text-[10px] text-[#f97316] font-bold tracking-widest px-4 uppercase hover:bg-[#f97316]/10 rounded-xl transition-all">INITIALIZE</button>
                     <button type="button" onClick={() => setIsCreatingNote(false)} className="text-[10px] text-red-400 font-bold tracking-widest px-4 uppercase hover:bg-red-500/10 rounded-xl transition-all">ABORT</button>
                 </form>
             )}
 
             {/* Tabs */}
-            <div className="flex overflow-x-auto border-b border-[#6366F1]/20 scrollbar-hide bg-[#1E1E2E]/40">
+            <div className="flex overflow-x-auto border-b border-[#f97316]/20 scrollbar-hide bg-[#1E1E2E]/40">
                 {notes.map((note) => (
                     <button
                         key={note.id}
                         onClick={() => setActiveNoteId(note.id)}
-                        className={`flex-shrink-0 px-6 py-4 text-[10px] font-bold tracking-widest border-r border-[#6366F1]/20 transition-all duration-300 uppercase ${activeNoteId === note.id
-                            ? 'bg-[#6366F1]/10 text-white border-b-2 border-b-[#6366F1]'
-                            : 'text-[#94A3B8] hover:bg-[#6366F1]/5 hover:text-white'
+                        className={`flex-shrink-0 px-6 py-4 text-[10px] font-bold tracking-widest border-r border-[#f97316]/20 transition-all duration-300 uppercase ${activeNoteId === note.id
+                            ? 'bg-[#f97316]/10 text-white border-b-2 border-b-[#f97316]'
+                            : 'text-[#94A3B8] hover:bg-[#f97316]/5 hover:text-white'
                             }`}
                     >
                         {note.title}
@@ -170,17 +170,17 @@ export function NotesPanel() {
             <div className="flex-1 overflow-y-auto p-8 scrollbar-custom bg-transparent group/content">
                 {activeNote ? (
                     <div className="space-y-8 max-w-4xl mx-auto pb-16">
-                        <div className="flex justify-between items-start mb-10 border-b border-[#6366F1]/10 pb-8 relative">
+                        <div className="flex justify-between items-start mb-10 border-b border-[#f97316]/10 pb-8 relative">
                             {/* Decorative title glow */}
-                            <div className="absolute -left-10 top-0 w-32 h-32 bg-[#6366F1]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+                            <div className="absolute -left-10 top-0 w-32 h-32 bg-[#f97316]/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
                             
                             <div>
                                 <h3 className="text-3xl font-bold tracking-[0.1em] text-white flex items-center gap-3 uppercase">
                                     {activeNote.title}
-                                    <span className="text-[#6366F1] animate-pulse">_</span>
+                                    <span className="text-[#f97316] animate-pulse">_</span>
                                 </h3>
                                 <p className="text-[10px] text-[#94A3B8] mt-4 font-bold tracking-widest uppercase flex items-center gap-3">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#6366F1]"></span>
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#f97316]"></span>
                                     Origin: <span className="text-white">{activeNote.creator.username.toUpperCase()}</span>
                                 </p>
                             </div>
@@ -196,9 +196,9 @@ export function NotesPanel() {
 
                         <div className="space-y-6">
                             {activeNote.blocks.map((block) => (
-                                <div key={block.id} className="p-6 border border-[#6366F1]/10 bg-black/40 rounded-2xl hover:border-[#6366F1]/30 transition-all duration-300 relative group/block">
+                                <div key={block.id} className="p-6 border border-[#f97316]/10 bg-black/40 rounded-2xl hover:border-[#f97316]/30 transition-all duration-300 relative group/block">
                                     {/* Left accent bar */}
-                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-0 bg-[#6366F1] transition-all duration-300 group-hover/block:h-[60%] rounded-r-md shadow-[0_0_10px_#6366F1]"></div>
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-0 bg-[#f97316] transition-all duration-300 group-hover/block:h-[60%] rounded-r-md shadow-[0_0_10px_#f97316]"></div>
                                     
                                     {block.type === 'text' ? (
                                         editingBlockId === block.id ? (
@@ -211,7 +211,7 @@ export function NotesPanel() {
                                                     autoFocus
                                                 />
                                                 <div className="flex gap-3">
-                                                    <button onClick={saveEdit} className="glass-button !py-2 !px-4 text-[10px] border-[#6366F1] hover:bg-[#6366F1]/10">COMMIT_CHANGES</button>
+                                                    <button onClick={saveEdit} className="glass-button !py-2 !px-4 text-[10px] border-[#f97316] hover:bg-[#f97316]/10">COMMIT_CHANGES</button>
                                                     <button onClick={cancelEdit} className="glass-button !py-2 !px-4 text-[10px]">CANCEL</button>
                                                 </div>
                                             </div>
@@ -223,7 +223,7 @@ export function NotesPanel() {
                                                 <p className="text-sm leading-relaxed text-[#D1D5DB] pr-12">{block.content}</p>
                                                 <button
                                                     onClick={() => startEditing(block)}
-                                                    className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 text-[9px] text-[#6366F1] font-bold tracking-widest border border-[#6366F1]/40 px-2 py-0.5 rounded transition-all hover:bg-[#6366F1]/10"
+                                                    className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 text-[9px] text-[#f97316] font-bold tracking-widest border border-[#f97316]/40 px-2 py-0.5 rounded transition-all hover:bg-[#f97316]/10"
                                                 >
                                                     MODIFY
                                                 </button>
@@ -232,7 +232,7 @@ export function NotesPanel() {
                                     ) : (
                                         <div className="space-y-4">
                                             {block.todoItems.map((todo) => (
-                                                <label key={todo.id} className="flex items-start gap-4 cursor-pointer group/todo p-3 rounded-xl hover:bg-[#6366F1]/5 transition-all border border-transparent hover:border-[#6366F1]/20">
+                                                <label key={todo.id} className="flex items-start gap-4 cursor-pointer group/todo p-3 rounded-xl hover:bg-[#f97316]/5 transition-all border border-transparent hover:border-[#f97316]/20">
                                                     <div className="relative flex items-center pt-0.5 shrink-0">
                                                         <input
                                                             type="checkbox"
@@ -240,7 +240,7 @@ export function NotesPanel() {
                                                             onChange={() => toggleTodo(todo.id, todo.checked)}
                                                             className="peer sr-only"
                                                         />
-                                                        <div className="w-5 h-5 rounded-lg border-2 border-[#6366F1]/30 flex items-center justify-center peer-checked:bg-[#6366F1] peer-checked:border-[#6366F1] transition-all duration-300">
+                                                        <div className="w-5 h-5 rounded-lg border-2 border-[#f97316]/30 flex items-center justify-center peer-checked:bg-[#f97316] peer-checked:border-[#f97316] transition-all duration-300">
                                                             {todo.checked && (
                                                                 <svg className="w-3 h-3 text-white pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
                                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -251,7 +251,7 @@ export function NotesPanel() {
                                                     <div className={`text-sm tracking-wide transition-all duration-300 ${todo.checked ? 'text-[#94A3B8] line-through opacity-50' : 'text-white'}`}>
                                                         {todo.text}
                                                         {todo.checked && todo.checker && (
-                                                            <span className="ml-4 inline-block px-3 py-0.5 rounded-full bg-[#6366F1]/10 border border-[#6366F1]/20 text-[9px] tracking-widest text-[#6366F1] font-bold uppercase no-underline">
+                                                            <span className="ml-4 inline-block px-3 py-0.5 rounded-full bg-[#f97316]/10 border border-[#f97316]/20 text-[9px] tracking-widest text-[#f97316] font-bold uppercase no-underline">
                                                                 VERIFIED_BY: {todo.checker.username.toUpperCase()}
                                                             </span>
                                                         )}
@@ -264,12 +264,12 @@ export function NotesPanel() {
                             ))}
                         </div>
 
-                        <div className="mt-12 pt-10 border-t border-[#6366F1]/10 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+                        <div className="mt-12 pt-10 border-t border-[#f97316]/10 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
                             {/* Decorative divider glow */}
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#6366F1]/40 to-transparent"></div>
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#f97316]/40 to-transparent"></div>
                             
                             {/* Add Text Block */}
-                            <div className="space-y-4 p-6 rounded-2xl bg-black/40 border border-[#6366F1]/10">
+                            <div className="space-y-4 p-6 rounded-2xl bg-black/40 border border-[#f97316]/10">
                                 <label className="block text-[9px] font-bold tracking-widest text-[#94A3B8] uppercase">Append_Report_Matrix</label>
                                 <textarea
                                     rows={3}
@@ -293,7 +293,7 @@ export function NotesPanel() {
                             </div>
 
                             {/* Add Todo Block */}
-                            <div className="space-y-4 p-6 rounded-2xl bg-[#6366F1]/5 border border-[#6366F1]/20">
+                            <div className="space-y-4 p-6 rounded-2xl bg-[#f97316]/5 border border-[#f97316]/20">
                                 <label className="block text-[9px] font-bold tracking-widest text-[#94A3B8] uppercase">Append_Action_Vector</label>
                                 <input
                                     type="text"
