@@ -70,11 +70,12 @@ export default function LoginPage() {
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.2 }}
-                            className="text-3xl font-extrabold tracking-[0.3em] text-white uppercase"
+                            className="text-3xl font-extrabold tracking-[0.3em] uppercase"
+                            style={{ color: 'var(--color-white)', fontFamily: "'Rajdhani', sans-serif" }}
                         >
-                            Nexrova<span className="text-[#6366F1]">_</span>OS
+                            Nexrova<span style={{ color: 'var(--color-orange)' }}>_</span>OS
                         </motion.h2>
-                        <p className="mt-2 text-xs font-semibold tracking-widest text-[#94A3B8] uppercase">
+                        <p className="mt-2 text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--color-white-muted)', fontFamily: "'JetBrains Mono', monospace" }}>
                             Operational Interface v5.0
                         </p>
                     </div>
@@ -132,7 +133,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Decorative Background Elements */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#6366F1]/5 blur-[120px] rounded-full pointer-events-none"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, var(--color-orange-dim) 0%, transparent 60%)' }}></div>
             </motion.div>
         </div>
     )

@@ -24,9 +24,10 @@ export default function NexrovaIntro() {
                 .nxk-splash {
                     position: fixed;
                     inset: 0;
-                    background: #07080d;
+                    background: #000000;
                     display: flex;
                     align-items: center;
+
                     justify-content: center;
                     overflow: hidden;
                     z-index: 9999;
@@ -58,7 +59,7 @@ export default function NexrovaIntro() {
                     position: absolute;
                     width: 800px;
                     height: 800px;
-                    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, rgba(7,8,13,0) 60%);
+                    background: radial-gradient(circle, #f9731615 0%, rgba(0,0,0,0) 60%);
                     opacity: 0;
                     animation: nxkGlowBloom 2s ease forwards;
                     animation-delay: 0.3s;
@@ -77,7 +78,7 @@ export default function NexrovaIntro() {
                     width: 110px;
                     height: 110px;
                     object-fit: contain;
-                    filter: drop-shadow(0 0 22px #c9a84c60) drop-shadow(0 0 6px #c9a84c30);
+                    filter: drop-shadow(0 0 22px #f9731650) drop-shadow(0 0 6px #f9731630);
                     transform: translateX(161px) scale(0.3);
                     opacity: 0;
                     animation: 
@@ -121,7 +122,7 @@ export default function NexrovaIntro() {
                     position: absolute;
                     width: 10px;
                     height: 10px;
-                    border-color: #c9a84c;
+                    border-color: #f97316;
                     border-style: solid;
                     border-width: 0;
                 }
@@ -136,7 +137,7 @@ export default function NexrovaIntro() {
                     left: 0;
                     width: 100vw;
                     height: 1px;
-                    background: linear-gradient(90deg, transparent 0%, #c9a84c 50%, transparent 100%);
+                    background: linear-gradient(90deg, transparent 0%, #fb923c 50%, transparent 100%);
                     opacity: 0;
                     transform: scaleX(0);
                     animation: nxkSweep 0.5s ease forwards;
@@ -158,8 +159,8 @@ export default function NexrovaIntro() {
                     font-weight: 700;
                     font-size: 62px;
                     letter-spacing: 12px;
-                    color: #c9a84c;
-                    text-shadow: 0 0 40px #c9a84c90, 0 0 80px #c9a84c30;
+                    color: #ffffff;
+                    text-shadow: 0 0 40px #f9731690, 0 0 80px #f9731630;
                     text-transform: uppercase;
                     line-height: 1;
                     white-space: nowrap;
