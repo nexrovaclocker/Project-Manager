@@ -1,8 +1,11 @@
 import { NextAuthProvider } from '@/components/Providers'
 import type { Metadata } from 'next'
-import { Outfit } from 'next/font/google'
+import { Outfit, Geist } from 'next/font/google'
 import { AnimatePresence } from 'framer-motion'
 import './globals.css'
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const outfit = Outfit({
   variable: '--font-outfit',
@@ -20,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={cn("dark", "font-sans", geist.variable)}>
       <body className={`${outfit.variable} antialiased text-[var(--color-text-primary)] bg-[var(--color-bg-base)] min-h-screen relative`}>
         {/* Dark Ambient Background Glows */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden overscroll-none -z-10">
