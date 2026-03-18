@@ -46,7 +46,7 @@ function AdminContent() {
 
             {/* Daily Log strip at the bottom - always visible */}
             {(tab === 'OVERVIEW' || tab === 'PROJECTS') && (
-                <div className="h-[300px] shrink-0 glass-panel relative overflow-hidden">
+                <div className="min-h-[400px] shrink-0 glass-panel relative overflow-hidden">
                     <DailyLogPanel />
                 </div>
             )}

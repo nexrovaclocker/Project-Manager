@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { BarChart, Bar, XAxis, ResponsiveContainer, Cell } from 'recharts'
+import { ClockPanel } from '@/components/ClockPanel'
+import { NotesPanel } from '@/components/NotesPanel'
 
 type User = { id: string; name: string; username: string; status: string; current_task: string; last_seen: string }
 type Project = { id: string; name: string; status: string; progressPercent: number; tasksDone: number; tasksTotal: number }
@@ -118,6 +120,17 @@ export function OverviewTab() {
 
     return (
         <div className="flex flex-col gap-6">
+            {/* Clock + Notes Row — always available to all roles */}
+            <div className="flex flex-col lg:flex-row gap-4">
+                <div className="w-full lg:w-1/3 glass-panel relative overflow-hidden" style={{ minHeight: 280 }}>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-[#f97316] shadow-[0_0_10px_#f97316] z-20"></div>
+                    <ClockPanel />
+                </div>
+                <div className="w-full lg:w-2/3 glass-panel relative overflow-hidden" style={{ minHeight: 280 }}>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-[#f97316] shadow-[0_0_10px_#f97316] z-20"></div>
+                    <NotesPanel />
+                </div>
+            </div>
             {/* Section 1 — Stat Cards */}
             <div className="flex gap-4 flex-wrap">
                 <StatCard label="Online Now" value={onlineUsers.length} />

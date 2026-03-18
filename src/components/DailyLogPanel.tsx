@@ -62,7 +62,7 @@ export function DailyLogPanel() {
                 </h2>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-custom bg-[#1E1E2E]/20">
+            <div className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-custom bg-[#1E1E2E]/20" style={{ minHeight: 350 }}>
                 {logs.length === 0 ? (
                     <div className="text-[10px] text-[#94A3B8] tracking-widest text-center py-10 border border-dashed border-[#f97316]/20 rounded-2xl bg-[#1E1E2E]">
                         EMPTY_LOG_RETRIEVAL
@@ -100,9 +100,10 @@ export function DailyLogPanel() {
             <form onSubmit={postLog} className="p-6 border-t border-[#f97316]/20 bg-[#1E1E2E] flex flex-col gap-4">
                 <div className="relative">
                     <textarea
-                        rows={3}
+                        rows={5}
                         className="glass-input !bg-black/20"
                         placeholder="Log operational update..."
+                        style={{ minHeight: 120 }}
                         value={newLogContent}
                         onChange={(e) => setNewLogContent(e.target.value)}
                     />
