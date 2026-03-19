@@ -46,6 +46,12 @@ export async function POST(req: Request) {
         },
     })
 
+    const user = await prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { name: true, username: true }
+    })
+    const displayName = user?.name || user?.username || 'User'
+
     // Update user status and insert EventLog
     await prisma.$transaction([
         prisma.user.update({
@@ -59,7 +65,7 @@ export async function POST(req: Request) {
             data: {
                 userId: session.user.id,
                 eventType: 'CLOCK_IN',
-                detail: 'Clocked in',
+                detail: `${displayName} is now online`,
                 timestamp: new Date(),
             },
         }),

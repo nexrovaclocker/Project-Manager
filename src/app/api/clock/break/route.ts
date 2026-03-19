@@ -37,7 +37,7 @@ export async function POST(req: Request) {
                 data: {
                     userId: session.user.id,
                     eventType: 'ON_BREAK',
-                    detail: `${displayName} started break`,
+                    detail: `${displayName} is on break`,
                     timestamp: new Date(),
                 },
             }),
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
                 data: {
                     userId: session.user.id,
                     eventType: 'BRK_END',
-                    detail: `${displayName} resumed`,
+                    detail: `${displayName} is back online`,
                     timestamp: new Date(),
                 },
             }),

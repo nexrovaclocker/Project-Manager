@@ -92,15 +92,16 @@ export function OverviewTab() {
         loadEvents()
 
         // Realtime: EventLog
-        const evSub = supabase.channel('overview_eventlog')
-            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'EventLog' }, () => loadEvents())
+        const evSub = supabase.channel('event-log-live-overview')
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'EventLog' }, (payload) => {
+                setEvents(prev => [payload.new as any, ...prev])
+            })
             .subscribe()
 
         // Realtime: Users
-        const userSub = supabase.channel('overview_users')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'User' }, async () => {
-                const { data } = await supabase.from('User').select('*')
-                if (data) setUsers(data)
+        const userSub = supabase.channel('user-presence-live-overview')
+            .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'User' }, (payload) => {
+                setUsers(prev => prev.map(u => u.id === payload.new.id ? (payload.new as any) : u))
             })
             .subscribe()
 
@@ -200,8 +201,7 @@ export function OverviewTab() {
                                     <span style={{ background: bc.bg, color: bc.text, border: `1px solid ${bc.border}`, borderRadius: 4, padding: '0 6px', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '1px', whiteSpace: 'nowrap' }}>
                                         {ev.eventType}
                                     </span>
-                                    <span style={{ color: '#e5e5e5', fontFamily: "'JetBrains Mono', monospace" }}>{(ev as any).User?.name ?? ''}</span>
-                                    <span style={{ color: '#a3a3a3', fontFamily: "'JetBrains Mono', monospace", whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.detail}</span>
+                                    <span style={{ color: '#a3a3a3', fontFamily: "'JetBrains Mono', monospace", overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.detail}</span>
                                 </div>
                             )
                         })}

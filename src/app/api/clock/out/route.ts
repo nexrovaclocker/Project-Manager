@@ -58,6 +58,12 @@ export async function POST(req: Request) {
     const mins = durationMinutes % 60
     const durationFmt = hours > 0 ? `${hours}h ${mins}m` : `${mins}m`
 
+    const user = await prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { name: true, username: true }
+    })
+    const displayName = user?.name || user?.username || 'User'
+
     await prisma.$transaction([
         prisma.user.update({
             where: { id: session.user.id },
@@ -71,7 +77,7 @@ export async function POST(req: Request) {
             data: {
                 userId: session.user.id,
                 eventType: 'CLOCK_OUT',
-                detail: durationFmt,
+                detail: `${displayName} clocked out — ${durationFmt}`,
                 timestamp: new Date(),
             },
         }),

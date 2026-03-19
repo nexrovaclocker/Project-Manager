@@ -86,7 +86,9 @@ export function LiveStatusTab() {
     useEffect(() => {
         loadUsers()
         const sub = supabase.channel('live_status_users')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'User' }, loadUsers)
+            .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'User' }, (payload) => {
+                setUsers(prev => prev.map(u => u.id === payload.new.id ? (payload.new as any) : u))
+            })
             .subscribe()
         return () => { supabase.removeChannel(sub) }
     }, [])
