@@ -21,8 +21,14 @@ export async function GET() {
         },
     })
 
+    const user = await prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { status: true }
+    })
+
     return NextResponse.json({
         status: activeSession ? 'clocked_in' : 'clocked_out',
+        userStatus: user?.status || 'offline',
         session: activeSession,
     })
 }

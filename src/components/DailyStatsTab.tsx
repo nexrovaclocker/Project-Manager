@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 
-type User = { id: string; name: string; username: string; role: string }
+type User = { id: string; name: string; username: string; role: string; status?: string; last_seen?: string }
 type ClockSession = { id: string; userId: string; clockIn: string; clockOut: string | null; durationMinutes: number; date: string; User?: User }
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -43,12 +43,18 @@ export function DailyStatsTab() {
         const load = async () => {
             const [{ data: s }, { data: u }] = await Promise.all([
                 supabase.from('ClockSession').select('*, User(name, id)').order('clockIn', { ascending: false }),
-                supabase.from('User').select('id, name, username, role'),
+                supabase.from('User').select('id, name, username, role, status, last_seen'),
             ])
             if (s) setSessions(s)
             if (u) setUsers(u)
         }
         load()
+
+        const sub = supabase.channel('daily_stats_users')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'User' }, load)
+            .subscribe()
+
+        return () => { supabase.removeChannel(sub) }
     }, [])
 
     const weekSessions = sessions.filter(s => weekDates.includes(s.date ?? s.clockIn?.slice(0, 10)))
@@ -67,8 +73,9 @@ export function DailyStatsTab() {
     }).filter(u => u.hours > 0).sort((a, b) => b.hours - a.hours)
     const maxHours = Math.max(...perUser.map(u => u.hours), 1)
 
-    // Active sessions today
-    const activeSessions = sessions.filter(s => !s.clockOut && (s.date ?? s.clockIn?.slice(0, 10)) === today)
+    // Online & Offline lists
+    const onlineUsers = users.filter(u => u.status === 'online' || u.status === 'break')
+    const offlineUsers = users.filter(u => u.status === 'offline' || !u.status)
 
     return (
         <div className="flex flex-col gap-6">
@@ -125,27 +132,58 @@ export function DailyStatsTab() {
                     </div>
                 </div>
 
-                {/* Active sessions */}
-                <div className="glass-panel p-5 flex flex-col gap-4">
-                    <div className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-orange-pulse"></span>
-                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#a3a3a3', letterSpacing: '1.5px', textTransform: 'uppercase' }}>ACTIVE SESSIONS TODAY</span>
+                {/* Presence Lists */}
+                <div className="glass-panel p-5 flex flex-col gap-6">
+                    {/* Currently Online */}
+                    <div className="flex flex-col gap-4">
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-orange-pulse"></span>
+                            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#a3a3a3', letterSpacing: '1.5px', textTransform: 'uppercase' }}>CURRENTLY ONLINE</span>
+                        </div>
+                        <div className="flex flex-col gap-3">
+                            {onlineUsers.map(u => {
+                                const openSession = sessions.find(s => s.userId === u.id && !s.clockOut)
+                                const dotColor = u.status === 'online' ? '#f97316' : '#fb923c'
+                                return (
+                                    <div key={u.id} className="flex items-center justify-between border-b border-[#ffffff08] pb-2">
+                                        <div className="flex items-center gap-3">
+                                            <span className={u.status === 'online' ? 'animate-orange-pulse' : ''} style={{ width: 8, height: 8, borderRadius: '50%', background: dotColor }}></span>
+                                            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#e5e5e5' }}>{u.name || u.username}</span>
+                                        </div>
+                                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#a3a3a3' }}>
+                                            IN: {openSession ? new Date(openSession.clockIn).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '---'}
+                                        </span>
+                                    </div>
+                                )
+                            })}
+                            {onlineUsers.length === 0 && (
+                                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#333333', textAlign: 'center', padding: '8px 0' }}>NO_USERS_ONLINE</div>
+                            )}
+                        </div>
                     </div>
-                    <div className="flex flex-col gap-3 overflow-y-auto max-h-[200px] scrollbar-custom">
-                        {activeSessions.map(s => (
-                            <div key={s.id} className="flex items-center justify-between border-b border-[#ffffff08] pb-2">
-                                <div className="flex items-center gap-3">
-                                    <span className="w-2 h-2 rounded-full bg-[#f97316] animate-orange-pulse"></span>
-                                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#e5e5e5' }}>{(s as any).User?.name ?? s.userId}</span>
+
+                    {/* Currently Offline */}
+                    <div className="flex flex-col gap-4">
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#555555]"></span>
+                            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#a3a3a3', letterSpacing: '1.5px', textTransform: 'uppercase' }}>CURRENTLY OFFLINE</span>
+                        </div>
+                        <div className="flex flex-col gap-3">
+                            {offlineUsers.map(u => (
+                                <div key={u.id} className="flex items-center justify-between border-b border-[#ffffff08] pb-2">
+                                    <div className="flex items-center gap-3">
+                                        <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#555555' }}></span>
+                                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#e5e5e5' }}>{u.name || u.username}</span>
+                                    </div>
+                                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#555555' }}>
+                                        Last seen: {u.last_seen ? new Date(u.last_seen).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Never'}
+                                    </span>
                                 </div>
-                                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 9, color: '#a3a3a3' }}>
-                                    IN: {new Date(s.clockIn).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                </span>
-                            </div>
-                        ))}
-                        {activeSessions.length === 0 && (
-                            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#333333', textAlign: 'center', padding: '16px 0' }}>NO_ACTIVE_SESSIONS</div>
-                        )}
+                            ))}
+                            {offlineUsers.length === 0 && (
+                                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#333333', textAlign: 'center', padding: '8px 0' }}>NO_USERS_OFFLINE</div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

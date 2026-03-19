@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 
 export function ClockPanel() {
     const [status, setStatus] = useState<'clocked_in' | 'clocked_out' | 'loading'>('loading')
+    const [userStatus, setUserStatus] = useState<string>('offline')
     const [sessionNote, setSessionNote] = useState('')
     const [isClockingOut, setIsClockingOut] = useState(false)
     const [error, setError] = useState('')
@@ -27,6 +28,7 @@ export function ClockPanel() {
             const data = await res.json()
             if (res.ok) {
                 setStatus(data.status)
+                if (data.userStatus) setUserStatus(data.userStatus)
             }
         } catch (err) {
             console.error(err)
@@ -75,6 +77,23 @@ export function ClockPanel() {
         }
     }
 
+    const handleBreak = async (action: 'start' | 'end') => {
+        setError('')
+        try {
+            setStatus('loading')
+            const res = await fetch('/api/clock/break', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action }),
+            })
+            if (!res.ok) throw new Error(`Failed to ${action} break`)
+            await fetchStatus()
+        } catch (err: any) {
+            setError(err.message)
+            await fetchStatus()
+        }
+    }
+
     return (
         <div className="flex flex-col h-full w-full p-6 text-white overflow-y-auto scrollbar-custom bg-transparent relative z-10">
             <h2 className="text-sm font-bold tracking-widest uppercase mb-8 flex items-center gap-3">
@@ -93,7 +112,7 @@ export function ClockPanel() {
                         <div className="text-center space-y-2">
                             <div className="text-[10px] font-bold tracking-[0.2em] text-[#94A3B8] uppercase">Current_State:</div>
                             <div className={`text-2xl font-bold tracking-[0.1em] ${status === 'clocked_in' ? 'text-white' : 'text-red-400'}`}>
-                                {status === 'clocked_in' ? 'ACTIVE_SESSION' : 'OFFLINE'}
+                                {status === 'clocked_in' ? (userStatus === 'break' ? 'PAUSED' : 'ACTIVE_SESSION') : 'OFFLINE'}
                             </div>
                         </div>
 
@@ -122,12 +141,30 @@ export function ClockPanel() {
                         )}
 
                         {status === 'clocked_in' && !isClockingOut && (
-                            <button
-                                onClick={() => setIsClockingOut(true)}
-                                className="glass-button w-full max-w-xs py-4 tracking-[0.2em]"
-                            >
-                                INITIATE_TERMINATION
-                            </button>
+                            <div className="w-full max-w-xs flex flex-col gap-3">
+                                {userStatus === 'break' ? (
+                                    <button
+                                        onClick={() => handleBreak('end')}
+                                        className="glass-button w-full py-4 tracking-[0.2em]"
+                                    >
+                                        RESUME_OPERATIONS
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={() => handleBreak('start')}
+                                        className="glass-button w-full py-3 tracking-[0.2em] opacity-80"
+                                        style={{ borderColor: '#fb923c50', color: '#fb923c' }}
+                                    >
+                                        PAUSE_OPERATIONS
+                                    </button>
+                                )}
+                                <button
+                                    onClick={() => setIsClockingOut(true)}
+                                    className="glass-button w-full py-4 tracking-[0.2em]"
+                                >
+                                    INITIATE_TERMINATION
+                                </button>
+                            </div>
                         )}
 
                         {isClockingOut && (

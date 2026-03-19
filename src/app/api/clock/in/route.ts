@@ -46,5 +46,24 @@ export async function POST(req: Request) {
         },
     })
 
+    // Update user status and insert EventLog
+    await prisma.$transaction([
+        prisma.user.update({
+            where: { id: session.user.id },
+            data: {
+                status: 'online',
+                last_seen: new Date(),
+            },
+        }),
+        prisma.eventLog.create({
+            data: {
+                userId: session.user.id,
+                eventType: 'CLOCK_IN',
+                detail: 'Clocked in',
+                timestamp: new Date(),
+            },
+        }),
+    ])
+
     return NextResponse.json(newSession)
 }

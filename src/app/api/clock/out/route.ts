@@ -53,5 +53,29 @@ export async function POST(req: Request) {
         },
     })
 
+    // Format duration detail: e.g. "4h 22m" or "45m"
+    const hours = Math.floor(durationMinutes / 60)
+    const mins = durationMinutes % 60
+    const durationFmt = hours > 0 ? `${hours}h ${mins}m` : `${mins}m`
+
+    await prisma.$transaction([
+        prisma.user.update({
+            where: { id: session.user.id },
+            data: {
+                status: 'offline',
+                current_task: null,
+                last_seen: new Date(),
+            },
+        }),
+        prisma.eventLog.create({
+            data: {
+                userId: session.user.id,
+                eventType: 'CLOCK_OUT',
+                detail: durationFmt,
+                timestamp: new Date(),
+            },
+        }),
+    ])
+
     return NextResponse.json(updatedSession)
 }
